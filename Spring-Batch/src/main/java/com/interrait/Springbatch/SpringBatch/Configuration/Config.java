@@ -10,7 +10,6 @@ import org.springframework.batch.core.launch.support.RunIdIncrementer;
 //import org.springframework.batch.core.configuration.annotation.StepBuilderFactory;
 import org.springframework.batch.item.file.FlatFileItemReader;
 import org.springframework.batch.item.file.LineMapper;
-import org.springframework.batch.item.ItemWriter;
 import org.springframework.batch.item.file.mapping.BeanWrapperFieldSetMapper;
 import org.springframework.batch.item.file.mapping.DefaultLineMapper;
 import org.springframework.batch.item.file.transform.DelimitedLineTokenizer;
@@ -42,9 +41,9 @@ public class Config {
 	
 	@Bean
     public FlatFileItemReader<Employee> itemReader() {
-
+//		D:\Spring_batch\DataSource
         FlatFileItemReader<Employee> flatFileItemReader = new FlatFileItemReader<>();
-        flatFileItemReader.setResource(new FileSystemResource("src/main/resources/EMP.csv"));
+        flatFileItemReader.setResource(new FileSystemResource("D:\\Spring_batch\\DataSource\\EMP.csv"));
         flatFileItemReader.setName("CSV-Reader");
         flatFileItemReader.setLinesToSkip(1);
         flatFileItemReader.setLineMapper(lineMapper());

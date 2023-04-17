@@ -1,0 +1,21 @@
+div
+{
+    text-align: center;
+    font-size: 30px;
+    color: white;
+    padding: 10px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    height: 150px;
+    width:98%;
+}
+.upper
+{
+    background-color:limegreen;    
+}
+.lower
+{
+    background-color:orange;
+}

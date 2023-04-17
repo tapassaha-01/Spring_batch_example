@@ -1,0 +1,8 @@
+<div class="file-control">
+   <select #year (change)="OnSelected($event)">
+    <option value="default">Year</option>
+    <option *ngFor="let val of YearList" >{{val}}</option>
+   </select>
+   <input type="file" #file (change)="OnUpload($event)">
+   <input type="submit" (click)="onSubmit()">
+</div>
