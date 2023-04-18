@@ -13,12 +13,12 @@ export class FileServiceService {
 
     upload(file:File,year:any):Observable<any> {
   
-      // const formData = new FormData();
+      const formData = new FormData();
         
-      // formData.append("file", file, file.name);
+      formData.append('file', file);
         
     console.log(file.name,year)
-      return this.http.post(this.baseApiUrl, file.name)
+      return this.http.post(this.baseApiUrl, formData);
   
    }
 }

@@ -6,6 +6,8 @@ import org.springframework.batch.core.configuration.annotation.EnableBatchProces
 import org.springframework.batch.core.configuration.annotation.JobBuilderFactory;
 import org.springframework.batch.core.configuration.annotation.StepBuilderFactory;
 import org.springframework.batch.core.launch.support.RunIdIncrementer;
+import org.springframework.batch.extensions.excel.poi.PoiItemReader;
+import org.springframework.batch.item.ItemStreamReader;
 //import org.springframework.batch.core.configuration.annotation.JobBuilderFactory;
 //import org.springframework.batch.core.configuration.annotation.StepBuilderFactory;
 import org.springframework.batch.item.file.FlatFileItemReader;
@@ -17,8 +19,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 //import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.core.io.ClassPathResource;
 import org.springframework.core.io.FileSystemResource;
-
+//import org.springframework.batch.item.excel.poi.PoiItemReader;
 import com.interrait.Springbatch.SpringBatch.Batch.DBWriter;
 import com.interrait.Springbatch.SpringBatch.Batch.Processor;
 import com.interrait.Springbatch.SpringBatch.Model.Employee;
@@ -39,35 +42,41 @@ public class Config {
 	@Autowired
 	private DBWriter dbWriter;
 	
-	@Bean
-    public FlatFileItemReader<Employee> itemReader() {
-//		D:\Spring_batch\DataSource
-        FlatFileItemReader<Employee> flatFileItemReader = new FlatFileItemReader<>();
-        flatFileItemReader.setResource(new FileSystemResource("D:\\Spring_batch\\DataSource\\EMP.csv"));
-        flatFileItemReader.setName("CSV-Reader");
-        flatFileItemReader.setLinesToSkip(1);
-        flatFileItemReader.setLineMapper(lineMapper());
-        return flatFileItemReader;
-    }
+//	@Bean
+//    public FlatFileItemReader<Employee> itemReader() {
+////		D:\Spring_batch\DataSource
+//        FlatFileItemReader<Employee> flatFileItemReader = new FlatFileItemReader<>();
+//        flatFileItemReader.setResource(new FileSystemResource("D:\\Spring_batch\\DataSource\\EMP.csv"));
+////        flatFileItemReader.setResource(source);
+//        flatFileItemReader.setName("CSV-Reader");
+//        flatFileItemReader.setLinesToSkip(1);
+//        flatFileItemReader.setLineMapper(lineMapper());
+//        return flatFileItemReader;
+//    }
+//	
+
 	
-	@Bean
-    public LineMapper<Employee> lineMapper() {
-
-        DefaultLineMapper<Employee> defaultLineMapper = new DefaultLineMapper<>();
-        DelimitedLineTokenizer lineTokenizer = new DelimitedLineTokenizer();
-
-        lineTokenizer.setDelimiter(",");
-        lineTokenizer.setStrict(false);
-        lineTokenizer.setNames("id", "name", "address", "designation");
-
-        BeanWrapperFieldSetMapper<Employee> fieldSetMapper = new BeanWrapperFieldSetMapper<>();
-        fieldSetMapper.setTargetType(Employee.class);
-
-        defaultLineMapper.setLineTokenizer(lineTokenizer);
-        defaultLineMapper.setFieldSetMapper(fieldSetMapper);
-
-        return defaultLineMapper;
-    }
+	
+	
+	
+//	@Bean
+//    public LineMapper<Employee> lineMapper() {
+//
+//        DefaultLineMapper<Employee> defaultLineMapper = new DefaultLineMapper<>();
+//        DelimitedLineTokenizer lineTokenizer = new DelimitedLineTokenizer();
+//
+//        lineTokenizer.setDelimiter(",");
+//        lineTokenizer.setStrict(false);
+//        lineTokenizer.setNames("id", "name", "address", "designation");
+//
+//        BeanWrapperFieldSetMapper<Employee> fieldSetMapper = new BeanWrapperFieldSetMapper<>();
+//        fieldSetMapper.setTargetType(Employee.class);
+//
+//        defaultLineMapper.setLineTokenizer(lineTokenizer);
+//        defaultLineMapper.setFieldSetMapper(fieldSetMapper);
+//
+//        return defaultLineMapper;
+//    }
 	
 //	@Bean
 //	public Processor processor() {
@@ -78,20 +87,21 @@ public class Config {
 //	public ItemWriter<EmployeeEntity> itemWriter(){
 //		return new DBWriter();
 //	}
-	@Bean
-	public Job initJob() {
+
+	public Job initJob(ItemStreamReader<Employee> reader) {
+		System.out.println("Inside job");
 		return jobBuilder.get("CSV-CONVERTOR")
 				.incrementer(new RunIdIncrementer())
-				.start(step())
+				.start(step(reader))
 				.build();
 	}
 	
-	@Bean
-	public Step step() {
+
+	public Step step(ItemStreamReader<Employee> reader) {
 		
 		Step step = stepBuilder.get("CSV-STEP")
 				.<Employee,EmployeeEntity> chunk(50)
-				.reader(itemReader())
+				.reader(reader)
 				.processor(new Processor())
 				.writer(dbWriter)
 				.build();
@@ -99,4 +109,10 @@ public class Config {
 		return step; 
 	}
 
+
+
+
+
+
+	
 }

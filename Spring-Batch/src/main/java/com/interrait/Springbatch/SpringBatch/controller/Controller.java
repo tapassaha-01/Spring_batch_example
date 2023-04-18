@@ -18,9 +18,12 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.multipart.MultipartFile;
 
 import com.interrait.Springbatch.SpringBatch.Configuration.Config;
+import com.interrait.Springbatch.SpringBatch.service.BatchService;
 
 @RestController
 @CrossOrigin("http://localhost:4200/")
@@ -37,22 +40,28 @@ public class Controller {
 	private JobLauncher jobLauncher;
 	
 
+	@Autowired
+	private BatchService batchSerice;
+	
 	@PostMapping
-    public BatchStatus load(@RequestBody String filename) throws JobParametersInvalidException, JobExecutionAlreadyRunningException, JobRestartException, JobInstanceAlreadyCompleteException {
+    public BatchStatus load(@RequestParam("file") MultipartFile file) throws JobParametersInvalidException, JobExecutionAlreadyRunningException, JobRestartException, JobInstanceAlreadyCompleteException {
 
-		System.out.println(filename);
-        Map<String, JobParameter> maps = new HashMap<>();
+		if(file.getContentType().equals("text/csv")) {
+			System.out.println("File reached to the controller successfully!! "+file.getOriginalFilename()); 
+			
+		}
+       Map<String, JobParameter> maps = new HashMap<>();
         maps.put("time", new JobParameter(System.currentTimeMillis()));
-        JobParameters parameters = new JobParameters(maps);
-        JobExecution jobExecution = jobLauncher.run(configuration.initJob(), parameters);
+       JobParameters parameters = new JobParameters(maps);
+       JobExecution jobExecution = jobLauncher.run(configuration.initJob(batchSerice.reader(file)), parameters);
 
-        System.out.println("JobExecution: " + jobExecution.getStatus());
+       System.out.println("JobExecution: " + jobExecution.getStatus());
 
-        System.out.println("Batch is Running...");
-        while (jobExecution.isRunning()) {
-            System.out.println("...");
-        }
-
+      System.out.println("Batch is Running...");
+       while (jobExecution.isRunning()) {
+           System.out.println("...");
+       }
+		
         return jobExecution.getStatus();
     }
 	
