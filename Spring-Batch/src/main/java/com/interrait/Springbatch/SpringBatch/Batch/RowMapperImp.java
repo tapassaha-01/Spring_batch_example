@@ -18,7 +18,7 @@ public class RowMapperImp implements RowMapper<Employee > {
 			System.out.println("Row is null");
             return null;
         }
-		System.out.println("Inside Mapper"); 
+		System.out.println("Inside .Mapper"); 
 		Employee emp = new Employee();
 		System.out.println(rs.getCurrentRow());
 		return emp;

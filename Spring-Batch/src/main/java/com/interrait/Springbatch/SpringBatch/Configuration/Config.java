@@ -6,28 +6,21 @@ import org.springframework.batch.core.configuration.annotation.EnableBatchProces
 import org.springframework.batch.core.configuration.annotation.JobBuilderFactory;
 import org.springframework.batch.core.configuration.annotation.StepBuilderFactory;
 import org.springframework.batch.core.launch.support.RunIdIncrementer;
-import org.springframework.batch.extensions.excel.poi.PoiItemReader;
 import org.springframework.batch.item.ItemStreamReader;
 //import org.springframework.batch.core.configuration.annotation.JobBuilderFactory;
 //import org.springframework.batch.core.configuration.annotation.StepBuilderFactory;
-import org.springframework.batch.item.file.FlatFileItemReader;
-import org.springframework.batch.item.file.LineMapper;
-import org.springframework.batch.item.file.mapping.BeanWrapperFieldSetMapper;
-import org.springframework.batch.item.file.mapping.DefaultLineMapper;
-import org.springframework.batch.item.file.transform.DelimitedLineTokenizer;
+
+
 import org.springframework.beans.factory.annotation.Autowired;
 //import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
-import org.springframework.core.io.ClassPathResource;
-import org.springframework.core.io.FileSystemResource;
 //import org.springframework.batch.item.excel.poi.PoiItemReader;
 import com.interrait.Springbatch.SpringBatch.Batch.DBWriter;
 import com.interrait.Springbatch.SpringBatch.Batch.Processor;
 import com.interrait.Springbatch.SpringBatch.Model.Employee;
 import com.interrait.Springbatch.SpringBatch.Model.EmployeeEntity;
 
-
+import org.apache.poi.ss.usermodel.WorkbookFactory;
 
 @Configuration
 @EnableBatchProcessing 
@@ -90,7 +83,7 @@ public class Config {
 
 	public Job initJob(ItemStreamReader<Employee> reader) {
 		System.out.println("Inside job");
-		return jobBuilder.get("CSV-CONVERTOR")
+		return jobBuilder.get("XLXS-CONVERTOR")
 				.incrementer(new RunIdIncrementer())
 				.start(step(reader))
 				.build();
@@ -99,7 +92,7 @@ public class Config {
 
 	public Step step(ItemStreamReader<Employee> reader) {
 		
-		Step step = stepBuilder.get("CSV-STEP")
+		Step step = stepBuilder.get("XLXS-STEP")
 				.<Employee,EmployeeEntity> chunk(50)
 				.reader(reader)
 				.processor(new Processor())
