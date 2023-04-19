@@ -1,28 +1,20 @@
 package com.interrait.Springbatch.SpringBatch.Batch;
 
-import org.springframework.batch.extensions.excel.RowMapper;
-import org.springframework.batch.extensions.excel.support.rowset.RowSet;
-import org.springframework.stereotype.Component;
-//import org.springframework.batch.extensions.excel.support.rowset.*;
+import java.sql.ResultSet;
+import java.sql.SQLException;
 
-import com.interrait.Springbatch.SpringBatch.Model.Employee;
+import org.springframework.jdbc.core.RowMapper;
 
-@Component
-public class RowMapperImp implements RowMapper<Employee > {
+import com.interrait.Springbatch.SpringBatch.Model.EmployeeEntity;
 
-	public RowMapperImp() {}
-	
+public class RowMapperImp implements RowMapper<EmployeeEntity> {
+
 	@Override
-	public Employee mapRow(RowSet rs) throws Exception {
-		if (rs == null || rs.getCurrentRow() == null) {
-			System.out.println("Row is null");
-            return null;
-        }
-		System.out.println("Inside .Mapper"); 
-		Employee emp = new Employee();
-		System.out.println(rs.getCurrentRow());
-		return emp;
+	public EmployeeEntity mapRow(ResultSet rs, int rowNum) throws SQLException {
 		
+		EmployeeEntity emp = new EmployeeEntity(rs.getLong("id"),rs.getString("name"),rs.getString("address"),rs.getLong("salary"));
+		System.out.println(emp);
+		return emp;
 	}
 
 }

@@ -13,12 +13,23 @@ import org.springframework.web.multipart.MultipartFile;
 
 //import com.interrait.Springbatch.SpringBatch.Batch.RowMapperImp;
 import com.interrait.Springbatch.SpringBatch.Model.Employee;
+import com.interrait.Springbatch.SpringBatch.Model.EmployeeEntity;
+import com.interrait.Springbatch.SpringBatch.repo.UserRepository;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import java.util.ArrayList;
+import java.util.List;
+
+
+
 
 
 
 @Service
 public class BatchService {
 	
+	@Autowired
+	private UserRepository userRepo;
 	
 	public ItemStreamReader<Employee> reader(MultipartFile file){
 		PoiItemReader<Employee> reader = new PoiItemReader<>();
@@ -27,7 +38,6 @@ public class BatchService {
 		System.out.println("Inside Mapper");
 		reader.setRowMapper(excelRowMapperImp());
 		reader.setLinesToSkip(1);
-	
 		return reader;
 	}
 
@@ -37,4 +47,10 @@ public class BatchService {
 		rowMapper.setTargetType(Employee.class);
 		return rowMapper;
 	}
+	
+	public List<EmployeeEntity> getAllData(){
+		List<EmployeeEntity> list = userRepo.findAll();
+		return list;
+	}
+	
 }

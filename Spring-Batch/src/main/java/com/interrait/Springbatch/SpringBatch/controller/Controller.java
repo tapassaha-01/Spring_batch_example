@@ -1,6 +1,7 @@
 package com.interrait.Springbatch.SpringBatch.controller;
 
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 import org.springframework.batch.core.BatchStatus;
@@ -13,16 +14,19 @@ import org.springframework.batch.core.repository.JobExecutionAlreadyRunningExcep
 import org.springframework.batch.core.repository.JobInstanceAlreadyCompleteException;
 import org.springframework.batch.core.repository.JobRestartException;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
 //import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 //import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.multipart.MultipartFile;
 
 import com.interrait.Springbatch.SpringBatch.Configuration.Config;
+import com.interrait.Springbatch.SpringBatch.Model.EmployeeEntity;
 import com.interrait.Springbatch.SpringBatch.service.BatchService;
 
 @RestController
@@ -43,7 +47,8 @@ public class Controller {
 	@Autowired
 	private BatchService batchSerice;
 	
-	@PostMapping
+	
+	@PostMapping("/upload")
     public BatchStatus load(@RequestParam("file") MultipartFile file) throws JobParametersInvalidException, JobExecutionAlreadyRunningException, JobRestartException, JobInstanceAlreadyCompleteException {
 
 		if(file.getContentType().equals("application/vnd.openxmlformats-officedocument.spreadsheetml.sheet")) {
@@ -53,7 +58,7 @@ public class Controller {
        Map<String, JobParameter> maps = new HashMap<>();
         maps.put("time", new JobParameter(System.currentTimeMillis()));
        JobParameters parameters = new JobParameters(maps);
-       JobExecution jobExecution = jobLauncher.run(configuration.initJob(batchSerice.reader(file)), parameters);
+       JobExecution jobExecution = jobLauncher.run(configuration.ReaderJob(batchSerice.reader(file)), parameters);
 
        System.out.println("JobExecution: " + jobExecution.getStatus());
 
@@ -64,5 +69,10 @@ public class Controller {
 		
         return jobExecution.getStatus();
     }
+	
+	@PostMapping("/getall")
+	public List<EmployeeEntity> getAllData() {
+		return batchSerice.getAllData();
+	}
 	
 }
