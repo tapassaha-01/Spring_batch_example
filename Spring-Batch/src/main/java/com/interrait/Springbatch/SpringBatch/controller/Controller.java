@@ -46,7 +46,7 @@ public class Controller {
 	@PostMapping
     public BatchStatus load(@RequestParam("file") MultipartFile file) throws JobParametersInvalidException, JobExecutionAlreadyRunningException, JobRestartException, JobInstanceAlreadyCompleteException {
 
-		if(file.getContentType().equals("text/csv")) {
+		if(file.getContentType().equals("application/vnd.openxmlformats-officedocument.spreadsheetml.sheet")) {
 			System.out.println("File reached to the controller successfully!! "+file.getOriginalFilename()); 
 			
 		}
