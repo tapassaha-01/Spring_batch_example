@@ -59,11 +59,14 @@ public class BatchService {
 	}
 	public List<EmployeeDetails> getEmpDetails() throws SQLException{
 		List<EmployeeDetails> resultList = new ArrayList<EmployeeDetails>();
-		ResultSet rs = userRepo.getCountedData();
-		while(rs.next())
-		{
-			System.out.println(rs.getString("dis_address")+rs.getLong("resident"));
-			resultList.add(new EmployeeDetails(rs.getString("dis_address"),rs.getLong("resident")));
+		List<Object[]> rs = userRepo.getCountedData();
+		for(Object[] rst:rs) {
+			if(rst!=null) {
+//				System.out.println(rst[1].toString());
+				resultList.add(new EmployeeDetails((String)rst[0],Integer.parseInt(rst[1].toString()),Long.parseLong(rst[2].toString())));
+			}
+//			System.out.println(rst.getString("dis_address")+rst.getLong("resident"));
+//			resultList.add(new EmployeeDetails(rst.getString("dis_address"),rst.getLong("resident")));
 		}
 		return resultList;
 	}

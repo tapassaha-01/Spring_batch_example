@@ -11,6 +11,6 @@ import com.interrait.Springbatch.SpringBatch.Model.EmployeeEntity;
 
 public interface UserRepository extends JpaRepository<EmployeeEntity, Long> {
 	
-	@Query(value="select distinct(emp.address) as dis_address, count(emp.name) as resident from emp_table as emp group by address",nativeQuery = true)
-	public ResultSet getCountedData();
+	@Query(value="select distinct(emp.address) as dis_address, count(emp.name) as resident,sum(salary) as total_salary from emp_table as emp group by address",nativeQuery = true)
+	public List<Object[]> getCountedData();
 }
