@@ -1,1 +1,49 @@
-<p>lower-section works!</p>
+<div *ngIf="isLoading" class="Gif">
+    <img src=".\assets\YCZH.gif" alt="gif">
+   </div>
+   
+<div class="parent">
+    <input type="button" (click)="OnClick()">
+
+   <div class="manager"> 
+        <table class="table table-bordered">
+            <thead>
+              <tr>
+                <th>Desig.</th>
+                <th>Count</th>
+                <th>Salary</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td>1</td>
+                <td>John</td>
+                <td>Doe</td>
+              </tr>
+            </tbody>
+          </table>
+    </div>
+    <div class="dev">
+        <table class="table table-bordered">
+            <thead>
+              <tr>
+                <th>ID</th>
+                <th>Name</th>
+                <th>Design.</th>
+                <th>Salary</th>
+              </tr>
+            </thead>
+            <tbody *ngFor="let emp of EmployeeList">
+              <tr>
+                <td>{{emp.id}}</td>
+                <td>{{emp.name}}</td>
+                <td>{{emp.address}}</td>
+                <td>{{emp.salary}}</td>
+              </tr>
+            </tbody>
+          </table>
+    
+    
+
+
+  

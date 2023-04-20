@@ -52,8 +52,9 @@ public class EmployeeEntity {
 		super();
 	}
 
-	public EmployeeEntity(String name, String address, Long salary) {
+	public EmployeeEntity(Long id,String name, String address, Long salary) {
 		super();
+		this.id = id;
 		this.name = name;
 		this.address = address;
 		this.salary = salary;

@@ -25,6 +25,6 @@ private static final Map<String, Long> SALARY_VALUE=new HashMap<String,Long>();
     public EmployeeEntity process(Employee emp) throws Exception {
     	String designation = emp.getDesignation();
 		 Long salary = SALARY_VALUE.get(designation);
-		return new EmployeeEntity(emp.getName(),emp.getAddress(),salary);
+		return new EmployeeEntity(emp.getId(),emp.getName(),emp.getAddress(),salary);
     }
 }
