@@ -26,6 +26,7 @@ import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.multipart.MultipartFile;
 
 import com.interrait.Springbatch.SpringBatch.Configuration.Config;
+import com.interrait.Springbatch.SpringBatch.Model.EmployeeDetails;
 import com.interrait.Springbatch.SpringBatch.Model.EmployeeEntity;
 import com.interrait.Springbatch.SpringBatch.service.BatchService;
 
@@ -71,8 +72,10 @@ public class Controller {
     }
 	
 	@PostMapping("/getall")
-	public List<EmployeeEntity> getAllData() {
-		return batchSerice.getAllData();
+	public List<EmployeeDetails> getAllData() {
+		List<EmployeeDetails> empList = batchSerice.getAllData();
+	
+		return empList;
 	}
 	
 }

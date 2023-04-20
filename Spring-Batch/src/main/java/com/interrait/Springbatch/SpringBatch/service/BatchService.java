@@ -13,6 +13,7 @@ import org.springframework.web.multipart.MultipartFile;
 
 //import com.interrait.Springbatch.SpringBatch.Batch.RowMapperImp;
 import com.interrait.Springbatch.SpringBatch.Model.Employee;
+import com.interrait.Springbatch.SpringBatch.Model.EmployeeDetails;
 import com.interrait.Springbatch.SpringBatch.Model.EmployeeEntity;
 import com.interrait.Springbatch.SpringBatch.repo.UserRepository;
 
@@ -48,8 +49,9 @@ public class BatchService {
 		return rowMapper;
 	}
 	
-	public List<EmployeeEntity> getAllData(){
-		List<EmployeeEntity> list = userRepo.findAll();
+	public List<EmployeeDetails> getAllData(){
+		List<EmployeeDetails> list = userRepo.getCountedData();
+		System.out.println(list);
 		return list;
 	}
 	

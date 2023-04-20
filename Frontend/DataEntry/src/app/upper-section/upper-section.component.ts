@@ -1,5 +1,6 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Input, Output } from '@angular/core';
 import { FileServiceService } from '../file-service.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-upper-section',
@@ -7,19 +8,24 @@ import { FileServiceService } from '../file-service.service';
   styleUrls: ['./upper-section.component.css']
 })
 export class UpperSectionComponent implements OnInit{
+
  currenctYear = (new Date()).getFullYear
   YearList=[2011,2012,2013,2014,2015,2016,2017,2018,2019,2020,2021,2022,2023]
- constructor(private fileService:FileServiceService){}
+ constructor(private fileService:FileServiceService,private router:Router ){}
 
   ngOnInit(): void {
     throw new Error('Method not implemented.');
   }
   file!: File; 
   year!:string
+  
   onSubmit(){
+    this.router.navigate(['lowerSection']);
     this.fileService.upload(this.file,this.year).subscribe(res=>{
       console.log(res);
+     
     })
+  
     console.log(this.file,this.year);
   }
   OnUpload(event: any){
