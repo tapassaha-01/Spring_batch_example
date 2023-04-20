@@ -4,5 +4,9 @@
     <option *ngFor="let val of YearList" >{{val}}</option>
    </select>
    <input type="file" #file (change)="OnUpload($event)">
-   <input type="submit" (click)="onSubmit()">
+   
+  <!-- <div class="file-control"> -->
+   <input  type="submit" (click)="onSubmit()">
+   <span *ngIf="isComplete">{{massage}}</span>
+  
 </div>

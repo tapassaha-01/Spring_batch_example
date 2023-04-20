@@ -18,6 +18,9 @@ import com.interrait.Springbatch.SpringBatch.Model.EmployeeEntity;
 import com.interrait.Springbatch.SpringBatch.repo.UserRepository;
 
 import org.springframework.beans.factory.annotation.Autowired;
+
+import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -49,10 +52,19 @@ public class BatchService {
 		return rowMapper;
 	}
 	
-	public List<EmployeeDetails> getAllData(){
-		List<EmployeeDetails> list = userRepo.getCountedData();
+	public List<EmployeeEntity> getAllData(){
+		List<EmployeeEntity> list = userRepo.findAll();
 		System.out.println(list);
 		return list;
 	}
-	
+	public List<EmployeeDetails> getEmpDetails() throws SQLException{
+		List<EmployeeDetails> resultList = new ArrayList<EmployeeDetails>();
+		ResultSet rs = userRepo.getCountedData();
+		while(rs.next())
+		{
+			System.out.println(rs.getString("dis_address")+rs.getLong("resident"));
+			resultList.add(new EmployeeDetails(rs.getString("dis_address"),rs.getLong("resident")));
+		}
+		return resultList;
+	}
 }

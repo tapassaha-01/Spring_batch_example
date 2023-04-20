@@ -1,5 +1,6 @@
 package com.interrait.Springbatch.SpringBatch.controller;
 
+import java.sql.SQLException;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -72,10 +73,15 @@ public class Controller {
     }
 	
 	@PostMapping("/getall")
-	public List<EmployeeDetails> getAllData() {
-		List<EmployeeDetails> empList = batchSerice.getAllData();
+	public List<EmployeeEntity> getAllData() {
+		List<EmployeeEntity> empList = batchSerice.getAllData();
 	
 		return empList;
+	}
+	
+	@PostMapping("/getData")
+	public List<EmployeeDetails> getCalculatedData() throws SQLException{
+		return batchSerice.getEmpDetails();
 	}
 	
 }

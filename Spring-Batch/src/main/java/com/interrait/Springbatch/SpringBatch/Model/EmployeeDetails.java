@@ -4,7 +4,7 @@ public class EmployeeDetails {
 
 	private String dis_address;
 	private Long resident;
-	private Long salary;
+//	private Long salary;
 	public String getDis_address() {
 		return dis_address;
 	}
@@ -17,21 +17,21 @@ public class EmployeeDetails {
 	public void setResident(Long resident) {
 		this.resident = resident;
 	}
-	public Long getSalary() {
-		return salary;
-	}
-	public void setSalary(Long salary) {
-		this.salary = salary;
-	}
+//	public Long getSalary() {
+//		return salary;
+//	}
+//	public void setSalary(Long salary) {
+//		this.salary = salary;
+//	}
 	@Override
 	public String toString() {
-		return "EmployeeDetails [dis_address=" + dis_address + ", resident=" + resident + ", salary=" + salary + "]";
+		return "EmployeeDetails [dis_address=" + dis_address + ", resident=" + resident + "," + "]";
 	}
-	public EmployeeDetails(String dis_address, Long resident, Long salary) {
+	public EmployeeDetails(String dis_address, Long resident) {
 		super();
 		this.dis_address = dis_address;
 		this.resident = resident;
-		this.salary = salary;
+//		this.salary = salary;
 	}
 	public EmployeeDetails() {
 		super();
