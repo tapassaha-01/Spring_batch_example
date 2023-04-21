@@ -13,8 +13,12 @@ import {HttpClientModule} from '@angular/common/http';
 // import { NgxSpinnerModule } from "ngx-spinner";
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { PieChartComponent } from './pie-chart/pie-chart.component';
+// import { NgxChartsModule } from '@swimlane/ngx-charts';
+import { MatIconModule } from '@angular/material/icon';
+import { MatButtonModule } from '@angular/material/button';
 import { NgxChartsModule } from '@swimlane/ngx-charts';
-
+import { HeaderComponent } from './header/header.component';
+import { FooterComponent } from './footer/footer.component';
 @NgModule({
   declarations: [
     AppComponent,
@@ -22,7 +26,9 @@ import { NgxChartsModule } from '@swimlane/ngx-charts';
     UploadDataComponent,
     UpperSectionComponent,
     LowerSectionComponent,
-    PieChartComponent
+    PieChartComponent,
+    HeaderComponent,
+    FooterComponent
   ],
   imports: [
     BrowserModule,
@@ -31,8 +37,9 @@ import { NgxChartsModule } from '@swimlane/ngx-charts';
     HttpClientModule,
     BrowserModule,
     BrowserAnimationsModule,
-    NgxChartsModule
-    // NgxChartsModule
+    NgxChartsModule,
+    MatIconModule,
+    MatButtonModule
   ],
   providers: [],
   bootstrap: [AppComponent]

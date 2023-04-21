@@ -1,26 +1,37 @@
 <div *ngIf="isLoading" class="Gif">
     <img src=".\assets\YCZH.gif" alt="gif">
    </div>
-   
-<div class="parent">
-    <input type="button" (click)="OnClick()">
 
-  
+   
+   <input type="button" (click)="OnClick()" value="Generate"> 
+   <div class="pie-section">
+    <!-- <app-pie-chart [empData]="EmployeeList"></app-pie-chart> -->
+    <ngx-charts-pie-chart [results]="data" [scheme]="colorScheme" >
+      <ng-template #tooltipTemplate let-model="model">
+        <h1>
+          {{model.name}}
+        </h1>
+        <h2>{{model.value}}%</h2>
+      </ng-template>
+    </ngx-charts-pie-chart>
+   </div>
+<div class="parent">
+    
+    
     <div class="dev">
-        <table class="table table-bordered">
+        <table class="table table-bordered" >
             <thead>
               <tr>
-                <th>ID</th>
-                <th>Name</th>
-                <th>Design.</th>
-                <th>Salary</th>
+                
+                <th>City</th>
+                <th>Reside In</th>
+                <th>Total Income</th>
               </tr>
             </thead>
             <tbody *ngFor="let emp of EmployeeList">
               <tr>
-                <td>{{emp.id}}</td>
-                <td>{{emp.name}}</td>
-                <td>{{emp.address}}</td>
+                <td>{{emp.dis_address}}</td>
+                <td>{{emp.resident}}</td>
                 <td>{{emp.salary}}</td>
               </tr>
             </tbody>

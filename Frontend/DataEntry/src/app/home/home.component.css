@@ -13,13 +13,26 @@ div
 }
 .upper
 {
-    background-color:rgb(45, 48, 45);    
+    background-color:rgba(134, 131, 128, 0.459);    
    margin-bottom: 10px;
    width:98%; 
 }
 .lower
 {
-    background-color:rgb(172, 170, 167);
+    background-color:rgba(134, 131, 128, 0.192);
     height: 98%;
     width:98%;
+}
+
+.header{
+    background-color: rgb(196, 225, 252);
+}
+
+.footer{
+    background-color:rgba(106, 158, 207, 0.815);
+    /* position: fixed;
+    bottom: 0;
+    left: 0;
+    width: 100vw; */
+
 }

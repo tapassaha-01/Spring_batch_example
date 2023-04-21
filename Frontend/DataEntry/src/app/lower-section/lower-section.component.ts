@@ -1,5 +1,5 @@
 // import { HttpClientModule } from '@angular/common/http';
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Output } from '@angular/core';
 import { FileServiceService } from '../file-service.service';
 import { Employee } from '../employee';
 // import {  NgxSpinnerService } from 'ngx-spinner';
@@ -11,8 +11,11 @@ import { Employee } from '../employee';
   styleUrls: ['./lower-section.component.css']
 })
 export class LowerSectionComponent implements OnInit{
+  // @Output() empData: Employee
   EmployeeList!:any
-  isLoading!:boolean
+  isLoading!:boolean;
+  data:any;
+
   ngOnInit(): void {
     // this.isLoading = true;
     // this.service.download().subscribe(res=>{
@@ -29,11 +32,23 @@ export class LowerSectionComponent implements OnInit{
     this.isLoading = true;
     this.service.download().subscribe(res=>{
       this.EmployeeList = res;
+      // this.empData = res;
       console.log(this.EmployeeList)
       this.isLoading=false;
-    })
 
+      this.data = [
+        { 'name' : "dis_address", 'value' : this.EmployeeList[19].salary },
+        {'name' : "resident", 'value' : this.EmployeeList[5].salary},
+        {'name' : "salary", 'value' :   this.EmployeeList[2].salary }
+      ]
+    })
   }
+  
+  
+
+  colorScheme = {
+    domain: ['#08DDC1', '#FFDC1B', '#FF5E3A']
+  };
  
 
   }

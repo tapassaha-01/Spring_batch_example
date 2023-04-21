@@ -25,6 +25,6 @@ export class FileServiceService {
 
    download():Observable<Employee[]>{
 
-    return this.http.post<Employee[]>(this.baseApiUrl+'/getall','');
+    return this.http.post<Employee[]>(this.baseApiUrl+'/getData','');
    }
 }
