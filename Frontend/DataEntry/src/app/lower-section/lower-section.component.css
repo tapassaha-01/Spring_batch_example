@@ -1,7 +1,7 @@
 .parent{
     display: flex;
     /* float: left;  */
-    justify-content: space-between;
+    /* justify-content: space-between; */
     flex-direction: row;
     align-items: center;
     justify-content: center;
