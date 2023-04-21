@@ -2,7 +2,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FileServiceService } from '../file-service.service';
 import { Employee } from '../employee';
-import {  NgxSpinnerService } from 'ngx-spinner';
+// import {  NgxSpinnerService } from 'ngx-spinner';
 
 @Component({
   selector: 'app-lower-section',
@@ -22,7 +22,7 @@ export class LowerSectionComponent implements OnInit{
     // })
   }
   
-  constructor(private service:FileServiceService,private spinner:NgxSpinnerService){
+  constructor(private service:FileServiceService){
   }
 
   OnClick(){

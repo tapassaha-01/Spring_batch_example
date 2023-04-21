@@ -18,11 +18,16 @@ export class UpperSectionComponent implements OnInit{
   }
   file!: File; 
   year!:string
-  
+  isComplete:boolean=false
+  massage!:string
+ 
   onSubmit(){
     this.router.navigate(['lowerSection']);
+    
     this.fileService.upload(this.file,this.year).subscribe(res=>{
       console.log(res);
+      this.massage="Completed!!"
+      this.isComplete=true
      
     })
   
