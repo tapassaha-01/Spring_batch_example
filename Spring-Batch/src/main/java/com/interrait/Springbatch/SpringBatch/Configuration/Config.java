@@ -14,9 +14,12 @@ import org.springframework.batch.item.ItemWriter;
 import org.springframework.batch.item.database.JdbcCursorItemReader;
 import org.springframework.batch.item.file.FlatFileItemWriter;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.Bean;
 //import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Configuration;
 //import org.springframework.jdbc.core.RowMapper;
+import org.springframework.core.task.TaskExecutor;
+import org.springframework.scheduling.concurrent.ThreadPoolTaskExecutor;
 
 //import org.springframework.batch.item.excel.poi.PoiItemReader;
 import com.interrait.Springbatch.SpringBatch.Batch.DBWriter;
@@ -67,40 +70,34 @@ public class Config {
 		return step; 
 	}
 	
-	
-//	public Job writerJob() {
-//		return jobBuilder.get("GET-MQSQL-DATA")
-//				.incrementer(new RunIdIncrementer())
-//				.start(writerStep())
-//				.build();
-//	}
+	@Bean
+	public TaskExecutor taskExecutor() {
+	    ThreadPoolTaskExecutor executor = new ThreadPoolTaskExecutor();
+	    executor.setCorePoolSize(10);
+	    executor.setMaxPoolSize(10);
+	    executor.setQueueCapacity(100);
+	    executor.setThreadNamePrefix("batch-thread-");
+	    executor.initialize();
+	    return executor;
+	}
 
+
+
+
+//	private ItemWriter<Employee> DbWriter() {
+//		// TODO Auto-generated method stub
+//		FlatFileItemWriter<Employee> writer = new FlatFileItemWriter<>();
+//		return writer;
+//	}
 //
-//	private Step writerStep() {
-//		
-//		return stepBuilder.get("WRITER-STEP")
-//				.<EmployeeEntity,Employee>chunk(50)
-//				.reader(dataBaseReader())
-//				.writer(DbWriter())
-//				.build();
-//				
+//
+//	private JdbcCursorItemReader<EmployeeEntity> dataBaseReader() {
+//		JdbcCursorItemReader<EmployeeEntity> reader = new JdbcCursorItemReader<>();
+//		reader.setDataSource(dataSource);
+//		reader.setSql("select * from emo_table");
+//		reader.setRowMapper(new RowMapperImp());
+//		return reader;
 //	}
-
-
-	private ItemWriter<Employee> DbWriter() {
-		// TODO Auto-generated method stub
-		FlatFileItemWriter<Employee> writer = new FlatFileItemWriter<>();
-		return writer;
-	}
-
-
-	private JdbcCursorItemReader<EmployeeEntity> dataBaseReader() {
-		JdbcCursorItemReader<EmployeeEntity> reader = new JdbcCursorItemReader<>();
-		reader.setDataSource(dataSource);
-		reader.setSql("select * from emo_table");
-		reader.setRowMapper(new RowMapperImp());
-		return reader;
-	}
 
 
 	
