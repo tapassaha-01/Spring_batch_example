@@ -27,4 +27,9 @@ export class FileServiceService {
 
     return this.http.post<Employee[]>(this.baseApiUrl+'/getData','');
    }
+
+   fetchData(){
+    return this.http.get(this.baseApiUrl+'/readLog');
+   }
+
 }

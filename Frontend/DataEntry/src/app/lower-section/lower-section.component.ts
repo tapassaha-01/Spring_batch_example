@@ -15,7 +15,7 @@ export class LowerSectionComponent implements OnInit{
   EmployeeList!:any
   isLoading!:boolean;
   data:any;
-
+  DataList!:any
   ngOnInit(): void {
     // this.isLoading = true;
     // this.service.download().subscribe(res=>{
@@ -43,7 +43,12 @@ export class LowerSectionComponent implements OnInit{
       ]
     })
   }
-  
+  GetLog(){
+    this.service.fetchData().subscribe(res=>{
+     this.DataList=res
+      console.log(this.DataList)
+    })
+  }
   
 
   colorScheme = {

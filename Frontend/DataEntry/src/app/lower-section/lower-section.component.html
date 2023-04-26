@@ -36,8 +36,19 @@
               </tr>
             </tbody>
           </table>
-    
-    
+         </div>
+<br>
+     <button (click)="GetLog()">Get-Log</button><br>
+     <div class="paging">
+      <button  id="Prev" style="margin-right: 5px;">Prev</button>
+     <button id="Next">Next</button>
+    </div>
+     
+    <div class="log-data">
+      <p *ngFor="let data of DataList">{{data}}</p>
+    </div>
+   
+   </div>
 
 
   
