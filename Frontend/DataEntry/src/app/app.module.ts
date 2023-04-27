@@ -1,6 +1,4 @@
 import { NgModule } from '@angular/core';
-import { BrowserModule } from '@angular/platform-browser';
-
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { HomeComponent } from './home/home.component';
@@ -9,16 +7,11 @@ import { UpperSectionComponent } from './upper-section/upper-section.component';
 import { LowerSectionComponent } from './lower-section/lower-section.component';
 import { FormsModule } from '@angular/forms';
 import {HttpClientModule} from '@angular/common/http';
-// import {MatProgressSpinnerModule} from '@angular/material/progress-spinner';
-// import { NgxSpinnerModule } from "ngx-spinner";
-import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import { PieChartComponent } from './pie-chart/pie-chart.component';
-// import { NgxChartsModule } from '@swimlane/ngx-charts';
-import { MatIconModule } from '@angular/material/icon';
-import { MatButtonModule } from '@angular/material/button';
-import { NgxChartsModule } from '@swimlane/ngx-charts';
 import { HeaderComponent } from './header/header.component';
 import { FooterComponent } from './footer/footer.component';
+import { BrowserModule } from '@angular/platform-browser';
+import { NgxEchartsModule } from 'ngx-echarts';
+import {MatCardModule} from '@angular/material/card';
 @NgModule({
   declarations: [
     AppComponent,
@@ -26,7 +19,6 @@ import { FooterComponent } from './footer/footer.component';
     UploadDataComponent,
     UpperSectionComponent,
     LowerSectionComponent,
-    PieChartComponent,
     HeaderComponent,
     FooterComponent
   ],
@@ -34,12 +26,11 @@ import { FooterComponent } from './footer/footer.component';
     BrowserModule,
     AppRoutingModule,
     FormsModule,
-    HttpClientModule,
-    BrowserModule,
-    BrowserAnimationsModule,
-    NgxChartsModule,
-    MatIconModule,
-    MatButtonModule
+    MatCardModule,
+    NgxEchartsModule.forRoot({
+      echarts: () => import('echarts'),
+    }),
+    HttpClientModule
   ],
   providers: [],
   bootstrap: [AppComponent]

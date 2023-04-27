@@ -37,3 +37,38 @@
   text-align: left;
   padding-left: 10px;
 }
+
+
+ .mat-card-class-u{
+  width: 50%;
+  margin:10px 50px ;
+  border-width: 2px;
+border-radius: 4px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.24);
+  transition: box-shadow 0.3s cubic-bezier(.25,.8,.25,1);
+ }
+
+ .mat-card-class-u:hover{
+  box-shadow: 0 14px 28px rgba(0, 0, 0, 0.25),
+              0 10px 10px rgba(0, 0, 0, 0.22);
+ }
+ .mat-card-class-l{
+  width: 50%;
+  margin: 10px 50px;
+  border-width: 2px;
+border-radius: 4px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.24);
+  transition: box-shadow 0.3s cubic-bezier(.25,.8,.25,1);
+ }
+ .mat-card-class-l:hover{
+  box-shadow: 0 14px 28px rgba(0, 0, 0, 0.25),
+              0 10px 10px rgba(0, 0, 0, 0.22);
+ }
+
+ .upper-card{
+  display:flex;
+  height: 200px;
+  flex-direction: row;
+  justify-content: space-between; 
+   
+ }

@@ -4,17 +4,26 @@
 
    
    <input type="button" (click)="OnClick()" value="Generate"> 
-   <div class="pie-section">
+  <div class="upper-card" *ngIf="isLoading==false">
+   <mat-card class="mat-card-class-u">
+    <div echarts [options]="option" >
+    </div>
+   </mat-card>
+   <mat-card class="mat-card-class-l">
+    <div echarts [options]="option" >
+    </div>
+   </mat-card>
+  </div>
     <!-- <app-pie-chart [empData]="EmployeeList"></app-pie-chart> -->
-    <ngx-charts-pie-chart [results]="data" [scheme]="colorScheme" >
+    <!-- <ngx-charts-pie-chart [results]="data" [scheme]="colorScheme" >
       <ng-template #tooltipTemplate let-model="model">
         <h1>
           {{model.name}}
         </h1>
         <h2>{{model.value}}%</h2>
       </ng-template>
-    </ngx-charts-pie-chart>
-   </div>
+    </ngx-charts-pie-chart> -->
+  
 <div class="parent">
     
     
@@ -40,12 +49,12 @@
 <br>
      <button (click)="GetLog()">Get-Log</button><br>
      <div class="paging">
-      <button  id="Prev" style="margin-right: 5px;">Prev</button>
-     <button id="Next">Next</button>
+      <button  id="Prev" style="margin-right: 5px;" (click)="Prev()">Prev</button>
+     <button id="Next" (click)="Next()">Next</button>
     </div>
      
     <div class="log-data">
-      <p *ngFor="let data of DataList">{{data}}</p>
+      <p *ngFor="let data of DataList.slice(counter,counter+10)">{{data}}</p>
     </div>
    
    </div>
