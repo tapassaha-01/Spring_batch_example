@@ -1,16 +1,16 @@
 <div *ngIf="isLoading" class="Gif">
     <img src=".\assets\YCZH.gif" alt="gif">
    </div>
-
+<input type="button" (click)="OnClick()" value="Generate"> 
    
-   <input type="button" (click)="OnClick()" value="Generate"> 
+   
   <div class="upper-card" *ngIf="isLoading==false">
    <mat-card class="mat-card-class-u">
-    <div echarts [options]="option" >
+    <div echarts [options]="Pieoption" >
     </div>
    </mat-card>
    <mat-card class="mat-card-class-l">
-    <div echarts [options]="option" >
+    <div echarts [options]="Baroption" >
     </div>
    </mat-card>
   </div>
@@ -24,8 +24,8 @@
       </ng-template>
     </ngx-charts-pie-chart> -->
   
-<div class="parent">
-    
+
+    <div class="parent" *ngIf="isLoading==false">
     
     <div class="dev">
         <table class="table table-bordered" >

@@ -16,8 +16,14 @@ export class LowerSectionComponent {
   isLoading!:boolean;
   data:any;
   DataList:any=[];
-  option!:EChartsOption;
+  Pieoption!:EChartsOption;
+  Baroption!:EChartsOption;
   counter:any=0;
+  empData:any=[];
+  colorGrid!:any
+  colorValue=0
+  BarData:any=[]
+  weekData:any=[]
   ngOnInit(){
     // this.isLoading = true;
     // this.service.download().subscribe(res=>{
@@ -30,8 +36,32 @@ export class LowerSectionComponent {
     
   }
   
+  BarLoading(){
+    this.Baroption = {
+      xAxis: {
+        type: 'category',
+        data: this.weekData
+        // data: ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun']
+      },
+      yAxis: {
+        type: 'value'
+      },
+      series: [
+        {
+          data: this.BarData,
+          type: 'bar',
+          showBackground: true,
+          backgroundStyle: {
+            color: 'rgba(180, 180, 180, 0.2)'
+          }
+        }
+      ]
+    };
+  }
+
+
   PieLoading(){
-    this.option = {
+    this.Pieoption = {
      
       tooltip: {
         trigger: 'item'
@@ -45,13 +75,8 @@ export class LowerSectionComponent {
           name: 'Access From',
           type: 'pie',
           radius: '50%',
-          data: [
-            { value: 1048, name: 'Search Engine' },
-            { value: 735, name: 'Direct' },
-            { value: 580, name: 'Email' },
-            { value: 484, name: 'Union Ads' },
-            { value: 300, name: 'Video Ads' }
-          ],
+          data:  this.empData
+          ,
           emphasis: {
             itemStyle: {
               shadowBlur: 10,
@@ -79,7 +104,26 @@ export class LowerSectionComponent {
       // this.empData = res;
       console.log(this.EmployeeList)
       this.isLoading=false;
-      this.PieLoading();
+      
+      this.empData=[];
+      for(let i of this.EmployeeList){
+        console.log(i)
+        const tempObj={
+          'name':'',
+          'value':0
+          
+        }
+        this.weekData.push(i.dis_address)
+        this.BarData.push(i.salary/10000)
+        // this.colorGrid = rgba(this.colorGrid, this.colorGrid+1, this.colorGrid, 0.5)'
+        tempObj.value=i.salary;
+        tempObj.name=i.dis_address;
+        this.empData.push(tempObj)
+        this.PieLoading();
+        this.BarLoading();
+      }
+      console.log(this.empData)
+
       // this.data = [
       //   { 'name' : "dis_address", 'value' : this.EmployeeList[19].salary },
       //   {'name' : "resident", 'value' : this.EmployeeList[5].salary},

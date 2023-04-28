@@ -41,7 +41,7 @@
 
  .mat-card-class-u{
   width: 50%;
-  margin:10px 50px ;
+  margin:2px 10px ;
   border-width: 2px;
 border-radius: 4px;
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.24);
@@ -54,7 +54,7 @@ border-radius: 4px;
  }
  .mat-card-class-l{
   width: 50%;
-  margin: 10px 50px;
+  margin: 2px 10px;
   border-width: 2px;
 border-radius: 4px;
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.24);
@@ -67,7 +67,7 @@ border-radius: 4px;
 
  .upper-card{
   display:flex;
-  height: 200px;
+  height: 400px;
   flex-direction: row;
   justify-content: space-between; 
    
