@@ -26,6 +26,8 @@ div
 
 .header{
     background-color: rgb(196, 225, 252);
+    display: flex;
+    /* overflow-x: visible; */
     
 }
 

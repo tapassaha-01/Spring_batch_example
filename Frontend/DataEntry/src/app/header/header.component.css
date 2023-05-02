@@ -2,4 +2,19 @@
     display: flex;
     float:left;
     padding-left: 50px;
+    /* overflow: auto; */
+}
+.heading{
+    color: rgb(26, 25, 25);
+    font-size: 35px;
+    padding-left: 20px;
+    font-style:normal;
+    font-family: 'Times New Roman', Times, serif;
+    font-weight: bold;
+    width: 50%;
+    margin: 0 auto;
+    padding-top: 20px;
+    
+
+    /* overflow-x: visible; */
 }

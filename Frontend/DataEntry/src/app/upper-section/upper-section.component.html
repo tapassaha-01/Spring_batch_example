@@ -1,12 +1,66 @@
-<div class="file-control">
-   <select #year (change)="OnSelected($event)">
-    <option value="default">Year</option>
-    <option *ngFor="let val of YearList" >{{val}}</option>
-   </select>
-   <input type="file" #file (change)="OnUpload($event)">
+<!-- <div class="file-control">
+
+   <div><input type="file" #file (change)="OnUpload($event)"></div>
+
+
+   <div class="file-control"> 
+   <div><span *ngIf="isComplete">{{massage}}</span></div>
+
+   <div style="color: black;"><mat-checkbox [(ngModel)]="isDept" [disabled]="isDesign">Dept</mat-checkbox>
+      <mat-checkbox [(ngModel)]="isDesign" [disabled]="isDept"> Design</mat-checkbox>
+     
+
+   </div> -->
+<!-- <select #year (change)="OnSelected($event)" > 
+     <option value="default">{{isDesign?'Designation':'Department'}}</option>
+    <option *ngFor="let val of YearList" >{{val}}</option> 
+   </select>  -->
+
+<!-- <mat-form-field>
+      <mat-label>{{isDesign ? 'Design' : 'Dept'}}</mat-label>
+      <mat-select [(ngModel)]="selectedOption">
+       <mat-option value="default">Option 1</mat-option>
+        <mat-option value="option2">Option 2</mat-option>
+        <mat-option value="option3">Option 3</mat-option> 
+      </mat-select>
+    </mat-form-field>
+   <form class="option" #option="ngForm" > 
+      <select #year (change)="OnSelected($event)" >  -->
+<!-- <input type="radio" id="age1" name="1" value="30">
+         <label for="age1"> Designation </label>
+         <input type="radio" id="Department" name="2" value="60">
+         <label for="age2"> Department </label> -->
+<!-- </select>
+    
+   <input type="radio"  name="age" ngModel>
+   <label >Designation</label>
+   <input type="radio"  name="age" ngModel>
+   <label >Department</label>
    
-  <!-- <div class="file-control"> -->
-   <input  type="submit" (click)="onSubmit()">
-   <span *ngIf="isComplete">{{massage}}</span>
-  
+
+         </form>
+
+   <div style="padding: 10px;"><input type="submit" (click)="onSubmit()"></div>
+</div> -->
+
+<div><input type="file" #file (change)="OnUpload($event)">
+<input type="submit" (click)="onFileSubmit()">
 </div>
+<form class="file-control" #inputForm="ngForm" (ngSubmit)="OnSubmit(inputForm)">
+   <!-- <input type="file" name="file" (change)="OnUpload($event)" required> -->
+   <div class="option" >
+       <input type="radio" id="1" value="Designation" name="selection" (change)="OnSelected($event)" ngModel required> 
+       <label for="form">Designation</label>
+      <input type="radio" id="2" value="Department" name="selection" (change)="OnSelected($event)" ngModel required> 
+      <label for="form">Department</label>
+   </div><br>
+   <div class="dropDown">
+      <select name="option" ngModel required>
+         <option value="">--Select Option--</option>
+         <option *ngFor="let option of OptionList" value="{{option}}">{{option}}</option>
+      </select>
+   </div>
+   <input type="submit" >
+
+   <div><span *ngIf="isComplete">{{massage}}</span></div>
+</form>

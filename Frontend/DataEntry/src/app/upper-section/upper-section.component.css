@@ -3,3 +3,9 @@
     display: flex;
     flex-direction: column;
 }
+.option{
+    color: black;
+}
+.option label{
+    padding:5px;
+}
