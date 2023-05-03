@@ -30,6 +30,7 @@ import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 //import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 //import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -39,8 +40,12 @@ import org.springframework.web.multipart.MultipartFile;
 
 import com.interrait.Springbatch.SpringBatch.SpringBatchApplication;
 import com.interrait.Springbatch.SpringBatch.Configuration.Config;
+import com.interrait.Springbatch.SpringBatch.Model.Dept_Mst;
+import com.interrait.Springbatch.SpringBatch.Model.Designation_Mst;
 import com.interrait.Springbatch.SpringBatch.Model.EmployeeDetails;
 import com.interrait.Springbatch.SpringBatch.Model.EmployeeEntity;
+import com.interrait.Springbatch.SpringBatch.repo.Dept_mst_Repo;
+import com.interrait.Springbatch.SpringBatch.repo.Designation_Mst_Repo;
 import com.interrait.Springbatch.SpringBatch.service.BatchService;
 
 @RestController
@@ -59,6 +64,32 @@ public class Controller {
 
 	@Autowired
 	private BatchService batchSerice;
+	
+	@Autowired
+	private Dept_mst_Repo deptRepo;
+	
+	@Autowired
+	private Designation_Mst_Repo designRepo;
+	
+	@PostMapping("/uploadMSt")
+	public Dept_Mst uploadMst(@RequestBody Dept_Mst dept){
+		System.out.println(dept.toString());
+		List<Designation_Mst> design = dept.getDesignation();
+		designRepo.saveAll(design);
+		
+		for(Designation_Mst i:design) {
+			System.out.println(i.toString());
+			i.setDept(dept);
+//			designRepo.save(i);
+		}
+		
+		dept.setDesignation(design);
+//		System.out.println(dept.toString());
+//		Dept_Mst result = 
+		Dept_Mst result = deptRepo.save(dept);
+		return result;
+//		return dept;
+	}
 	
 	
 	@PostMapping("/upload")
