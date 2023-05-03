@@ -13,18 +13,13 @@ import org.springframework.batch.item.ItemStreamReader;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
-import com.interrait.Springbatch.SpringBatch.SpringBatchApplication;
 //import com.interrait.Springbatch.SpringBatch.Batch.RowMapperImp;
-import com.interrait.Springbatch.SpringBatch.Model.Employee;
-import com.interrait.Springbatch.SpringBatch.Model.EmployeeDetails;
-import com.interrait.Springbatch.SpringBatch.Model.EmployeeEntity;
+import com.interrait.Springbatch.SpringBatch.Model.EmpDto;
+import com.interrait.Springbatch.SpringBatch.Model.Emp;
 import com.interrait.Springbatch.SpringBatch.repo.UserRepository;
 
 import org.springframework.beans.factory.annotation.Autowired;
 
-import java.sql.ResultSet;
-import java.sql.SQLException;
-import java.util.ArrayList;
 import java.util.List;
 
 
@@ -41,8 +36,8 @@ public class BatchService {
 	@Autowired
 	private UserRepository userRepo;
 	
-	public ItemStreamReader<Employee> reader(MultipartFile file){
-		PoiItemReader<Employee> reader = new PoiItemReader<>();
+	public ItemStreamReader<EmpDto> reader(MultipartFile file){
+		PoiItemReader<EmpDto> reader = new PoiItemReader<>();
 		reader.setName("Xcel-Reader");
 		reader.setResource( file.getResource());
 		logger.info("Inside Mapper");
@@ -51,31 +46,31 @@ public class BatchService {
 		return reader;
 	}
 
-	private RowMapper<Employee> excelRowMapperImp() {
+	private RowMapper<EmpDto> excelRowMapperImp() {
 		
-		BeanWrapperRowMapper<Employee> rowMapper = new BeanWrapperRowMapper<>();
-		rowMapper.setTargetType(Employee.class);
+		BeanWrapperRowMapper<EmpDto> rowMapper = new BeanWrapperRowMapper<>();
+		rowMapper.setTargetType(EmpDto.class);
 		return rowMapper;
 	}
 	
-	public List<EmployeeEntity> getAllData(){
-		List<EmployeeEntity> list = userRepo.findAll();
+	public List<Emp> getAllData(){
+		List<Emp> list = userRepo.findAll();
 		list.stream().map(n->{logger.info(n.toString());
 							return n;});
 //		logger.info(list);
 		return list;
 	}
-	public List<EmployeeDetails> getEmpDetails() throws SQLException{
-		List<EmployeeDetails> resultList = new ArrayList<EmployeeDetails>();
-		List<Object[]> rs = userRepo.getCountedData();
-		for(Object[] rst:rs) {
-			if(rst!=null) {
-//				logger.info(rst[1].toString());
-				resultList.add(new EmployeeDetails((String)rst[0],Integer.parseInt(rst[1].toString()),Long.parseLong(rst[2].toString())));
-			}
-//			logger.info(rst.getString("dis_address")+rst.getLong("resident"));
-//			resultList.add(new EmployeeDetails(rst.getString("dis_address"),rst.getLong("resident")));
-		}
-		return resultList;
-	}
+//	public List<EmpDtoDetails> getEmpDetails() throws SQLException{
+//		List<EmpDtoDetails> resultList = new ArrayList<EmpDtoDetails>();
+//		List<Object[]> rs = userRepo.getCountedData();
+//		for(Object[] rst:rs) {
+//			if(rst!=null) {
+////				logger.info(rst[1].toString());
+//				resultList.add(new EmpDtoDetails((String)rst[0],Integer.parseInt(rst[1].toString()),Long.parseLong(rst[2].toString())));
+//			}
+////			logger.info(rst.getString("dis_address")+rst.getLong("resident"));
+////			resultList.add(new EmpDtoDetails(rst.getString("dis_address"),rst.getLong("resident")));
+//		}
+//		return resultList;
+//	}
 }

@@ -42,10 +42,10 @@ import com.interrait.Springbatch.SpringBatch.SpringBatchApplication;
 import com.interrait.Springbatch.SpringBatch.Configuration.Config;
 import com.interrait.Springbatch.SpringBatch.Model.Dept_Mst;
 import com.interrait.Springbatch.SpringBatch.Model.Designation_Mst;
-import com.interrait.Springbatch.SpringBatch.Model.EmployeeDetails;
-import com.interrait.Springbatch.SpringBatch.Model.EmployeeEntity;
+
 import com.interrait.Springbatch.SpringBatch.repo.Dept_mst_Repo;
 import com.interrait.Springbatch.SpringBatch.repo.Designation_Mst_Repo;
+import com.interrait.Springbatch.SpringBatch.repo.UserRepository;
 import com.interrait.Springbatch.SpringBatch.service.BatchService;
 
 @RestController
@@ -61,12 +61,14 @@ public class Controller {
 	@Autowired
 	private JobLauncher jobLauncher;
 	
-
 	@Autowired
 	private BatchService batchSerice;
 	
 	@Autowired
 	private Dept_mst_Repo deptRepo;
+	
+	@Autowired
+	private UserRepository userRepo;
 	
 	@Autowired
 	private Designation_Mst_Repo designRepo;
@@ -125,18 +127,18 @@ public class Controller {
       
     }
 	
-	@PostMapping("/getall")
-	public List<EmployeeEntity> getAllData() {
-		List<EmployeeEntity> empList = batchSerice.getAllData();
-	
-		return empList;
-	}
-	
-	@PostMapping("/getData")
-	public List<EmployeeDetails> getCalculatedData() throws SQLException{
-		return batchSerice.getEmpDetails();
-	}
-	
+//	@PostMapping("/getall")
+//	public List<EmployeeEntity> getAllData() {
+//		List<EmployeeEntity> empList = batchSerice.getAllData();
+//	
+//		return empList;
+//	}
+//	
+//	@PostMapping("/getData")
+//	public List<EmployeeDetails> getCalculatedData() throws SQLException{
+//		return batchSerice.getEmpDetails();
+//	}
+//	
 	
 	@GetMapping("/readLog")
 	public List<String> readLogFile() throws IOException{
@@ -157,6 +159,25 @@ public class Controller {
 
 
 
+	}
+	@GetMapping("/getDeptmst")
+	public List<String> getDepartMst() {
+		List<String> list =  userRepo.findDistinctDeptName();
+		List<String> Dept_mst_lst = new ArrayList<String>();
+		for(String i:list) {
+			Dept_mst_lst.add(i);
+		}
+		return Dept_mst_lst;
+	}
+	
+	@GetMapping("/getDesignmst")
+	public List<String> findDesignationmst() {
+		List<String> list =  userRepo.findDistinctDesignation();
+		List<String> Design_mst_lst = new ArrayList<String>();
+		for(String i:list) {
+			Design_mst_lst.add(i);
+		}
+		return Design_mst_lst;
 	}
 	
 }

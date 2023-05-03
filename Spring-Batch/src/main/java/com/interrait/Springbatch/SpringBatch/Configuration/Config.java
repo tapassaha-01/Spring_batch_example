@@ -6,13 +6,11 @@ import org.springframework.batch.core.configuration.annotation.EnableBatchProces
 import org.springframework.batch.core.configuration.annotation.JobBuilderFactory;
 import org.springframework.batch.core.configuration.annotation.StepBuilderFactory;
 import org.springframework.batch.core.launch.support.RunIdIncrementer;
-import org.springframework.batch.item.ItemReader;
+
 import org.springframework.batch.item.ItemStreamReader;
 //import org.springframework.batch.core.configuration.annotation.JobBuilderFactory;
 //import org.springframework.batch.core.configuration.annotation.StepBuilderFactory;
-import org.springframework.batch.item.ItemWriter;
-import org.springframework.batch.item.database.JdbcCursorItemReader;
-import org.springframework.batch.item.file.FlatFileItemWriter;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 //import org.springframework.beans.factory.annotation.Autowired;
@@ -24,20 +22,18 @@ import org.springframework.scheduling.concurrent.ThreadPoolTaskExecutor;
 //import org.springframework.batch.item.excel.poi.PoiItemReader;
 import com.interrait.Springbatch.SpringBatch.Batch.DBWriter;
 import com.interrait.Springbatch.SpringBatch.Batch.Processor;
-import com.interrait.Springbatch.SpringBatch.Batch.RowMapperImp;
-import com.interrait.Springbatch.SpringBatch.Model.Employee;
-import com.interrait.Springbatch.SpringBatch.Model.EmployeeEntity;
+import com.interrait.Springbatch.SpringBatch.Model.Emp;
+import com.interrait.Springbatch.SpringBatch.Model.EmpDto;
+import com.interrait.Springbatch.SpringBatch.Model.EmpDto;
 
-import javax.sql.DataSource;
 
-import org.apache.poi.ss.usermodel.WorkbookFactory;
+
+
 
 @Configuration
 @EnableBatchProcessing 
 public class Config {
-	
-	@Autowired
-	private DataSource dataSource;
+
 	
 	@Autowired
 	private JobBuilderFactory jobBuilder;
@@ -49,7 +45,7 @@ public class Config {
 	private DBWriter dbWriter;
 
 
-	public Job ReaderJob(ItemStreamReader<Employee> reader) {
+	public Job ReaderJob(ItemStreamReader<EmpDto> reader) {
 		System.out.println("Inside job");
 		return jobBuilder.get("XLXS-CONVERTOR")
 				.incrementer(new RunIdIncrementer())
@@ -58,10 +54,10 @@ public class Config {
 	}
 	
 
-	private Step readerStep(ItemStreamReader<Employee> reader) {
+	private Step readerStep(ItemStreamReader<EmpDto> reader) {
 		
 		Step step = stepBuilder.get("XLXS-STEP")
-				.<Employee,EmployeeEntity> chunk(50)
+				.<EmpDto,Emp> chunk(50)
 				.reader(reader)
 				.processor(new Processor())
 				.writer(dbWriter)
@@ -84,15 +80,15 @@ public class Config {
 
 
 
-//	private ItemWriter<Employee> DbWriter() {
+//	private ItemWriter<EmpDto> DbWriter() {
 //		// TODO Auto-generated method stub
-//		FlatFileItemWriter<Employee> writer = new FlatFileItemWriter<>();
+//		FlatFileItemWriter<EmpDto> writer = new FlatFileItemWriter<>();
 //		return writer;
 //	}
 //
 //
-//	private JdbcCursorItemReader<EmployeeEntity> dataBaseReader() {
-//		JdbcCursorItemReader<EmployeeEntity> reader = new JdbcCursorItemReader<>();
+//	private JdbcCursorItemReader<EmpDtoEntity> dataBaseReader() {
+//		JdbcCursorItemReader<EmpDtoEntity> reader = new JdbcCursorItemReader<>();
 //		reader.setDataSource(dataSource);
 //		reader.setSql("select * from emo_table");
 //		reader.setRowMapper(new RowMapperImp());

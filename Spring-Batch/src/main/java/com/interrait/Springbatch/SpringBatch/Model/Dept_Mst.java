@@ -20,16 +20,16 @@ public class Dept_Mst {
 	private Long id;
 	
 	@Column
-	private String departmentName;
+	private String department;
 	
 	@OneToMany(mappedBy = "dept")
 	private List<Designation_Mst> designation;
 	
 	public String getDepartmentName() {
-		return departmentName;
+		return department;
 	}
 	public void setDepartmentName(String departmentName) {
-		this.departmentName = departmentName;
+		this.department = departmentName;
 	}
 	public List<Designation_Mst> getDesignation() {
 		return designation;
@@ -39,14 +39,14 @@ public class Dept_Mst {
 	}
 	@Override
 	public String toString() {
-		return "Dept_Mst [id=" + id + ", DepartmentName=" + departmentName + ", designation=" + designation + "]";
+		return "Dept_Mst [id=" + id + ", DepartmentName=" + department + ", designation=" + designation + "]";
 	}
 	public Dept_Mst() {
 		super();
 	}
 	public Dept_Mst(String departmentName, List<Designation_Mst> designation) {
 		super();
-		this.departmentName = departmentName;
+		this.department = departmentName;
 		this.designation = designation;
 	}
 	

@@ -4,27 +4,35 @@ package com.interrait.Springbatch.SpringBatch.Batch;
 import org.springframework.batch.item.ItemProcessor;
 import org.springframework.stereotype.Component;
 
-import com.interrait.Springbatch.SpringBatch.Model.Employee;
-import com.interrait.Springbatch.SpringBatch.Model.EmployeeEntity;
+import com.interrait.Springbatch.SpringBatch.Model.Emp;
+import com.interrait.Springbatch.SpringBatch.Model.EmpDto;
 
 import java.util.HashMap;
 import java.util.Map;
 
 @Component
-public class Processor implements ItemProcessor<Employee, EmployeeEntity> {
+public class Processor implements ItemProcessor<EmpDto, Emp> {
 
 private static final Map<String, Long> SALARY_VALUE=new HashMap<String,Long>();
 	
  	public Processor() {
- 		SALARY_VALUE.put("A", 60000L);
- 		SALARY_VALUE.put("B", 45000L);
- 		SALARY_VALUE.put("C", 25000L);
+ 		SALARY_VALUE.put("Trainee ", 9000L);
+ 		SALARY_VALUE.put("Programmer Analyst", 25000L);
+ 		SALARY_VALUE.put("Associate Engineer", 45000L);
+ 		SALARY_VALUE.put("Senior Software Engineer", 55000L);
+ 		SALARY_VALUE.put("Project Lead", 65000L);
+ 		SALARY_VALUE.put("Project Manager", 75000L);
+ 		SALARY_VALUE.put("Delivery Manager", 105000L);
+ 		SALARY_VALUE.put("Network engineer", 35000L);
+ 		SALARY_VALUE.put("Admin", 85000L);
+ 		SALARY_VALUE.put("Finance", 80000L);
+ 		SALARY_VALUE.put("Human Resource", 55000L);
  	}
 
     @Override
-    public EmployeeEntity process(Employee emp) throws Exception {
+    public Emp process(EmpDto emp) throws Exception {
     	String designation = emp.getDesignation();
 		 Long salary = SALARY_VALUE.get(designation);
-		return new EmployeeEntity(emp.getId(),emp.getName(),emp.getAddress(),salary);
+		return new Emp(emp.getDeptId(),emp.getDeptName(),emp.getEmpId(),emp.getEmpName(),new java.sql.Date(emp.getDoj().getTime()),emp.getStatus(),emp.getDesignation(),salary);
     }
 }

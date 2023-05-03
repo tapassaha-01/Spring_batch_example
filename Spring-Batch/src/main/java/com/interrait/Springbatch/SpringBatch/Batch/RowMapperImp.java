@@ -5,14 +5,14 @@ import java.sql.SQLException;
 
 import org.springframework.jdbc.core.RowMapper;
 
-import com.interrait.Springbatch.SpringBatch.Model.EmployeeEntity;
+import com.interrait.Springbatch.SpringBatch.Model.Emp;
 
-public class RowMapperImp implements RowMapper<EmployeeEntity> {
+public class RowMapperImp implements RowMapper<Emp> {
 
 	@Override
-	public EmployeeEntity mapRow(ResultSet rs, int rowNum) throws SQLException {
+	public Emp mapRow(ResultSet rs, int rowNum) throws SQLException {
 		
-		EmployeeEntity emp = new EmployeeEntity(rs.getLong("id"),rs.getString("name"),rs.getString("address"),rs.getLong("salary"));
+		Emp emp = new Emp();
 		System.out.println(emp);
 		return emp;
 	}
