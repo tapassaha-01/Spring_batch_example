@@ -51,6 +51,10 @@ public class Designation_Mst {
 		this.designName = designName;
 		this.dept = dept;
 	}
+	public Designation_Mst(String designName) {
+		super();
+		this.designName = designName;
+	}
 	
 	
 }

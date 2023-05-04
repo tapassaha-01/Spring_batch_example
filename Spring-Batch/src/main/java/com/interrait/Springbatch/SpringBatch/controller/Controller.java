@@ -113,6 +113,7 @@ public class Controller {
 	       while (jobExecution.isRunning()) {
 	           logger.info("...");
 	       }
+	       batchSerice.getListofMstTables();
 			
 	     
 	} catch (JobExecutionAlreadyRunningException | JobRestartException | JobInstanceAlreadyCompleteException
@@ -178,6 +179,12 @@ public class Controller {
 			Design_mst_lst.add(i);
 		}
 		return Design_mst_lst;
+	}
+	
+	@GetMapping("/getmsttable")
+	public void getMstList(){
+		batchSerice.getListofMstTables();
+//		return 
 	}
 	
 }

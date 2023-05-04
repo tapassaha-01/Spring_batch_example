@@ -15,12 +15,21 @@ import org.springframework.web.multipart.MultipartFile;
 
 //import com.interrait.Springbatch.SpringBatch.Batch.RowMapperImp;
 import com.interrait.Springbatch.SpringBatch.Model.EmpDto;
+import com.interrait.Springbatch.SpringBatch.Batch.MstWriter;
+import com.interrait.Springbatch.SpringBatch.Model.Dept_Mst;
+import com.interrait.Springbatch.SpringBatch.Model.Designation_Mst;
 import com.interrait.Springbatch.SpringBatch.Model.Emp;
 import com.interrait.Springbatch.SpringBatch.repo.UserRepository;
+import com.interrait.Springbatch.SpringBatch.util.Mst_table;
+
+import ch.qos.logback.classic.pattern.Util;
 
 import org.springframework.beans.factory.annotation.Autowired;
 
+import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.List;
+import java.util.Map;
 
 
 
@@ -35,6 +44,10 @@ public class BatchService {
 	
 	@Autowired
 	private UserRepository userRepo;
+	
+	@Autowired
+	private MstWriter mstWriter;
+	
 	
 	public ItemStreamReader<EmpDto> reader(MultipartFile file){
 		PoiItemReader<EmpDto> reader = new PoiItemReader<>();
@@ -73,4 +86,19 @@ public class BatchService {
 //		}
 //		return resultList;
 //	}
+	
+	public void getListofMstTables() {
+//		List<String> Mst_table_list = userRepo.findDesignationAndDept();
+//		List<Dept_Mst> dept_list = new ArrayList<Dept_Mst>();
+		
+		for(Map.Entry<String, List<String>> entry:Mst_table.MST_TABLE.entrySet()) {
+			List<Designation_Mst> desigList = new ArrayList<Designation_Mst>();
+			for(String i:entry.getValue()) {
+				desigList.add(new Designation_Mst(i));
+			}
+			mstWriter.insertDeptTable(new Dept_Mst(entry.getKey(),desigList));
+		}
+//		System.out.println(Mst_table_list);
+//		return Mst_table_list;
+	}
 }

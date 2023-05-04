@@ -16,4 +16,6 @@ public interface UserRepository extends JpaRepository<Emp, Long> {
 	public List<String> findDistinctDeptName();
 	@Query("SELECT DISTINCT e.designation FROM Emp e")
 	public List<String> findDistinctDesignation();
+	@Query("SELECT e.designation,e.deptName FROM Emp e")
+	public List<String> findDesignationAndDept();
 }
