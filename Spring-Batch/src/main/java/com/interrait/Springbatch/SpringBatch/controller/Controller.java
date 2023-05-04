@@ -182,7 +182,7 @@ public class Controller {
 	}
 	
 	@GetMapping("/getmsttable")
-	public void getMstList(){
+	public List getMstList(){
 		batchSerice.getListofMstTables();
 //		return 
 	}
