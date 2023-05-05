@@ -42,7 +42,7 @@ import com.interrait.Springbatch.SpringBatch.SpringBatchApplication;
 import com.interrait.Springbatch.SpringBatch.Configuration.Config;
 import com.interrait.Springbatch.SpringBatch.Model.Dept_Mst;
 import com.interrait.Springbatch.SpringBatch.Model.Designation_Mst;
-
+import com.interrait.Springbatch.SpringBatch.Model.mst_table;
 import com.interrait.Springbatch.SpringBatch.repo.Dept_mst_Repo;
 import com.interrait.Springbatch.SpringBatch.repo.Designation_Mst_Repo;
 import com.interrait.Springbatch.SpringBatch.repo.UserRepository;
@@ -182,8 +182,8 @@ public class Controller {
 	}
 	
 	@GetMapping("/getmsttable")
-	public List getMstList(){
-		batchSerice.getListofMstTables();
+	public mst_table getMstList(){
+		return batchSerice.getListofMstTables();
 //		return 
 	}
 	

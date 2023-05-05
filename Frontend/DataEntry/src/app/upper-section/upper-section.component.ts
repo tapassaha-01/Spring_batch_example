@@ -1,6 +1,7 @@
 import { Component, OnInit, Input, Output } from '@angular/core';
 import { FileServiceService } from '../file-service.service';
 import { Router } from '@angular/router';
+import { MstTableData } from '../mst-table-data';
 
 @Component({
   selector: 'app-upper-section',
@@ -13,8 +14,8 @@ export class UpperSectionComponent implements OnInit{
     'value':0
   }
 //  currenctYear = (new Date()).getFullYear
-OptionList:[]=[]
-
+OptionList:string[]=[]
+mstTable!:any;
 
 
 option!:any
@@ -42,6 +43,11 @@ option!:any
       console.log(res);
       this.massage="Completed!!"
       this.isComplete=true
+      this.fileService.getMstTable().subscribe(res=>{
+        this.mstTable = res;
+        
+        console.log(this.mstTable,this.OptionList)
+      });
       // for(let i of this.OptionList)
       // {
       //   i.
@@ -65,10 +71,18 @@ option!:any
   OnSelected(option:any){
     this.option = option.target.value
     if(this.option=='Department'){
-
+      this.OptionList = this.mstTable.dept_list;
+      
     }
     else{
-
+      this.OptionList = this.mstTable.design_list;
     }
+  }
+  Onimport(){
+    this.fileService.getMstTable().subscribe(res=>{
+      this.mstTable = res;
+      
+      console.log(this.mstTable)
+    });
   }
 }

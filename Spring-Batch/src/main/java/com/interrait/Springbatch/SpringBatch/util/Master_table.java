@@ -11,7 +11,7 @@ import java.util.Map;
 import org.springframework.stereotype.Component;
 
 @Component
-public class Mst_table {
+public class Master_table {
 
 	public static final String[] DESIGNATION_MST_TABLE = {"Trainee" , "Programmer Analyst", "Associate Engineer", "Senior Software Engineer", "Project Lead", "Project Manager", "Delivery Manager", "Network engineer", "Admin", "Finance","Human Resource"};
 	public static final String[] DEPARTMENT_MST_TABLE = {"Human Resource Department", "Finance Department", "Sales Department", "Research and Development Department", "Security and Transport Department", "IT Service Department", "Admin Department"};

@@ -2,6 +2,7 @@ import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { Employee } from './employee';
+import { MstTableData } from './mst-table-data';
 
 @Injectable({
   providedIn: 'root'
@@ -31,5 +32,11 @@ export class FileServiceService {
    fetchData(){
     return this.http.get(this.baseApiUrl+'/readLog');
    }
+
+
+   getMstTable():Observable<MstTableData>{
+    return this.http.get<MstTableData>(this.baseApiUrl+'/getmsttable');
+   }
+   
 
 }

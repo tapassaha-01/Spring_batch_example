@@ -1,21 +1,21 @@
 export class MstTableData {
 
-    Depart_list:deptClass[]
-    Design_list:designClass[]
-    constructor(Depart_list:deptClass[],Design_list:designClass[]){
+    Depart_list:string[]
+    Design_list:string[]
+    constructor(Depart_list:string[],Design_list:string[]){
         this.Depart_list=Depart_list
         this.Design_list = Design_list
     }
 }
 
 export class deptClass{
-    id!:number
+    
     department!:string
-    designation!:any[]
+    
 }
 
 export class designClass{
-    id!:number
+    
     designName!:string
-    dept!:any
+   
 }

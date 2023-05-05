@@ -15,12 +15,13 @@ import org.springframework.web.multipart.MultipartFile;
 
 //import com.interrait.Springbatch.SpringBatch.Batch.RowMapperImp;
 import com.interrait.Springbatch.SpringBatch.Model.EmpDto;
+import com.interrait.Springbatch.SpringBatch.Model.mst_table;
 import com.interrait.Springbatch.SpringBatch.Batch.MstWriter;
 import com.interrait.Springbatch.SpringBatch.Model.Dept_Mst;
 import com.interrait.Springbatch.SpringBatch.Model.Designation_Mst;
 import com.interrait.Springbatch.SpringBatch.Model.Emp;
 import com.interrait.Springbatch.SpringBatch.repo.UserRepository;
-import com.interrait.Springbatch.SpringBatch.util.Mst_table;
+import com.interrait.Springbatch.SpringBatch.util.Master_table;
 
 import ch.qos.logback.classic.pattern.Util;
 
@@ -88,18 +89,23 @@ public class BatchService {
 //		return resultList;
 //	}
 	
-	public void getListofMstTables() {
+	public mst_table getListofMstTables() {
 //		List<String> Mst_table_list = userRepo.findDesignationAndDept();
 //		List<Dept_Mst> dept_list = new ArrayList<Dept_Mst>();
-		
-		for(Map.Entry<String, List<String>> entry:Mst_table.MST_TABLE.entrySet()) {
+		List<String> dept_list = new ArrayList<>();
+		List<String> design_list = new ArrayList<>();
+		for(Map.Entry<String, List<String>> entry:Master_table.MST_TABLE.entrySet()) {
+			dept_list.add(entry.getKey());
 			List<Designation_Mst> desigList = new ArrayList<Designation_Mst>();
 			for(String i:entry.getValue()) {
+				design_list.add(i);
 				desigList.add(new Designation_Mst(i));
 			}
 			mstWriter.insertDeptTable(new Dept_Mst(entry.getKey(),desigList));
 		}
+		return new mst_table(dept_list,design_list);
 //		System.out.println(Mst_table_list);
 //		return Mst_table_list;
+		
 	}
 }
