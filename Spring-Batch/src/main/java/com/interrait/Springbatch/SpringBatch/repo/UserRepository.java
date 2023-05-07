@@ -21,4 +21,7 @@ public interface UserRepository extends JpaRepository<Emp, Long> {
 	
 	@Query("SELECT e.designation,e.deptName FROM Emp e")
 	public List<String> findDesignationAndDept();
+	
+	@Query(value="select count(dept_id) as Dept_count, dept_name,designation,count(emp_id) as Emp_count,sum(salary) as total_salary from emp_table where dept_name = ?1 group by dept_name,designation,salary ", nativeQuery = true)
+	public List<Object[]> listData(String dept_name,String option);
 }

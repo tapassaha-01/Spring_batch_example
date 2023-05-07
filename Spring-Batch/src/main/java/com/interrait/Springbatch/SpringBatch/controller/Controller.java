@@ -42,6 +42,7 @@ import com.interrait.Springbatch.SpringBatch.SpringBatchApplication;
 import com.interrait.Springbatch.SpringBatch.Configuration.Config;
 import com.interrait.Springbatch.SpringBatch.Model.Dept_Mst;
 import com.interrait.Springbatch.SpringBatch.Model.Designation_Mst;
+import com.interrait.Springbatch.SpringBatch.Model.EmpAnalysisData;
 import com.interrait.Springbatch.SpringBatch.Model.mst_table;
 import com.interrait.Springbatch.SpringBatch.repo.Dept_mst_Repo;
 import com.interrait.Springbatch.SpringBatch.repo.Designation_Mst_Repo;
@@ -140,6 +141,12 @@ public class Controller {
 //		return batchSerice.getEmpDetails();
 //	}
 //	
+	@PostMapping("/getData")
+	public List<EmpAnalysisData> gettableData() {
+		
+		return batchSerice.gettableData();
+	}
+	
 	
 	@GetMapping("/readLog")
 	public List<String> readLogFile() throws IOException{

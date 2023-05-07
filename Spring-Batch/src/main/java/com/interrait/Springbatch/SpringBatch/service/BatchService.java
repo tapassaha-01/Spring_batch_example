@@ -20,6 +20,7 @@ import com.interrait.Springbatch.SpringBatch.Batch.MstWriter;
 import com.interrait.Springbatch.SpringBatch.Model.Dept_Mst;
 import com.interrait.Springbatch.SpringBatch.Model.Designation_Mst;
 import com.interrait.Springbatch.SpringBatch.Model.Emp;
+import com.interrait.Springbatch.SpringBatch.Model.EmpAnalysisData;
 import com.interrait.Springbatch.SpringBatch.repo.UserRepository;
 import com.interrait.Springbatch.SpringBatch.util.Master_table;
 
@@ -88,6 +89,18 @@ public class BatchService {
 //		}
 //		return resultList;
 //	}
+	
+	
+	
+public List<EmpAnalysisData> gettableData() {
+		List<Object[]> tableList = userRepo.listData("dept_name","IT Service");
+		List<EmpAnalysisData> dataList = new ArrayList<>();
+		for(Object[] i:tableList) {
+			dataList.add( new EmpAnalysisData(Long.parseLong(i[0].toString()),i[1].toString(),i[2].toString(),Long.parseLong(i[3].toString()),Long.parseLong(i[4].toString())));
+		}
+		return dataList;
+	}
+	
 	
 	public mst_table getListofMstTables() {
 //		List<String> Mst_table_list = userRepo.findDesignationAndDept();
