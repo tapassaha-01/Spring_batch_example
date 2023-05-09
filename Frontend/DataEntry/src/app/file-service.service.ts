@@ -24,9 +24,12 @@ export class FileServiceService {
   
    }
 
-   download():Observable<Employee[]>{
-
-    return this.http.post<Employee[]>(this.baseApiUrl+'/getData','');
+   download(option:string,value:string):Observable<Employee[]>{
+    const ParamData = new FormData();
+        
+    ParamData.append('option', option);
+    ParamData.append('value',value);
+    return this.http.post<Employee[]>(this.baseApiUrl+'/getData',ParamData);
    }
 
    fetchData(){

@@ -1,11 +1,15 @@
 export class Employee {
    
-    dis_address!:string;
-    resident!:number;
-    salary!:number;
-    constructor(dis_address:string,resident:number,salary:number){
-        this.dis_address=dis_address;
-        this.resident = resident
-        this.salary = salary
+    deptCount!:number;
+    deptName!:String;
+    designation!:String;
+    empCount!:number;
+    totalSalary!:number;
+    constructor(deptcount:number,deptName:String,design:String,empCount:number,totalSalary:number){
+        this.deptCount=deptcount
+        this.deptName=deptName
+        this.designation=design
+        this.empCount = empCount
+        this.totalSalary = totalSalary
     }
 }

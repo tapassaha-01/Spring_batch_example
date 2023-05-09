@@ -3,6 +3,7 @@ import { Component, OnInit } from '@angular/core';
 import { FileServiceService } from '../file-service.service';
 import { Employee } from '../employee';
 import { EChartsOption } from 'echarts';
+import { ActivatedRoute } from '@angular/router';
 // import {  NgxSpinnerService } from 'ngx-spinner';
 
 @Component({
@@ -12,7 +13,7 @@ import { EChartsOption } from 'echarts';
 })
 export class LowerSectionComponent {
   // @Output() empData: Employee
-  EmployeeList!:any
+  EmployeeList!:Employee[]
   isLoading!:boolean;
   data:any;
   DataList:any=[];
@@ -24,6 +25,8 @@ export class LowerSectionComponent {
   colorValue=0
   BarData:any=[]
   weekData:any=[]
+  option!:any;
+  value!:any;
   ngOnInit(){
     // this.isLoading = true;
     // this.service.download().subscribe(res=>{
@@ -31,7 +34,13 @@ export class LowerSectionComponent {
     //   console.log(this.EmployeeList)
     //   this.isLoading=false;
     // })
-    
+    // this.route.queryParams.subscribe(params => {
+    //   const option = params['option'];
+    //   const value = params['value'];
+    //   console.log(option,value);
+    // });
+     this.option = this.route.snapshot.paramMap.get('option');
+    this.value = this.route.snapshot.paramMap.get('value');
     
     
   }
@@ -90,7 +99,7 @@ export class LowerSectionComponent {
   }
 
 
-  constructor(private service:FileServiceService){
+  constructor(private service:FileServiceService,private route: ActivatedRoute){
     
   }
 
@@ -99,7 +108,7 @@ export class LowerSectionComponent {
     this.counter=0
     // this.PieLoading();
     this.isLoading = true;
-    this.service.download().subscribe(res=>{
+    this.service.download(this.option,this.value).subscribe(res=>{
       this.EmployeeList = res;
       // this.empData = res;
       console.log(this.EmployeeList)
@@ -113,14 +122,14 @@ export class LowerSectionComponent {
           'value':0
           
         }
-        this.weekData.push(i.dis_address)
-        this.BarData.push(i.salary/10000)
-        // this.colorGrid = rgba(this.colorGrid, this.colorGrid+1, this.colorGrid, 0.5)'
-        tempObj.value=i.salary;
-        tempObj.name=i.dis_address;
-        this.empData.push(tempObj)
-        this.PieLoading();
-        this.BarLoading();
+        // this.weekData.push(i.dis_address)
+        // this.BarData.push(i.salary/10000)
+        // // this.colorGrid = rgba(this.colorGrid, this.colorGrid+1, this.colorGrid, 0.5)'
+        // tempObj.value=i.salary;
+        // tempObj.name=i.dis_address;
+        // this.empData.push(tempObj)
+        // this.PieLoading();
+        // this.BarLoading();
       }
       console.log(this.empData)
 

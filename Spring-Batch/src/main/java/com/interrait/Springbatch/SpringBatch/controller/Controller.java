@@ -142,9 +142,8 @@ public class Controller {
 //	}
 //	
 	@PostMapping("/getData")
-	public List<EmpAnalysisData> gettableData() {
-		
-		return batchSerice.gettableData();
+	public List<EmpAnalysisData> gettableData(@RequestParam String option,@RequestParam String value) {
+		return batchSerice.gettableData(option,value);
 	}
 	
 	

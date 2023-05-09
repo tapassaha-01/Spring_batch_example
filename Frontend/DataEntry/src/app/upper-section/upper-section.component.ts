@@ -1,6 +1,6 @@
 import { Component, OnInit, Input, Output } from '@angular/core';
 import { FileServiceService } from '../file-service.service';
-import { Router } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { MstTableData } from '../mst-table-data';
 
 @Component({
@@ -37,7 +37,8 @@ option!:any
   massage!:string
 
   onFileSubmit(){  
-    this.router.navigate(['lowerSection']);
+    const data = { name: 'John', age: 30 };
+    this.router.navigate(['lowerSection'],{queryParams:data});
     // console.log(formValue.value.selection,formValue.value.option)
     this.fileService.upload(this.file,this.year).subscribe(res=>{
       console.log(res);

@@ -92,8 +92,14 @@ public class BatchService {
 	
 	
 	
-public List<EmpAnalysisData> gettableData() {
-		List<Object[]> tableList = userRepo.listData("dept_name","IT Service");
+public List<EmpAnalysisData> gettableData(String option,String value) {
+	List<Object[]> tableList = new ArrayList<>();
+	if(option.equals("dept_name")) {
+		tableList = userRepo.listDeptData(value);
+	}
+	else {
+		tableList = userRepo.listDesignData(value);
+	}
 		List<EmpAnalysisData> dataList = new ArrayList<>();
 		for(Object[] i:tableList) {
 			dataList.add( new EmpAnalysisData(Long.parseLong(i[0].toString()),i[1].toString(),i[2].toString(),Long.parseLong(i[3].toString()),Long.parseLong(i[4].toString())));

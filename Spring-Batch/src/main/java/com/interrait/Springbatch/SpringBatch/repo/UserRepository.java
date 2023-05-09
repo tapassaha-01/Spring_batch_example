@@ -1,10 +1,11 @@
-package com.interrait.Springbatch.SpringBatch.repo;
+	package com.interrait.Springbatch.SpringBatch.repo;
 
-import java.sql.ResultSet;
+
 import java.util.List;
 
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
+import org.springframework.data.repository.query.Param;
 
 import com.interrait.Springbatch.SpringBatch.Model.Emp;
 
@@ -22,6 +23,9 @@ public interface UserRepository extends JpaRepository<Emp, Long> {
 	@Query("SELECT e.designation,e.deptName FROM Emp e")
 	public List<String> findDesignationAndDept();
 	
-	@Query(value="select count(dept_id) as Dept_count, dept_name,designation,count(emp_id) as Emp_count,sum(salary) as total_salary from emp_table where dept_name = ?1 group by dept_name,designation,salary ", nativeQuery = true)
-	public List<Object[]> listData(String dept_name,String option);
+	@Query(value="select count(dept_id) as Dept_count, dept_name,designation,count(emp_id) as Emp_count,sum(salary) as total_salary from emp_table where dept_name = :depName group by dept_name,designation,salary ", nativeQuery = true)
+	public List<Object[]> listDeptData(@Param("depName")String depName);
+	
+	@Query(value="select count(dept_id) as Dept_count, dept_name,designation,count(emp_id) as Emp_count,sum(salary) as total_salary from emp_table where designation = :designName group by dept_name,designation,salary ", nativeQuery = true)
+	public List<Object[]> listDesignData(@Param("designName")String designName);
 }
