@@ -13,7 +13,7 @@ import { ActivatedRoute } from '@angular/router';
 })
 export class LowerSectionComponent {
   // @Output() empData: Employee
-  EmployeeList!:Employee[]
+  EmployeeList!:any
   isLoading!:boolean;
   data:any;
   DataList:any=[];
@@ -39,12 +39,25 @@ export class LowerSectionComponent {
     //   const value = params['value'];
     //   console.log(option,value);
     // });
-     this.option = this.route.snapshot.paramMap.get('option');
-    this.value = this.route.snapshot.paramMap.get('value');
-    
+    //  this.option = this.route.snapshot.paramMap.get('option');
+    // this.value = this.route.snapshot.paramMap.get('value');
+    this.getData()
     
   }
   
+getData(){
+  this.route.queryParams.subscribe(params => {
+    const option = params['option'];
+    const selection = params['selection'];
+    // Use the parameter values as needed
+    this.service.download(option,selection).subscribe(res=>{
+      this.EmployeeList=res;
+      console.log(res)
+    })
+    console.log(option,selection)
+  });
+}
+
   BarLoading(){
     this.Baroption = {
       xAxis: {
@@ -122,15 +135,15 @@ export class LowerSectionComponent {
           'value':0
           
         }
-        // this.weekData.push(i.dis_address)
-        // this.BarData.push(i.salary/10000)
-        // // this.colorGrid = rgba(this.colorGrid, this.colorGrid+1, this.colorGrid, 0.5)'
-        // tempObj.value=i.salary;
-        // tempObj.name=i.dis_address;
-        // this.empData.push(tempObj)
-        // this.PieLoading();
-        // this.BarLoading();
-      }
+        this.weekData.push(i.deptName)
+        this.BarData.push(i.salary/10000)
+        // this.colorGrid = rgba(this.colorGrid, this.colorGrid+1, this.colorGrid, 0.5)'
+        tempObj.value=i.salary;
+        tempObj.name=i.deptName;
+        this.empData.push(tempObj)
+       
+      } this.PieLoading();
+        this.BarLoading();
       console.log(this.empData)
 
       // this.data = [

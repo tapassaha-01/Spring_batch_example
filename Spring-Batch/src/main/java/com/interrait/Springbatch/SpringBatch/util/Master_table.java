@@ -19,10 +19,10 @@ public class Master_table {
        put("Human Resource Department",Arrays.asList("Human Resource"));
        put("Finance Department",Arrays.asList("Finance"));
        put("Sales Department",Arrays.asList("Delivery Manager"));
-       put("Research and Development Department",Arrays.asList("Trainee"));
-       put("Security and Transport Department",Arrays.asList("Network engineer"));
-       put("IT Service Department",Arrays.asList("Programmer Analyst","Associate Engineer","Senior Software Engineer","Project Lead","Project Manager"));
-       put("Admin Department",Arrays.asList("Admin"));
+       put("Research and Development",Arrays.asList("Trainee"));
+       put("Security and Transport",Arrays.asList("Network engineer"));
+       put("IT Service",Arrays.asList("Programmer Analyst","Associate Engineer","Senior Software Engineer","Project Lead","Project Manager"));
+       put("Admin",Arrays.asList("Admin"));
 	}});
 	
 }

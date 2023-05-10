@@ -38,7 +38,7 @@ option!:any
 
   onFileSubmit(){  
     const data = { name: 'John', age: 30 };
-    this.router.navigate(['lowerSection'],{queryParams:data});
+    
     // console.log(formValue.value.selection,formValue.value.option)
     this.fileService.upload(this.file,this.year).subscribe(res=>{
       console.log(res);
@@ -65,8 +65,10 @@ option!:any
   }
 
 
-  OnSubmit(fomValue:any){
+  OnSubmit(formValue:any){
+    // console.log(formValue.value)
 
+    this.router.navigate(['lowerSection'],{queryParams:formValue.value});
   }
 
   OnSelected(option:any){

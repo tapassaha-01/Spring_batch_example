@@ -4,7 +4,7 @@
 <input type="button" (click)="OnClick()" value="Generate"> 
    
    
-  <!-- <div class="upper-card" *ngIf="isLoading==false">
+  <div class="upper-card" *ngIf="isLoading==false">
    <mat-card class="mat-card-class-u">
     <div echarts [options]="Pieoption" >
     </div>
@@ -13,7 +13,7 @@
     <div echarts [options]="Baroption" >
     </div>
    </mat-card> 
-  </div> -->
+  </div> 
     <!-- <app-pie-chart [empData]="EmployeeList"></app-pie-chart> -->
     <!-- <ngx-charts-pie-chart [results]="data" [scheme]="colorScheme" >
       <ng-template #tooltipTemplate let-model="model">
@@ -25,23 +25,27 @@
     </ngx-charts-pie-chart> -->
   
 
-    <!-- <div class="parent" *ngIf="isLoading==false">
+    <div class="parent" *ngIf="isLoading==false">
     
     <div class="dev">
         <table class="table table-bordered" >
             <thead>
               <tr>
                 
-                <th>City</th>
-                <th>Reside In</th>
-                <th>Total Income</th>
+                <th>DeptCount</th>
+                <th>DeptName</th>
+                <th>Designation</th>
+                <th>EmployeeCount</th>
+                <th>Total Salary</th>
               </tr>
             </thead>
             <tbody *ngFor="let emp of EmployeeList">
               <tr>
-                <td>{{emp.dis_address}}</td>
-                <td>{{emp.resident}}</td>
-                <td>{{emp.salary}}</td>
+                <td>{{emp.deptCount}}</td>
+                <td>{{emp.deptName}}</td>
+                <td>{{emp.designation}}</td>
+                <td>{{emp.empCount}}</td>
+                <td>{{emp.totalSalary}}</td>
               </tr>
             </tbody>
           </table>
@@ -57,7 +61,7 @@
       <p *ngFor="let data of DataList.slice(counter,counter+10)">{{data}}</p>
     </div>
    
-   </div> -->
+   </div> 
 
 
   
