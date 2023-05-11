@@ -16,6 +16,8 @@ import org.springframework.web.multipart.MultipartFile;
 //import com.interrait.Springbatch.SpringBatch.Batch.RowMapperImp;
 import com.interrait.Springbatch.SpringBatch.Model.EmpDto;
 import com.interrait.Springbatch.SpringBatch.Model.mst_table;
+import com.interrait.Springbatch.SpringBatch.Model.sortByDepData;
+import com.interrait.Springbatch.SpringBatch.Model.sortByDesignData;
 import com.interrait.Springbatch.SpringBatch.Batch.MstWriter;
 import com.interrait.Springbatch.SpringBatch.Model.Dept_Mst;
 import com.interrait.Springbatch.SpringBatch.Model.Designation_Mst;
@@ -92,21 +94,26 @@ public class BatchService {
 	
 	
 	
-public List<EmpAnalysisData> gettableData(String value,String option) {
+public List<EmpAnalysisData> gettableData(String option) {
 	List<Object[]> tableList = new ArrayList<>();
-	
+	List<EmpAnalysisData> dataList = new ArrayList<>();
+	EmpAnalysisData empData = new EmpAnalysisData();
 	if(option.equals("Department")) {
 		
-		tableList = userRepo.listDeptData(value);
-	}
-	else {if(value.equals("Trainee")) {value="Trainee ";}
-		tableList = userRepo.listDesignData(value);
-	}System.out.println(value+option);
-		List<EmpAnalysisData> dataList = new ArrayList<>();
+		tableList = userRepo.listDeptData();
 		for(Object[] i:tableList) {
-			
-			dataList.add( new EmpAnalysisData(Long.parseLong(i[0].toString()),i[1].toString(),i[2].toString(),Long.parseLong(i[3].toString()),Long.parseLong(i[4].toString())));
+			dataList.add(empData.createDepData(i[0].toString(),Long.parseLong(i[1].toString()),Long.parseLong(i[2].toString()),Long.parseLong(i[3].toString())));
 		}
+	}
+	else {
+//		if(value.equals("Trainee")) {value="Trainee ";}
+		tableList = userRepo.listDesignData();
+		for(Object[] i:tableList) {
+			dataList.add(empData.createDesignData(i[0].toString(),i[1].toString(),Long.parseLong(i[2].toString()),Long.parseLong(i[3].toString())));
+		}
+		
+	}
+//	System.out.println(value+option);
 		System.out.println(dataList);
 		return dataList;
 	}

@@ -5,7 +5,7 @@ import { HomeComponent } from './home/home.component';
 import { UploadDataComponent } from './upload-data/upload-data.component';
 import { UpperSectionComponent } from './upper-section/upper-section.component';
 import { LowerSectionComponent } from './lower-section/lower-section.component';
-import { FormsModule } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import {HttpClientModule} from '@angular/common/http';
 import { HeaderComponent } from './header/header.component';
 import { FooterComponent } from './footer/footer.component';
@@ -31,6 +31,7 @@ import { MatFormFieldModule } from '@angular/material/form-field';
     FormsModule,
     MatCardModule,
     MatCheckboxModule,
+    ReactiveFormsModule,
     MatSelectModule,
     MatFormFieldModule,
     NgxEchartsModule.forRoot({

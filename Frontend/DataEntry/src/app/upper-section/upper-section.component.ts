@@ -1,7 +1,9 @@
 import { Component, OnInit, Input, Output } from '@angular/core';
 import { FileServiceService } from '../file-service.service';
-import { ActivatedRoute, Router } from '@angular/router';
+import { ActivatedRoute, Data, Router } from '@angular/router';
 import { MstTableData } from '../mst-table-data';
+import { DataService } from '../data.service';
+import { FormBuilder, FormGroup } from '@angular/forms';
 
 @Component({
   selector: 'app-upper-section',
@@ -16,17 +18,30 @@ export class UpperSectionComponent implements OnInit{
 //  currenctYear = (new Date()).getFullYear
 OptionList:string[]=[]
 mstTable!:any;
-
+selectionForm:FormGroup;
 
 option!:any
   YearList=[2011,2012,2013,2014,2015,2016,2017,2018,2019,2020,2021,2022,2023]
- constructor(private fileService:FileServiceService,private router:Router ){
- 
+ constructor(private fileService:FileServiceService,private router:Router,private dataService:DataService,private fromBuilder:FormBuilder  ){
+      this.selectionForm=this.fromBuilder.group({
+        firstName: [''],
+        lastName: [''],
+        address: this.fb.group({
+          street: [''],
+          city: [''],
+          state: [''],
+          zip: ['']
+        }),
+      });
  }
 
   ngOnInit(): void {
     // throw new Error('Method not implemented.');
-   
+    this.fileService.getMstTable().subscribe(res=>{
+      this.mstTable = res;
+      
+      console.log(this.mstTable,this.OptionList)
+    });
   }
   selectedOption!:true
   isDept:boolean=false
@@ -44,11 +59,7 @@ option!:any
       console.log(res);
       this.massage="Completed!!"
       this.isComplete=true
-      this.fileService.getMstTable().subscribe(res=>{
-        this.mstTable = res;
-        
-        console.log(this.mstTable,this.OptionList)
-      });
+      
       // for(let i of this.OptionList)
       // {
       //   i.
@@ -65,11 +76,12 @@ option!:any
   }
 
 
-  OnSubmit(formValue:any){
-    // console.log(formValue.value)
-
-    this.router.navigate(['lowerSection'],{queryParams:formValue.value});
-  }
+  // OnSubmit(){
+  //   console.log(inputForm.value)
+  //   this.dataService.option = formValue.value.option
+  //   this.dataService.selection = formValue.value.selection
+  //   this.router.navigate(['lowerSection']);
+  // }
 
   OnSelected(option:any){
     this.option = option.target.value

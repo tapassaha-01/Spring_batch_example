@@ -46,21 +46,21 @@
 <div><input type="file" #file (change)="OnUpload($event)">
 <input type="submit" (click)="onFileSubmit()">
 </div>
-<form class="file-control" #inputForm="ngForm" (ngSubmit)="OnSubmit(inputForm)">
+<form class="file-control" [formGroup]="selectionForm">
    <!-- <input type="file" name="file" (change)="OnUpload($event)" required> -->
    <div class="option" >
-       <input type="radio" id="1" value="Designation" name="selection" (change)="OnSelected($event)" ngModel required> 
+       <input type="radio" id="1" formControlName="Designation" name="selection" (change)="OnSelected($event)" ngModel required> 
        <label for="form">Designation</label>
-      <input type="radio" id="2" value="Department" name="selection" (change)="OnSelected($event)" ngModel required> 
+      <input type="radio" id="2" formControlName="Department" name="selection" (change)="OnSelected($event)" ngModel required> 
       <label for="form">Department</label>
    </div><br>
    <div class="dropDown">
-      <select name="option" ngModel required>
+      <select formControlName="selection" ngModel required>
          <option value="">--Select Option--</option>
-         <option *ngFor="let option of OptionList" value="{{option}}">{{option}}</option>
+         <option *ngFor="let option of OptionList" [value]="option">{{option}}</option>
       </select>
    </div>
-   <input type="submit" >
+   <!-- <input type="submit" > -->
 
    <!-- <div><input type="button" value="inport" (click)="Onimport()"></div> -->
    <div><span *ngIf="isComplete">{{massage}}</span></div>

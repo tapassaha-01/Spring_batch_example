@@ -31,9 +31,8 @@
         <table class="table table-bordered" >
             <thead>
               <tr>
-                
-                <th>DeptCount</th>
                 <th>DeptName</th>
+                <th>TotalDesignation</th>
                 <th>Designation</th>
                 <th>EmployeeCount</th>
                 <th>Total Salary</th>
@@ -41,8 +40,8 @@
             </thead>
             <tbody *ngFor="let emp of EmployeeList">
               <tr>
-                <td>{{emp.deptCount}}</td>
                 <td>{{emp.deptName}}</td>
+                <td>{{emp.totalDesignation}}</td>
                 <td>{{emp.designation}}</td>
                 <td>{{emp.empCount}}</td>
                 <td>{{emp.totalSalary}}</td>
