@@ -1,9 +1,9 @@
-import { Component, OnInit, Input, Output } from '@angular/core';
+import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
 import { FileServiceService } from '../file-service.service';
 import { ActivatedRoute, Data, Router } from '@angular/router';
 import { MstTableData } from '../mst-table-data';
 import { DataService } from '../data.service';
-import { FormBuilder, FormGroup } from '@angular/forms';
+import { FormBuilder, FormControl, FormGroup } from '@angular/forms';
 
 @Component({
   selector: 'app-upper-section',
@@ -19,29 +19,29 @@ export class UpperSectionComponent implements OnInit{
 OptionList:string[]=[]
 mstTable!:any;
 selectionForm:FormGroup;
-
+@Output() formData = new EventEmitter<FormGroup>();
 option!:any
   YearList=[2011,2012,2013,2014,2015,2016,2017,2018,2019,2020,2021,2022,2023]
  constructor(private fileService:FileServiceService,private router:Router,private dataService:DataService,private fromBuilder:FormBuilder  ){
       this.selectionForm=this.fromBuilder.group({
-        firstName: [''],
-        lastName: [''],
-        address: this.fb.group({
-          street: [''],
-          city: [''],
-          state: [''],
-          zip: ['']
-        }),
+        selection: new FormControl(['']),
+        selectedOp: new FormControl(['']),
       });
+      
  }
 
   ngOnInit(): void {
-    // throw new Error('Method not implemented.');
+    // this is for loading the master table for the first time
     this.fileService.getMstTable().subscribe(res=>{
       this.mstTable = res;
-      
+      // this.OptionList=this.mstTable.design_list
       console.log(this.mstTable,this.OptionList)
     });
+    this.selectionForm.valueChanges.subscribe(res=>{
+     
+      // console.log(res)
+    })
+    this.OnSelected();
   }
   selectedOption!:true
   isDept:boolean=false
@@ -52,7 +52,6 @@ option!:any
   massage!:string
 
   onFileSubmit(){  
-    const data = { name: 'John', age: 30 };
     
     // console.log(formValue.value.selection,formValue.value.option)
     this.fileService.upload(this.file,this.year).subscribe(res=>{
@@ -76,27 +75,48 @@ option!:any
   }
 
 
-  // OnSubmit(){
-  //   console.log(inputForm.value)
-  //   this.dataService.option = formValue.value.option
-  //   this.dataService.selection = formValue.value.selection
-  //   this.router.navigate(['lowerSection']);
-  // }
-
-  OnSelected(option:any){
-    this.option = option.target.value
-    if(this.option=='Department'){
-      this.OptionList = this.mstTable.dept_list;
-      
-    }
-    else{
-      this.OptionList = this.mstTable.design_list;
-    }
+  OnSubmit(){
+    // console.log(inputForm.value)
+    // this.dataService.option = formValue.value.option
+    // this.dataService.selection = formValue.value.selection
+    // this.router.navigate(['lowerSection']);
   }
+
+  OnSelected(){
+    // this.option = option.target.value
+    // if(this.option=='Department'){
+    //   this.OptionList = this.mstTable.dept_list;
+    // }
+    // else if(this.option=='Designation'){
+    //   this.OptionList = this.mstTable.design_list;
+    // }
+  
+
+  this.selectionForm.valueChanges.subscribe(value => {
+    if (value.selection === 'Department') {
+      console.log(value.selection)
+      this.OptionList = this.mstTable.dept_list;
+      // this.selectionForm.setValue();
+      
+    } else if (value.selection === 'Designation') {
+      console.log(value.selection)
+      this.OptionList = this.mstTable.design_list;
+      // this.selectionForm.setValue({selection: this.selectionForm.value.selection,
+      //   selectedOp: ['']});
+      
+    } 
+    if(this.selectionForm.value.selectedOp!='' && this.selectionForm.value.selection!='')
+    {
+      this.formData.emit(this.selectionForm)
+    }
+    // console.log(value)
+    
+  })
+}
+
   Onimport(){
     this.fileService.getMstTable().subscribe(res=>{
       this.mstTable = res;
-      
       console.log(this.mstTable)
     });
   }
