@@ -49,18 +49,18 @@
 <form class="file-control" [formGroup]="selectionForm">
    <!-- <input type="file" name="file" (change)="OnUpload($event)" required> -->
    <div class="option" >
-       <input type="radio" id="1" formControlName="selection" value="Designation" > 
+       <input type="radio" id="1" formControlName="selection" value="Designation" required> 
        <label for="form">Designation</label>
-      <input type="radio" id="2" formControlName="selection" value="Department" > 
+      <input type="radio" id="2" formControlName="selection" value="Department" required> 
       <label for="form">Department</label>
    </div><br>
    <div class="dropDown">
-      <select formControlName="selectedOp" >
+      <select formControlName="selectedOp" required>
          <option value="">--Select Option--</option>
          <option *ngFor="let option of OptionList" [value]="option">{{option}}</option>
       </select>
    </div>
-   <!-- <input type="submit" (click)="OnSubmit()"> -->
+   <!-- <input type="submit" (click)="OnSelected()"> -->
 
    <!-- <div><input type="button" value="inport" (click)="Onimport()"></div> -->
    <div><span *ngIf="isComplete">{{massage}}</span></div>

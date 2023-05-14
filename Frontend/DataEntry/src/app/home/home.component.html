@@ -4,16 +4,17 @@
 
 <div >
     <div class="upper">
-        <app-upper-section (formData)="selectedOption($event)"></app-upper-section>
+        <app-upper-section (formData)="selectedOption($event)" (isActive)="isNull" ></app-upper-section>
 
     </div>
-    <div class="lower">
+    <!-- <input type="button" value="submit" (click)="OnSubmit()"> -->
+    <div class="lower" >
         
             <!-- <mat-spinner></mat-spinner> -->
       
         
         <!-- <router-outlet style="width:inherit"></router-outlet> -->
-       <app-lower-section style="width:inherit;" [formValue]="selectionForm"></app-lower-section> 
+       <app-lower-section style="width:inherit;"  [formValue]="selectionForm" ></app-lower-section> 
 
     </div>
 </div>

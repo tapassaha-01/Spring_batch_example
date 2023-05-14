@@ -6,10 +6,10 @@ import { UpperSectionComponent } from './upper-section/upper-section.component';
 import { LowerSectionComponent } from './lower-section/lower-section.component';
 
 const routes: Routes = [
-//  {
-//   path:'',
-//   component:HomeComponent
-//  },
+ {
+  path:'',
+  component:HomeComponent
+ },
  {
   path:'uploadData',
   component:UploadDataComponent

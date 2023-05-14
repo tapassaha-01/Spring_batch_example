@@ -1,21 +1,20 @@
 <div *ngIf="isLoading" class="Gif">
-    <img src=".\assets\YCZH.gif" alt="gif">
-   </div>
-<input type="button" (click)="OnClick()" value="Generate"> 
-   
-   
-  <div class="upper-card" *ngIf="isLoading==false">
-   <mat-card class="mat-card-class-u">
-    <div echarts [options]="Pieoption" >
-    </div>
-   </mat-card>
-   <mat-card class="mat-card-class-l">
-    <div echarts [options]="Baroption" >
-    </div>
-   </mat-card> 
-  </div> 
-    <!-- <app-pie-chart [empData]="EmployeeList"></app-pie-chart> -->
-    <!-- <ngx-charts-pie-chart [results]="data" [scheme]="colorScheme" >
+  <img src=".\assets\YCZH.gif" alt="gif" />
+</div>
+<input type="button" (click)="OnClick()" value="Generate" [disabled]="!isNull"/>
+<!-- <div class="error">
+  <h5 class="text-danger">{{errorMassage}}</h5>
+</div> -->
+<div class="upper-card" *ngIf="isLoading == false">
+  <mat-card class="mat-card-class-u">
+    <div echarts [options]="Pieoption"></div>
+  </mat-card>
+  <mat-card class="mat-card-class-l">
+    <div echarts [options]="Baroption"></div>
+  </mat-card>
+</div>
+<!-- <app-pie-chart [empData]="EmployeeList"></app-pie-chart> -->
+<!-- <ngx-charts-pie-chart [results]="data" [scheme]="colorScheme" >
       <ng-template #tooltipTemplate let-model="model">
         <h1>
           {{model.name}}
@@ -23,44 +22,42 @@
         <h2>{{model.value}}%</h2>
       </ng-template>
     </ngx-charts-pie-chart> -->
-  
 
-    <div class="parent" *ngIf="isLoading==false">
-    
-    <div class="dev">
-        <table class="table table-bordered" >
-            <thead>
-              <tr>
-                <th>DeptName</th>
-                <th>TotalDesignation</th>
-                <th>Designation</th>
-                <th>EmployeeCount</th>
-                <th>Total Salary</th>
-              </tr>
-            </thead>
-            <tbody *ngFor="let emp of EmployeeList">
-              <tr>
-                <td>{{emp.deptName}}</td>
-                <td>{{emp.totalDesignation}}</td>
-                <td>{{emp.designation}}</td>
-                <td>{{emp.empCount}}</td>
-                <td>{{emp.totalSalary}}</td>
-              </tr>
-            </tbody>
-          </table>
-         </div>
-<br>
-     <button (click)="GetLog()">Get-Log</button><br>
-     <div class="paging">
-      <button  id="Prev" style="margin-right: 5px;" (click)="Prev()">Prev</button>
-     <button id="Next" (click)="Next()">Next</button>
+<div class="parent" *ngIf="isLoading == false">
+  <div class="dev">
+    <table class="table table-bordered">
+      <thead>
+        <tr>
+          <th>DeptName</th>
+          <!-- <th>TotalDesignation</th> -->
+          <th>{{ EmployeeList[0].totalDesignation!=0?'Total-Designation':'Designation' }}</th>
+          <th>EmployeeCount</th>
+          <th>Total Salary</th>
+        </tr>
+      </thead>
+      <tbody *ngFor="let emp of EmployeeList" >
+        <tr >
+          <td>{{ emp.deptName }}</td>
+          <td >{{ emp.totalDesignation!=0?emp.totalDesignation:emp.designation }}</td>
+          <!-- <td>{{ emp.designation }}</td> -->
+          <td>{{ emp.empCount }}</td>
+          <td>{{ emp.totalSalary }}</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+  <br />
+  <button (click)="GetLog()">Get-Log</button><br />
+
+  <!-- <div class="logData" > -->
+    <div class="log-data" *ngIf="isLog">
+      <p *ngFor="let data of DataList.slice(counter, counter + 10)">
+        {{ data }}
+      </p>
     </div>
-     
-    <div class="log-data">
-      <p *ngFor="let data of DataList.slice(counter,counter+10)">{{data}}</p>
+    <div class="paging" *ngIf="isLog">
+      <button id="Prev" style="margin-right: 5px" (click)="Prev()">Prev</button>
+      <button id="Next" (click)="Next()">Next</button>
     </div>
-   
-   </div> 
-
-
-  
+  </div>
+<!-- </div> -->

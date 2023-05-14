@@ -105,13 +105,16 @@ public List<EmpAnalysisData> gettableData(String option) {
 			dataList.add(empData.createDepData(i[0].toString(),Long.parseLong(i[1].toString()),Long.parseLong(i[2].toString()),Long.parseLong(i[3].toString())));
 		}
 	}
-	else {
+	else if(option.equals("Designation")){
 //		if(value.equals("Trainee")) {value="Trainee ";}
 		tableList = userRepo.listDesignData();
 		for(Object[] i:tableList) {
 			dataList.add(empData.createDesignData(i[0].toString(),i[1].toString(),Long.parseLong(i[2].toString()),Long.parseLong(i[3].toString())));
 		}
 		
+	}
+	else {
+		return null;
 	}
 //	System.out.println(value+option);
 		System.out.println(dataList);
