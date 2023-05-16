@@ -9,3 +9,8 @@
 .option label{
     padding:5px;
 }
+.Gif{
+    display: flex;
+    height: 50px;
+    width: 10px;
+}

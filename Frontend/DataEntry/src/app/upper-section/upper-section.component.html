@@ -44,8 +44,12 @@
 </div> -->
 
 <div><input type="file" #file (change)="OnUpload($event)">
-<input type="submit" (click)="onFileSubmit()">
+<input type="submit" (click)="onFileSubmit()"> 
+
 </div>
+<div *ngIf="isLoading" class="Gif">
+   <img src=".\assets\Spinner-0.8s-201px.gif" alt="gif" />
+ </div>
 <form class="file-control" [formGroup]="selectionForm">
    <!-- <input type="file" name="file" (change)="OnUpload($event)" required> -->
    <div class="option" >

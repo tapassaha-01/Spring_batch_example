@@ -20,6 +20,7 @@ OptionList:string[]=[]
 mstTable!:any;
 selectionForm:FormGroup;
 isNull!:boolean
+isLoading!:boolean
 @Output() formData = new EventEmitter<FormGroup>();
 @Output() isActive = new EventEmitter<boolean>();
 option!:any
@@ -54,11 +55,12 @@ option!:any
   massage!:string
 
   onFileSubmit(){  
-    
+    this.isLoading=true
     this.fileService.upload(this.file,this.year).subscribe(res=>{
       console.log(res);
       this.massage="Completed!!"
       this.isComplete=true
+      this.isLoading=false
     })
     
     console.log(this.file,this.year);

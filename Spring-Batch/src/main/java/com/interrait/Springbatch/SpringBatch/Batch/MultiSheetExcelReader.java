@@ -44,7 +44,7 @@ public class MultiSheetExcelReader implements ItemReader<EmpDto> {
 			{
 				Row currentRow = sheet.getRow(rowIndex);
 //				System.out.println(rowIndex);
-				System.out.println(currentRow.toString());
+//				System.out.println(currentRow.toString());
 //				java.util.Date utilDate = currentRow.getCell(4).getDateCellValue();
 //		         java.sql.Date sqlDate = new java.sql.Date(utilDate.getTime());
 		         if(currentRow.getCell(0)!=null) {
@@ -52,20 +52,22 @@ public class MultiSheetExcelReader implements ItemReader<EmpDto> {
 		         rowIndex++;}
 		         else {
 		        	 emp=null;
-		         }
-		        		 
-		    	 return emp;
-			}
+		         }}
+		         
 			
-			else {
+			
+			
 				workbook.close();
-			return null;
-			}
+				return emp;
 			
+            }
+            }}
+            
 			
             
-	}
-            }
+	
+			
+            
 
 //
 //	private Emp readNextSheetData(Sheet currentSheet) {
@@ -85,6 +87,6 @@ public class MultiSheetExcelReader implements ItemReader<EmpDto> {
 //            sheetData.add(object);
 //        }
 //		return sheetData;
-//	}
+	
 
-}
+
