@@ -22,7 +22,7 @@ public class MultiSheetExcelReader implements ItemReader<EmpDto> {
 	private final MultipartFile file;
     private final String sheetName;
     private int rowIndex;
-
+    private EmpDto emp;
    
     
 
@@ -37,23 +37,31 @@ public class MultiSheetExcelReader implements ItemReader<EmpDto> {
 	public EmpDto read() throws Exception, UnexpectedInputException, ParseException, NonTransientResourceException {
 
             FileInputStream fis = (FileInputStream) file.getInputStream();
-            try (Workbook workbook = new XSSFWorkbook(fis)) {
+            try (Workbook workbook = WorkbookFactory.create(fis)) {
             	Sheet sheet = workbook.getSheet(sheetName);
 //            	System.out.println(sheet.getLastRowNum());
-			if(rowIndex<=sheet.getLastRowNum()-1) 
+			if(rowIndex<=sheet.getLastRowNum()) 
 			{
 				Row currentRow = sheet.getRow(rowIndex);
 //				System.out.println(rowIndex);
-				rowIndex++;
-				java.util.Date utilDate = currentRow.getCell(4).getDateCellValue();
-		         java.sql.Date sqlDate = new java.sql.Date(utilDate.getTime());
-//		         System.out.println(row.getCell(0).getStringCellValue()+ row.getCell(1).getStringCellValue()+row.getCell(2).getStringCellValue()+row.getCell(3).getStringCellValue()+LocalDateTime.now()+row.getCell(5).getStringCellValue()+row.getCell(6).getStringCellValue());
-		    	 return new EmpDto(currentRow.getCell(0).getStringCellValue(), currentRow.getCell(1).getStringCellValue(),currentRow.getCell(2).getStringCellValue(),currentRow.getCell(3).getStringCellValue(),sqlDate,currentRow.getCell(5).getStringCellValue(),currentRow.getCell(6).getStringCellValue());
+				System.out.println(currentRow.toString());
+//				java.util.Date utilDate = currentRow.getCell(4).getDateCellValue();
+//		         java.sql.Date sqlDate = new java.sql.Date(utilDate.getTime());
+		         if(currentRow.getCell(0)!=null) {
+		         emp = new EmpDto(currentRow.getCell(0).getStringCellValue(), currentRow.getCell(1).getStringCellValue(),currentRow.getCell(2).getStringCellValue(),currentRow.getCell(3).getStringCellValue(),new java.sql.Date(currentRow.getCell(4).getDateCellValue().getTime()),currentRow.getCell(5).getStringCellValue(),currentRow.getCell(6).getStringCellValue());
+		         rowIndex++;}
+		         else {
+		        	 emp=null;
+		         }
+		        		 
+		    	 return emp;
 			}
-
 			
+			else {
 				workbook.close();
 			return null;
+			}
+			
 			
             
 	}
