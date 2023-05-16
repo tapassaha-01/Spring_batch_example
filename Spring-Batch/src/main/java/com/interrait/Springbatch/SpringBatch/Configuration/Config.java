@@ -1,7 +1,9 @@
 package com.interrait.Springbatch.SpringBatch.Configuration;
 
+import org.apache.poi.ss.usermodel.Row;
 import org.springframework.batch.core.Job;
 import org.springframework.batch.core.Step;
+import org.springframework.batch.item.ItemReader;
 import org.springframework.batch.core.configuration.annotation.EnableBatchProcessing;
 import org.springframework.batch.core.configuration.annotation.JobBuilderFactory;
 import org.springframework.batch.core.configuration.annotation.StepBuilderFactory;
@@ -45,7 +47,7 @@ public class Config {
 	private DBWriter dbWriter;
 
 
-	public Job ReaderJob(ItemStreamReader<EmpDto> reader) {
+	public Job ReaderJob(ItemReader<EmpDto> reader) {
 		System.out.println("Inside job");
 		return jobBuilder.get("XLXS-CONVERTOR")
 				.incrementer(new RunIdIncrementer())
@@ -54,10 +56,10 @@ public class Config {
 	}
 	
 
-	private Step readerStep(ItemStreamReader<EmpDto> reader) {
+	private Step readerStep(ItemReader<EmpDto> reader) {
 		
 		Step step = stepBuilder.get("XLXS-STEP")
-				.<EmpDto,Emp> chunk(50)
+				.<EmpDto, Emp> chunk(50)
 				.reader(reader)
 				.processor(new Processor())
 				.writer(dbWriter)

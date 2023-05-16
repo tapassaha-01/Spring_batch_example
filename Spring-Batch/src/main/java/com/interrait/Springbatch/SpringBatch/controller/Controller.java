@@ -39,6 +39,7 @@ import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.multipart.MultipartFile;
 
 import com.interrait.Springbatch.SpringBatch.SpringBatchApplication;
+import com.interrait.Springbatch.SpringBatch.Batch.MultiSheetExcelReader;
 import com.interrait.Springbatch.SpringBatch.Configuration.Config;
 import com.interrait.Springbatch.SpringBatch.Model.Dept_Mst;
 import com.interrait.Springbatch.SpringBatch.Model.Designation_Mst;
@@ -55,6 +56,10 @@ import com.interrait.Springbatch.SpringBatch.service.BatchService;
 public class Controller {
 	
 	Logger logger =LoggerFactory.getLogger(Controller.class);
+	
+	private static final String[] SHEETNAME = {"Sheet1","Sheet2","Sheet3"};
+	
+	private static int flag=0;
 	
 	@Autowired
 	private Config configuration;
@@ -73,6 +78,9 @@ public class Controller {
 	
 	@Autowired
 	private Designation_Mst_Repo designRepo;
+	
+//	@Autowired
+//	private MultiSheetExcelReader multiReader;
 	
 	@PostMapping("/uploadMSt")
 	public Dept_Mst uploadMst(@RequestBody Dept_Mst dept){
@@ -96,8 +104,8 @@ public class Controller {
 	
 	
 	@PostMapping("/upload")
-    public BatchStatus load(@RequestParam("file") MultipartFile file){
-
+    public BatchStatus load(@RequestParam("file") MultipartFile file,@RequestParam("sheetName") String sheetName){
+//		MultiSheetExcelReader multiReader = new MultiSheetExcelReader(file,"Sheet1");
 		if(file.getContentType().equals("application/vnd.openxmlformats-officedocument.spreadsheetml.sheet")) {
 			logger.info("File reached to the controller successfully!! "+file.getOriginalFilename()); 
 			
@@ -107,14 +115,20 @@ public class Controller {
        JobParameters parameters = new JobParameters(maps);
        JobExecution jobExecution = new JobExecution(1L);
 	try {
-		jobExecution = jobLauncher.run(configuration.ReaderJob(batchSerice.reader(file)), parameters);
+//		jobExecution = jobLauncher.run(configuration.ReaderJob(multiReader.read()), parameters);
+		jobExecution = jobLauncher.run(configuration.ReaderJob(batchSerice.reader(file,sheetName)), parameters);
 		 logger.info("JobExecution: " + jobExecution.getStatus());
 
 	      logger.info("Batch is Running...");
 	       while (jobExecution.isRunning()) {
 	           logger.info("...");
 	       }
-	       batchSerice.getListofMstTables();
+	       if(flag==0) {
+	    	   batchSerice.getListofMstTables();
+//	    	   flag=1;
+	    	   flag+=1;
+	       }
+	       
 			
 	     
 	} catch (JobExecutionAlreadyRunningException | JobRestartException | JobInstanceAlreadyCompleteException
@@ -129,17 +143,8 @@ public class Controller {
       
     }
 	
-//	@PostMapping("/getall")
-//	public List<EmployeeEntity> getAllData() {
-//		List<EmployeeEntity> empList = batchSerice.getAllData();
-//	
-//		return empList;
-//	}
-//	
-//	@PostMapping("/getData")
-//	public List<EmployeeDetails> getCalculatedData() throws SQLException{
-//		return batchSerice.getEmpDetails();
-//	}
+
+
 //	
 	@PostMapping("/getData")
 	public List<EmpAnalysisData> gettableData(@RequestParam String option,@RequestParam String value) {
@@ -149,7 +154,7 @@ public class Controller {
 	
 	@GetMapping("/readLog")
 	public List<String> readLogFile() throws IOException{
-		FileReader fileReader = new FileReader("E:\\Spring_batch\\DataSource\\log_files\\spring.log");
+		FileReader fileReader = new FileReader("D:\\Spring_batch\\DataSource\\log_files\\spring.log");
 		Scanner sc = new Scanner(fileReader);
 		List<String> lines = new ArrayList<String>();
 		while(sc.hasNext()) {

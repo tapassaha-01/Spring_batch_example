@@ -22,6 +22,7 @@ public class Dept_Mst {
 	@Column
 	private String department;
 	
+	
 	@OneToMany(mappedBy = "dept")
 	private List<Designation_Mst> designation;
 	

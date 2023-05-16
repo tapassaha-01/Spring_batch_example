@@ -90,10 +90,9 @@ public class EmpDto {
 				+ empName + ", doj=" + doj + ", status=" + status + ", designation=" + designation + "]";
 	}
 
-	public EmpDto(Long id, String deptId, String deptName, String empId, String empName, Date doj, String status,
+	public EmpDto( String deptId, String deptName, String empId, String empName, Date doj, String status,
 			String designation) {
 		super();
-		this.id = id;
 		this.deptId = deptId;
 		this.deptName = deptName;
 		this.empId = empId;

@@ -27,8 +27,11 @@ public class DBWriter implements ItemWriter<Emp> {
 
     @Override
     public void write(List<? extends Emp> Emp) throws Exception{
+//    	System.out.println(Emp.get(0));
+    	
         logger.info("Data Saved for Users: " + Emp);
-        userRepository.saveAll(Emp);
         
+        userRepository.saveAll(Emp);
+    	
     }
 }

@@ -1,9 +1,5 @@
 package com.interrait.Springbatch.SpringBatch.Model;
 
-
-
-
-
 import java.sql.Date;
 
 import javax.persistence.Column;
@@ -99,14 +95,14 @@ public class Emp {
 	public Emp() {
 		super();
 	}
-	public Emp(String deptId, String deptName, String empId, String empName, Date doj, String status,
+	public Emp(String deptId, String deptName, String empId, String empName, Date date, String status,
 			String designation, Long salary) {
 		super();
 		this.deptId = deptId;
 		this.deptName = deptName;
 		this.empId = empId;
 		this.empName = empName;
-		this.doj = doj;
+		this.doj = date;
 		this.status = status;
 		this.designation = designation;
 		this.salary = salary;

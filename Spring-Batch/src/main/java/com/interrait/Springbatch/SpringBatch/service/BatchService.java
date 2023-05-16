@@ -1,10 +1,14 @@
 package com.interrait.Springbatch.SpringBatch.service;
 
+import org.apache.poi.ss.usermodel.Row;
+import org.apache.poi.ss.usermodel.Sheet;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.batch.extensions.excel.RowMapper;
+
 import org.springframework.batch.extensions.excel.mapping.BeanWrapperRowMapper;
 import org.springframework.batch.extensions.excel.poi.PoiItemReader;
+import org.springframework.batch.item.ItemReader;
 import org.springframework.batch.item.ItemStreamReader;
 //import org.springframework.context.annotation.Bean;
 //import org.springframework.core.io.ClassPathResource;
@@ -19,6 +23,7 @@ import com.interrait.Springbatch.SpringBatch.Model.mst_table;
 import com.interrait.Springbatch.SpringBatch.Model.sortByDepData;
 import com.interrait.Springbatch.SpringBatch.Model.sortByDesignData;
 import com.interrait.Springbatch.SpringBatch.Batch.MstWriter;
+import com.interrait.Springbatch.SpringBatch.Batch.MultiSheetExcelReader;
 import com.interrait.Springbatch.SpringBatch.Model.Dept_Mst;
 import com.interrait.Springbatch.SpringBatch.Model.Designation_Mst;
 import com.interrait.Springbatch.SpringBatch.Model.Emp;
@@ -53,16 +58,21 @@ public class BatchService {
 	private MstWriter mstWriter;
 	
 	
-	public ItemStreamReader<EmpDto> reader(MultipartFile file){
-		PoiItemReader<EmpDto> reader = new PoiItemReader<>();
-		reader.setName("Xcel-Reader");
-		reader.setResource( file.getResource());
-		logger.info("Inside Mapper");
-		reader.setRowMapper(excelRowMapperImp());
-		reader.setLinesToSkip(1);
-		return reader;
-	}
 	
+//	public ItemStreamReader<EmpDto> reader(MultipartFile file){
+//		PoiItemReader<EmpDto> reader = new PoiItemReader<>();
+//		reader.setName("Xcel-Reader");
+//		reader.setResource( file.getResource());
+//		logger.info("Inside Mapper");
+//		reader.setRowMapper(excelRowMapperImp());
+//		reader.setLinesToSkip(1);
+//		return reader;
+//	}
+	
+	public ItemReader<EmpDto> reader(MultipartFile file,String sheetName){
+		
+		return new MultiSheetExcelReader(file,sheetName);
+	}
 
 	private RowMapper<EmpDto> excelRowMapperImp() {
 		
@@ -123,6 +133,7 @@ public List<EmpAnalysisData> gettableData(String option) {
 	
 	
 	public mst_table getListofMstTables() {
+		
 //		List<String> Mst_table_list = userRepo.findDesignationAndDept();
 //		List<Dept_Mst> dept_list = new ArrayList<Dept_Mst>();
 		List<String> dept_list = new ArrayList<>();
