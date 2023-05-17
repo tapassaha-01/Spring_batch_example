@@ -1,5 +1,5 @@
 .file-control{
-    padding-top: 20px;
+    padding-top:10px;
     display: flex;
     flex-direction: column;
 }
@@ -11,6 +11,10 @@
 }
 .Gif{
     display: flex;
-    height: 50px;
+    height: 30px;
     width: 10px;
+}
+.uploadSection{
+    display:flex;
+    flex-direction: row;
 }

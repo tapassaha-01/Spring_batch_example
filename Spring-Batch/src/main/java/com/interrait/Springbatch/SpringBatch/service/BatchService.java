@@ -88,36 +88,24 @@ public class BatchService {
 //		logger.info(list);
 		return list;
 	}
-//	public List<EmpDtoDetails> getEmpDetails() throws SQLException{
-//		List<EmpDtoDetails> resultList = new ArrayList<EmpDtoDetails>();
-//		List<Object[]> rs = userRepo.getCountedData();
-//		for(Object[] rst:rs) {
-//			if(rst!=null) {
-////				logger.info(rst[1].toString());
-//				resultList.add(new EmpDtoDetails((String)rst[0],Integer.parseInt(rst[1].toString()),Long.parseLong(rst[2].toString())));
-//			}
-////			logger.info(rst.getString("dis_address")+rst.getLong("resident"));
-////			resultList.add(new EmpDtoDetails(rst.getString("dis_address"),rst.getLong("resident")));
-//		}
-//		return resultList;
-//	}
+
 	
 	
 	
-public List<EmpAnalysisData> gettableData(String option) {
+public List<EmpAnalysisData> gettableData(String option,String value) {
 	List<Object[]> tableList = new ArrayList<>();
 	List<EmpAnalysisData> dataList = new ArrayList<>();
 	EmpAnalysisData empData = new EmpAnalysisData();
+	
+//	System.out.println(table);
 	if(option.equals("Department")) {
-		
-		tableList = userRepo.listDeptData();
+		tableList = userRepo.listDeptData(value);
 		for(Object[] i:tableList) {
-			dataList.add(empData.createDepData(i[0].toString(),Long.parseLong(i[1].toString()),Long.parseLong(i[2].toString()),Long.parseLong(i[3].toString())));
+			dataList.add(empData.createDepData(i[0].toString(),i[1].toString(),Long.parseLong(i[2].toString()),Long.parseLong(i[3].toString()),Long.parseLong(i[4].toString())));
 		}
 	}
 	else if(option.equals("Designation")){
-//		if(value.equals("Trainee")) {value="Trainee ";}
-		tableList = userRepo.listDesignData();
+		tableList = userRepo.listDesignData(value);
 		for(Object[] i:tableList) {
 			dataList.add(empData.createDesignData(i[0].toString(),i[1].toString(),Long.parseLong(i[2].toString()),Long.parseLong(i[3].toString())));
 		}
@@ -127,15 +115,15 @@ public List<EmpAnalysisData> gettableData(String option) {
 		return null;
 	}
 //	System.out.println(value+option);
+	
+	
 		System.out.println(dataList);
 		return dataList;
 	}
 	
 	
 	public mst_table getListofMstTables() {
-		
-//		List<String> Mst_table_list = userRepo.findDesignationAndDept();
-//		List<Dept_Mst> dept_list = new ArrayList<Dept_Mst>();
+
 		List<String> dept_list = new ArrayList<>();
 		List<String> design_list = new ArrayList<>();
 		for(Map.Entry<String, List<String>> entry:Master_table.MST_TABLE.entrySet()) {
@@ -148,8 +136,7 @@ public List<EmpAnalysisData> gettableData(String option) {
 			mstWriter.insertDeptTable(new Dept_Mst(entry.getKey(),desigList));
 		}
 		return new mst_table(dept_list,design_list);
-//		System.out.println(Mst_table_list);
-//		return Mst_table_list;
+
 		
 	}
 }

@@ -18,7 +18,7 @@ export class FileServiceService {
       const formData = new FormData();
         
       formData.append('file', file);
-        
+      formData.append('sheetName', year);
     console.log(file.name,year)
       return this.http.post(this.baseApiUrl+'/upload', formData);
   

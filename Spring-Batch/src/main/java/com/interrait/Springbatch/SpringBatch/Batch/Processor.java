@@ -34,13 +34,6 @@ private static final Map<String, Long> SALARY_VALUE=new HashMap<String,Long>();
 
     @Override
     public Emp process(EmpDto emp) throws Exception {
-    	
-//    		System.out.println(row.toString());
-//    	 java.util.Date utilDate = row.getCell(4).getDateCellValue();
-//         java.sql.Date sqlDate = new java.sql.Date(utilDate.getTime());
-////         System.out.println(row.getCell(0).getStringCellValue()+ row.getCell(1).getStringCellValue()+row.getCell(2).getStringCellValue()+row.getCell(3).getStringCellValue()+LocalDateTime.now()+row.getCell(5).getStringCellValue()+row.getCell(6).getStringCellValue());
-//    	 EmpDto emp = new EmpDto(row.getCell(0).getStringCellValue(), row.getCell(1).getStringCellValue(),row.getCell(2).getStringCellValue(),row.getCell(3).getStringCellValue(),sqlDate,row.getCell(5).getStringCellValue(),row.getCell(6).getStringCellValue());
-////    	 EmpDto emp = new EmpDto(row.getCell(0).getStringCellValue(), row.getCell(1).getStringCellValue(),row.getCell(2).getStringCellValue(),row.getCell(3).getStringCellValue(),Date.from(null),row.getCell(5).getStringCellValue(),row.getCell(6).getStringCellValue());
     	 String designation = emp.getDesignation();
 		 Long salary = SALARY_VALUE.get(designation);
 		 System.out.println(emp+" "+salary);

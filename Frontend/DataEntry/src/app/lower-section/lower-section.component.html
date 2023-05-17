@@ -29,8 +29,8 @@
       <thead>
         <tr>
           <th>DeptName</th>
-          <!-- <th>TotalDesignation</th> -->
-          <th>{{ EmployeeList[0].totalDesignation!=0?'Total-Designation':'Designation' }}</th>
+          <th>Designation</th>
+          <th *ngIf="isTrue">TotalDesignation</th>
           <th>EmployeeCount</th>
           <th>Total Salary</th>
         </tr>
@@ -38,8 +38,9 @@
       <tbody *ngFor="let emp of EmployeeList" >
         <tr >
           <td>{{ emp.deptName }}</td>
-          <td >{{ emp.totalDesignation!=0?emp.totalDesignation:emp.designation }}</td>
-          <!-- <td>{{ emp.designation }}</td> -->
+          <td>{{ emp.designation }}</td>
+          <td *ngIf="isTrue">{{ emp.totalDesignation}}</td>
+          <!--  -->
           <td>{{ emp.empCount }}</td>
           <td>{{ emp.totalSalary }}</td>
         </tr>

@@ -1,61 +1,26 @@
-<!-- <div class="file-control">
-
-   <div><input type="file" #file (change)="OnUpload($event)"></div>
-
-
-   <div class="file-control"> 
-   <div><span *ngIf="isComplete">{{massage}}</span></div>
-
-   <div style="color: black;"><mat-checkbox [(ngModel)]="isDept" [disabled]="isDesign">Dept</mat-checkbox>
-      <mat-checkbox [(ngModel)]="isDesign" [disabled]="isDept"> Design</mat-checkbox>
-     
-
-   </div> -->
-<!-- <select #year (change)="OnSelected($event)" > 
-     <option value="default">{{isDesign?'Designation':'Department'}}</option>
-    <option *ngFor="let val of YearList" >{{val}}</option> 
-   </select>  -->
-
-<!-- <mat-form-field>
-      <mat-label>{{isDesign ? 'Design' : 'Dept'}}</mat-label>
-      <mat-select [(ngModel)]="selectedOption">
-       <mat-option value="default">Option 1</mat-option>
-        <mat-option value="option2">Option 2</mat-option>
-        <mat-option value="option3">Option 3</mat-option> 
-      </mat-select>
-    </mat-form-field>
-   <form class="option" #option="ngForm" > 
-      <select #year (change)="OnSelected($event)" >  -->
-<!-- <input type="radio" id="age1" name="1" value="30">
-         <label for="age1"> Designation </label>
-         <input type="radio" id="Department" name="2" value="60">
-         <label for="age2"> Department </label> -->
-<!-- </select>
-    
-   <input type="radio"  name="age" ngModel>
-   <label >Designation</label>
-   <input type="radio"  name="age" ngModel>
-   <label >Department</label>
-   
-
-         </form>
-
-   <div style="padding: 10px;"><input type="submit" (click)="onSubmit()"></div>
-</div> -->
-
-<div><input type="file" #file (change)="OnUpload($event)">
-<input type="submit" (click)="onFileSubmit()"> 
-
-</div>
-<div *ngIf="isLoading" class="Gif">
+<div class="uploadSection">
+   <input type="file" #file (change)="OnUpload($event)">
+   <input type="submit" (click)="onFileSubmit()" [disabled]="isLoading">
+   <div *ngIf="isLoading" class="Gif">
    <img src=".\assets\Spinner-0.8s-201px.gif" alt="gif" />
- </div>
-<form class="file-control" [formGroup]="selectionForm">
+</div>
+<div><span *ngIf="!isLoading">{{massage}}</span></div>
+</div>
+
+<form class="file-control" [formGroup]="selectionForm" >
    <!-- <input type="file" name="file" (change)="OnUpload($event)" required> -->
-   <div class="option" >
-       <input type="radio" id="1" formControlName="selection" value="Designation" required> 
-       <label for="form">Designation</label>
-      <input type="radio" id="2" formControlName="selection" value="Department" required> 
+   <div class="dropDown">
+      <select formControlName="Year" required>
+         <option value="">--Select Year--</option>
+         <option value="Sheet1">2021</option>
+         <option value="Sheet2">2022</option>
+         <option value="Sheet3">2023</option>
+      </select>
+   </div>
+   <div class="option">
+      <input type="radio" id="1" formControlName="selection" value="Designation" required>
+      <label for="form">Designation</label>
+      <input type="radio" id="2" formControlName="selection" value="Department" required>
       <label for="form">Department</label>
    </div><br>
    <div class="dropDown">
@@ -67,5 +32,5 @@
    <!-- <input type="submit" (click)="OnSelected()"> -->
 
    <!-- <div><input type="button" value="inport" (click)="Onimport()"></div> -->
-   <div><span *ngIf="isComplete">{{massage}}</span></div>
+  
 </form>

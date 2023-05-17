@@ -29,6 +29,7 @@ option!:any
       this.selectionForm=this.fromBuilder.group({
         selection: new FormControl(['']),
         selectedOp: new FormControl(['']),
+        Year:new FormControl([''])
       });
       
  }
@@ -56,10 +57,15 @@ option!:any
 
   onFileSubmit(){  
     this.isLoading=true
+    // this.selectionForm.valueChanges.subscribe(val=>{
+    //   this.year = val.Year
+    //   console.log(this.year)
+    // })
+    this.year = this.selectionForm.value.Year
     this.fileService.upload(this.file,this.year).subscribe(res=>{
       console.log(res);
       this.massage="Completed!!"
-      this.isComplete=true
+     
       this.isLoading=false
     })
     
@@ -76,7 +82,8 @@ option!:any
     OnSubmit(){
       this.formData.emit(this.selectionForm)
   this.selectionForm.valueChanges.subscribe(value => {
-    this.router.navigate([''])
+    // this.router.navigate([''])
+
     if (value.selection === 'Department') {
       this.OptionList = this.mstTable.dept_list;
     } else if (value.selection === 'Designation') {

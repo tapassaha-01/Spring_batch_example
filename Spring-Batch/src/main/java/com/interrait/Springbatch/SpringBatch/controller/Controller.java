@@ -55,7 +55,7 @@ import com.interrait.Springbatch.SpringBatch.service.BatchService;
 @RequestMapping("/add")
 public class Controller {
 	
-	Logger logger =LoggerFactory.getLogger(Controller.class);
+	Logger logger = LoggerFactory.getLogger(Controller.class);
 	
 	private static final String[] SHEETNAME = {"Sheet1","Sheet2","Sheet3"};
 	
@@ -82,25 +82,25 @@ public class Controller {
 //	@Autowired
 //	private MultiSheetExcelReader multiReader;
 	
-	@PostMapping("/uploadMSt")
-	public Dept_Mst uploadMst(@RequestBody Dept_Mst dept){
-		System.out.println(dept.toString());
-		List<Designation_Mst> design = dept.getDesignation();
-		designRepo.saveAll(design);
-		
-		for(Designation_Mst i:design) {
-			System.out.println(i.toString());
-			i.setDept(dept);
-//			designRepo.save(i);
-		}
-		
-		dept.setDesignation(design);
+//	@PostMapping("/uploadMSt")
+//	public Dept_Mst uploadMst(@RequestBody Dept_Mst dept){
 //		System.out.println(dept.toString());
-//		Dept_Mst result = 
-		Dept_Mst result = deptRepo.save(dept);
-		return result;
-//		return dept;
-	}
+//		List<Designation_Mst> design = dept.getDesignation();
+//		designRepo.saveAll(design);
+//		
+//		for(Designation_Mst i:design) {
+//			System.out.println(i.toString());
+//			i.setDept(dept);
+////			designRepo.save(i);
+//		}
+//		
+//		dept.setDesignation(design);
+////		System.out.println(dept.toString());
+////		Dept_Mst result = 
+//		Dept_Mst result = deptRepo.save(dept);
+//		return result;
+////		return dept;
+//	}
 	
 	
 	@PostMapping("/upload")
@@ -115,7 +115,6 @@ public class Controller {
        JobParameters parameters = new JobParameters(maps);
        JobExecution jobExecution = new JobExecution(1L);
 	try {
-//		jobExecution = jobLauncher.run(configuration.ReaderJob(multiReader.read()), parameters);
 		jobExecution = jobLauncher.run(configuration.ReaderJob(batchSerice.reader(file,sheetName)), parameters);
 		 logger.info("JobExecution: " + jobExecution.getStatus());
 
@@ -123,7 +122,7 @@ public class Controller {
 	       while (jobExecution.isRunning()) {
 	           logger.info("...");
 	       }
-	       if(flag==0) {
+	       if(deptRepo.count()==0 && designRepo.count()==0) {
 	    	   batchSerice.getListofMstTables();
 //	    	   flag=1;
 	    	   flag+=1;
@@ -148,7 +147,7 @@ public class Controller {
 //	
 	@PostMapping("/getData")
 	public List<EmpAnalysisData> gettableData(@RequestParam String option,@RequestParam String value) {
-		return batchSerice.gettableData(option);
+		return batchSerice.gettableData(option,value);
 	}
 	
 	
