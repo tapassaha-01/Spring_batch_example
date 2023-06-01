@@ -4,6 +4,7 @@ package com.interrait.Springbatch.SpringBatch.controller;
 //import java.io.BufferedReader;
 import java.io.FileReader;
 import java.io.IOException;
+import java.io.InputStream;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -11,6 +12,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.Scanner;
 
+import org.apache.tomcat.util.file.ConfigurationSource.Resource;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.batch.core.BatchStatus;
@@ -22,7 +24,9 @@ import org.springframework.batch.core.launch.JobLauncher;
 import org.springframework.batch.core.repository.JobExecutionAlreadyRunningException;
 import org.springframework.batch.core.repository.JobInstanceAlreadyCompleteException;
 import org.springframework.batch.core.repository.JobRestartException;
+import org.springframework.batch.item.file.FlatFileItemReader;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.core.io.InputStreamResource;
 import org.springframework.data.web.PageableDefault;
 //import org.springframework.boot.autoconfigure.data.web.SpringDataWebProperties.Pageable;
 import org.springframework.http.ResponseEntity;
@@ -44,6 +48,7 @@ import com.interrait.Springbatch.SpringBatch.Configuration.Config;
 import com.interrait.Springbatch.SpringBatch.Model.Dept_Mst;
 import com.interrait.Springbatch.SpringBatch.Model.Designation_Mst;
 import com.interrait.Springbatch.SpringBatch.Model.EmpAnalysisData;
+import com.interrait.Springbatch.SpringBatch.Model.EmpDto;
 import com.interrait.Springbatch.SpringBatch.Model.mst_table;
 import com.interrait.Springbatch.SpringBatch.repo.Dept_mst_Repo;
 import com.interrait.Springbatch.SpringBatch.repo.Designation_Mst_Repo;
@@ -102,20 +107,31 @@ public class Controller {
 ////		return dept;
 //	}
 	
+	@PostMapping("/uploadCsv")
+	public BatchStatus loadCsv(@RequestParam("file") List<MultipartFile> files) throws IOException{
+		for(MultipartFile file:files) {
+			if((!file.isEmpty())&&(file.getContentType().equals("text/csv"))) {
+				try (InputStream inputStream = file.getInputStream()) {
+					InputStreamResource resource = new InputStreamResource(inputStream);
+				System.out.println(resource);
+				}
+			}
+		}
+		return null;
+	}
+	
 	
 	@PostMapping("/upload")
-    public BatchStatus load(@RequestParam("file") MultipartFile file,@RequestParam("sheetName") String sheetName){
-//		MultiSheetExcelReader multiReader = new MultiSheetExcelReader(file,"Sheet1");
-		if(file.getContentType().equals("application/vnd.openxmlformats-officedocument.spreadsheetml.sheet")) {
-			logger.info("File reached to the controller successfully!! "+file.getOriginalFilename()); 
-			
-		}
-       Map<String, JobParameter> maps = new HashMap<>();
+    public BatchStatus load(@RequestParam("file") List<MultipartFile> files,@RequestParam("sheetName") String sheetName) throws IOException, JobExecutionAlreadyRunningException, JobRestartException, JobInstanceAlreadyCompleteException, JobParametersInvalidException{
+		Map<String, JobParameter> maps = new HashMap<>();
         maps.put("time", new JobParameter(System.currentTimeMillis()));
        JobParameters parameters = new JobParameters(maps);
        JobExecution jobExecution = new JobExecution(1L);
-	try {
-		jobExecution = jobLauncher.run(configuration.ReaderJob(batchSerice.reader(file,sheetName)), parameters);
+//		MultiSheetExcelReader multiReader = new MultiSheetExcelReader(file,"Sheet1");
+		if(files.get(0).getContentType().equals("application/vnd.openxmlformats-officedocument.spreadsheetml.sheet")) {
+			logger.info("File reached to the controller successfully!! "+files.get(0).getOriginalFilename()); 
+			try {
+		jobExecution = jobLauncher.run(configuration.ReaderJob(batchSerice.reader(files.get(0),sheetName)), parameters);
 		 logger.info("JobExecution: " + jobExecution.getStatus());
 
 	      logger.info("Batch is Running...");
@@ -127,14 +143,39 @@ public class Controller {
 //	    	   flag=1;
 	    	   flag+=1;
 	       }
+		}catch (JobExecutionAlreadyRunningException | JobRestartException | JobInstanceAlreadyCompleteException
+				| JobParametersInvalidException e) {
+			
+			logger.error(e.getMessage());
+		}}
+		else if(files.get(0).getContentType().equals("text/csv")){
+			int index = Character.getNumericValue(sheetName.charAt(sheetName.length()-1));
+			
+				
+					System.out.println("Inside csvReader"+index);
+						jobExecution = jobLauncher.run(configuration.ReaderJob(batchSerice.itemReader(files.get(index-1))), parameters);
+						logger.info("JobExecution: " + jobExecution.getStatus());
+
+					      logger.info("Batch is Running...");
+					       while (jobExecution.isRunning()) {
+					           logger.info("...");
+					       }
+					       if(deptRepo.count()==0 && designRepo.count()==0) {
+					    	   batchSerice.getListofMstTables();
+//					    	   flag=1;
+					    	   flag+=1;
+					       }
+					
+				
+			
+
+		}
+       
+		
 	       
 			
 	     
-	} catch (JobExecutionAlreadyRunningException | JobRestartException | JobInstanceAlreadyCompleteException
-			| JobParametersInvalidException e) {
-		
-		logger.error(e.getMessage());
-	}
+	
 
 	
 		return jobExecution.getStatus();

@@ -10,10 +10,11 @@ import org.springframework.batch.extensions.excel.mapping.BeanWrapperRowMapper;
 import org.springframework.batch.extensions.excel.poi.PoiItemReader;
 import org.springframework.batch.item.ItemReader;
 import org.springframework.batch.item.ItemStreamReader;
-//import org.springframework.context.annotation.Bean;
-//import org.springframework.core.io.ClassPathResource;
-//import org.springframework.core.io.FileSystemResource;
-//import org.springframework.core.io.Resource;
+import org.springframework.batch.item.file.FlatFileItemReader;
+import org.springframework.batch.item.file.LineMapper;
+import org.springframework.batch.item.file.mapping.BeanWrapperFieldSetMapper;
+import org.springframework.batch.item.file.mapping.DefaultLineMapper;
+import org.springframework.batch.item.file.transform.DelimitedLineTokenizer;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
@@ -34,7 +35,10 @@ import com.interrait.Springbatch.SpringBatch.util.Master_table;
 import ch.qos.logback.classic.pattern.Util;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.core.io.FileSystemResource;
+import org.springframework.core.io.InputStreamResource;
 
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
@@ -135,8 +139,35 @@ public List<EmpAnalysisData> gettableData(String option,String value) {
 			}
 			mstWriter.insertDeptTable(new Dept_Mst(entry.getKey(),desigList));
 		}
-		return new mst_table(dept_list,design_list);
-
+		return new mst_table(dept_list,design_list);	
+	}
+	
+	
+	
+	public ItemReader<EmpDto> itemReader(MultipartFile file) throws IOException{
 		
+		FlatFileItemReader<EmpDto> flatFileItemReader = new FlatFileItemReader<>();
+		flatFileItemReader.setResource(new InputStreamResource(file.getInputStream()));
+		flatFileItemReader.setName("CsvReader");
+		flatFileItemReader.setLinesToSkip(1);
+		flatFileItemReader.setLineMapper(lineMapper());
+		return flatFileItemReader;
+	}
+	
+	
+	public LineMapper<EmpDto> lineMapper() {
+		DefaultLineMapper<EmpDto> defaultLineMapper = new DefaultLineMapper<>();
+		String[] fileds = {"deptId","deptName","empId","empName","doj","status","designation"};
+		DelimitedLineTokenizer lineTokenizer = new DelimitedLineTokenizer();
+		lineTokenizer.setDelimiter(",");
+		lineTokenizer.setStrict(false);
+		lineTokenizer.setNames(fileds);
+		
+		BeanWrapperFieldSetMapper<EmpDto> fieldSetMapper = new BeanWrapperFieldSetMapper<>();
+		fieldSetMapper.setTargetType(EmpDto.class);
+		
+		defaultLineMapper.setLineTokenizer(lineTokenizer);
+		defaultLineMapper.setFieldSetMapper(fieldSetMapper);
+		return defaultLineMapper;
 	}
 }

@@ -13,13 +13,15 @@ export class FileServiceService {
   constructor(private http:HttpClient) {}
 
 
-    upload(file:File,year:any):Observable<any> {
+    upload(file:FileList,year:any):Observable<any> {
   
       const formData = new FormData();
-        
-      formData.append('file', file);
+       for(let i = 0; i < file.length; i++) {
+        formData.append('file', file[i]);
+       }
+      
       formData.append('sheetName', year);
-    console.log(file.name,year)
+    console.log(file,year)
       return this.http.post(this.baseApiUrl+'/upload', formData);
   
    }

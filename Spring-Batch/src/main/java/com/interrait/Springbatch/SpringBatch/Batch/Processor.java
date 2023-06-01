@@ -9,7 +9,9 @@ import com.interrait.Springbatch.SpringBatch.Model.Emp;
 import com.interrait.Springbatch.SpringBatch.Model.EmpDto;
 
 import java.sql.Date;
+import java.time.LocalDate;
 import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -37,7 +39,12 @@ private static final Map<String, Long> SALARY_VALUE=new HashMap<String,Long>();
     	 String designation = emp.getDesignation();
 		 Long salary = SALARY_VALUE.get(designation);
 		 System.out.println(emp+" "+salary);
-		return new Emp(emp.getDeptId(),emp.getDeptName(),emp.getEmpId(),emp.getEmpName(),new java.sql.Date(emp.getDoj().getTime()),emp.getStatus(),emp.getDesignation(),salary);
+		 String dateString = emp.getDoj();
+		 DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd-MM-yyyy");
+		 LocalDate localDate = LocalDate.parse(dateString, formatter);
+		 java.sql.Date sqlDate = java.sql.Date.valueOf(localDate);
+
+		return new Emp(emp.getDeptId(),emp.getDeptName(),emp.getEmpId(),emp.getEmpName(),sqlDate,emp.getStatus(),emp.getDesignation(),salary);
 		
     	
     }

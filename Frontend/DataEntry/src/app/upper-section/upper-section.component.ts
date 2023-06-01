@@ -49,33 +49,46 @@ option!:any
   }
   selectedOption!:true
   isDept:boolean=false
+  isSelectedYear :boolean=false
   isDesign:boolean=false 
-  file!: File; 
+  files!:FileList
   year!:string
   isComplete:boolean=false
   massage!:string
 
   onFileSubmit(){  
-    this.isLoading=true
+    
+    
     // this.selectionForm.valueChanges.subscribe(val=>{
+    //   this.isSelectedYear = true
     //   this.year = val.Year
     //   console.log(this.year)
     // })
     this.year = this.selectionForm.value.Year
-    this.fileService.upload(this.file,this.year).subscribe(res=>{
+    if(this.year!=""){this.isLoading=true
+    this.fileService.upload(this.files,this.year).subscribe(res=>{
       console.log(res);
-      this.massage="Completed!!"
+      this.massage=res;
      
       this.isLoading=false
-    })
-    
-    console.log(this.file,this.year);
+    })}
+    else{this.isSelectedYear=false
+      alert("select year first!!")
+    }
+    console.log(this.files,this.year);
   }
 
   
   OnUpload(formValue: any){
-    this.file = formValue.target.files[0];
-    console.log(this.file )
+    // this.file = formValue.target.files[0];
+     this.files = formValue.target.files; 
+    for (let i = 0; i < this.files.length; i++) {
+      const file: File = this.files[i];
+      console.log(file.name); // Access file name
+      console.log(file.size); // Access file size
+      // Perform additional operations with each file as needed
+    }
+    console.log(this.files )
   }
 
 
