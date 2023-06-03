@@ -46,8 +46,8 @@ public class EmpAnalysisData {
 				+ designation + ", empCount=" + empCount + ", totalSalary=" + totalSalary + "]";
 	}
 	
-	public EmpAnalysisData createDepData(String depName, Long totalDesignation, Long empCount, Long totalSalary) {
-		return new EmpAnalysisData(depName,totalDesignation,"null",empCount,totalSalary);
+	public EmpAnalysisData createDepData(String depName,String designation, Long totalDesignation, Long empCount, Long totalSalary) {
+		return new EmpAnalysisData(depName,totalDesignation,designation,empCount,totalSalary);
 	}
 	
 	public EmpAnalysisData createDesignData(String depName, String designation, Long empCount, Long totalSalary) {

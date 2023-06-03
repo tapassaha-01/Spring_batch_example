@@ -17,6 +17,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 //import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.core.task.SimpleAsyncTaskExecutor;
 //import org.springframework.jdbc.core.RowMapper;
 import org.springframework.core.task.TaskExecutor;
 import org.springframework.scheduling.concurrent.ThreadPoolTaskExecutor;
@@ -59,10 +60,11 @@ public class Config {
 	private Step readerStep(ItemReader<EmpDto> reader) {
 		
 		Step step = stepBuilder.get("XLXS-STEP")
-				.<EmpDto, Emp> chunk(50)
+				.<EmpDto, Emp> chunk(200)
 				.reader(reader)
 				.processor(new Processor())
 				.writer(dbWriter)
+				.taskExecutor(taskExecutor())
 				.build();
 		
 		return step; 
@@ -70,12 +72,12 @@ public class Config {
 	
 	@Bean
 	public TaskExecutor taskExecutor() {
-	    ThreadPoolTaskExecutor executor = new ThreadPoolTaskExecutor();
-	    executor.setCorePoolSize(10);
-	    executor.setMaxPoolSize(10);
-	    executor.setQueueCapacity(100);
-	    executor.setThreadNamePrefix("batch-thread-");
-	    executor.initialize();
+		SimpleAsyncTaskExecutor executor = new SimpleAsyncTaskExecutor();
+//	    executor.setCorePoolSize(20);
+//	    executor.setMaxPoolSize(20);
+//	    executor.setQueueCapacity(100);
+//	    executor.setThreadNamePrefix("batch-thread-");
+//	    executor.initialize();
 	    return executor;
 	}
 

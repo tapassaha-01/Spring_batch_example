@@ -35,6 +35,7 @@ export class LowerSectionComponent {
   option!: any;
   value!: any;
   title!:string;
+  isTrue!:boolean
   @Input() formValue:FormGroup;
 
 
@@ -74,7 +75,8 @@ ngOnInit():void{
         this.isLoading=false
         console.log("inside service.downlaod")
         this.EmployeeList = res;
-        if(this.EmployeeList.colu)
+        this.isTrue = (this.EmployeeList[0].totalDesignation!=0)?true:false
+        // if(this.EmployeeList.colu)
         console.log(this.EmployeeList);
         if(this.EmployeeList!=null){
         for (let i of this.EmployeeList) {
@@ -86,9 +88,9 @@ ngOnInit():void{
           }
           if (this.option == 'Department') {
             tempObj.value = i.totalSalary;
-            tempObj.name = i.deptName + ' ' + (i.totalSalary / 1000) + 'K';
+            tempObj.name = i.designation + ' ' + (i.totalSalary / 1000) + 'K';
             this.title = "Department"
-            this.weekData.push(i.deptName)
+            this.weekData.push(i.designation)
             
           }
           if (this.option == 'Designation') {

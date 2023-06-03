@@ -14,7 +14,7 @@ public class EmpDto {
 	
 	private String empName;
 	
-	private Date doj;
+	private String doj;
 	
 	private String status;
 	
@@ -60,11 +60,11 @@ public class EmpDto {
 		this.empName = empName;
 	}
 
-	public Date getDoj() {
+	public String getDoj() {
 		return doj;
 	}
 
-	public void setDoj(Date doj) {
+	public void setDoj(String doj) {
 		this.doj = doj;
 	}
 
@@ -90,7 +90,7 @@ public class EmpDto {
 				+ empName + ", doj=" + doj + ", status=" + status + ", designation=" + designation + "]";
 	}
 
-	public EmpDto( String deptId, String deptName, String empId, String empName, Date doj, String status,
+	public EmpDto( String deptId, String deptName, String empId, String empName, String doj, String status,
 			String designation) {
 		super();
 		this.deptId = deptId;

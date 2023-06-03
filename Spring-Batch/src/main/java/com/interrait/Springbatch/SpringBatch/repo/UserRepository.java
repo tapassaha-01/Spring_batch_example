@@ -23,9 +23,13 @@ public interface UserRepository extends JpaRepository<Emp, Long> {
 	@Query("SELECT e.designation,e.deptName FROM Emp e")
 	public List<String> findDesignationAndDept();
 	
-	@Query(value="select dept_name,count(designation) totalDesignation,count(emp_id) as Emp_count,sum(salary) as total_salary from emp_table group by dept_name", nativeQuery = true)
-	public List<Object[]> listDeptData();
+	@Query(value="select dept_name,designation,count(designation) totalDesignation,count(emp_id) as Emp_count,sum(salary) as total_salary from emp_table where dept_name=:depName group by dept_name,designation", nativeQuery = true)
+	public List<Object[]> listDeptData(@Param("depName") String depName);
 	
-	@Query(value="select dept_name,designation ,count(emp_id) as Emp_count,sum(salary) as total_salary from emp_table group by dept_name,designation", nativeQuery = true)
-	public List<Object[]> listDesignData();
+	@Query(value="select dept_name,designation ,count(emp_id) as Emp_count,sum(salary) as total_salary from emp_table where designation=:design group by dept_name,designation", nativeQuery = true)
+	public List<Object[]> listDesignData(@Param("design") String design);
+	
+//	@Query(value="select  dept_name,count(dept_id) as Dept_count,designation,count(emp_id) as Emp_count,sum(salary) as total_salary from emp_table where :option = :value group by dept_name,designation,salary", nativeQuery = true)
+//	public List<Object[]> getListData(@Param("option") String option,@Param("value") String value);
+	
 }

@@ -1,6 +1,9 @@
 package com.interrait.Springbatch.SpringBatch.Batch;
 
 import java.io.FileInputStream;
+import java.text.SimpleDateFormat;
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
@@ -43,12 +46,17 @@ public class MultiSheetExcelReader implements ItemReader<EmpDto> {
 			if(rowIndex<=sheet.getLastRowNum()) 
 			{
 				Row currentRow = sheet.getRow(rowIndex);
-//				System.out.println(rowIndex);
-//				System.out.println(currentRow.toString());
-//				java.util.Date utilDate = currentRow.getCell(4).getDateCellValue();
-//		         java.sql.Date sqlDate = new java.sql.Date(utilDate.getTime());
+				String dateString;
+//				 DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd-MM-yyyy");
+//				 LocalDate localDate = LocalDate.parse(dateString, formatter);
+//				 java.sql.Date sqlDate = java.sql.Date.valueOf(localDate);
 		         if(currentRow.getCell(0)!=null) {
-		         emp = new EmpDto(currentRow.getCell(0).getStringCellValue(), currentRow.getCell(1).getStringCellValue(),currentRow.getCell(2).getStringCellValue(),currentRow.getCell(3).getStringCellValue(),new java.sql.Date(currentRow.getCell(4).getDateCellValue().getTime()),currentRow.getCell(5).getStringCellValue(),currentRow.getCell(6).getStringCellValue());
+		        	 if(currentRow.getCell(4).getCellType()==CellType.STRING) {
+		        		 dateString = currentRow.getCell(0).getStringCellValue();
+		        	 }
+		        	 SimpleDateFormat dateFormat = new SimpleDateFormat("dd-MM-yyyy");
+		        	  dateString = dateFormat.format(currentRow.getCell(4).getDateCellValue());
+		         emp = new EmpDto(currentRow.getCell(0).getStringCellValue(), currentRow.getCell(1).getStringCellValue(),currentRow.getCell(2).getStringCellValue(),currentRow.getCell(3).getStringCellValue(),dateString,currentRow.getCell(5).getStringCellValue(),currentRow.getCell(6).getStringCellValue());
 		         rowIndex++;}
 		         else {
 		        	 emp=null;

@@ -8,23 +8,23 @@ import { MstTableData } from './mst-table-data';
   providedIn: 'root'
 })
 export class FileServiceService {
+  fetchData() {
+   return this.http.get(this.baseApiUrl+"/readLog");
+  }
 
   baseApiUrl = "http://localhost:8080/add";
   constructor(private http:HttpClient) {}
 
 
-	fetchData(){
-    return this.http.get(this.baseApiUrl+'/readLog');
-   }
-
-
-    upload(file:File,year:any):Observable<any> {
+    upload(file:FileList,year:any):Observable<any> {
   
       const formData = new FormData();
-        
-      formData.append('file', file);
-        
-    console.log(file.name,year)
+       for(let i = 0; i < file.length; i++) {
+        formData.append('file', file[i]);
+       }
+      
+      formData.append('sheetName', year);
+    console.log(file,year)
       return this.http.post(this.baseApiUrl+'/upload', formData);
   
    }
