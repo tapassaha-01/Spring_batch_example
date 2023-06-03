@@ -13,6 +13,11 @@ export class FileServiceService {
   constructor(private http:HttpClient) {}
 
 
+	fetchData(){
+    return this.http.get(this.baseApiUrl+'/readLog');
+   }
+
+
     upload(file:File,year:any):Observable<any> {
   
       const formData = new FormData();
@@ -32,9 +37,7 @@ export class FileServiceService {
     return this.http.post<Employee[]>(this.baseApiUrl+'/getData',ParamData);
    }
 
-   fetchData(){
-    return this.http.get(this.baseApiUrl+'/readLog');
-   }
+   
 
 
    getMstTable():Observable<MstTableData>{
