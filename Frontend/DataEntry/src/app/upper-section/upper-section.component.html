@@ -1,37 +1,82 @@
+<label>
+  <b>Please fillout the required fields</b>
+</label>
+<!-- 
 <div class="uploadSection">
-   <!-- <input type="file" #file (change)="OnUpload($event)"> -->
+  
    <input type="file" multiple (change)="OnUpload($event)">
-   <input type="submit" (click)="onFileSubmit()" [disabled]="isLoading">
+  <div class="submit"><input type="submit" (click)="onFileSubmit()" [disabled]="isLoading">
    <div *ngIf="isLoading" class="Gif">
    <img src=".\assets\Spinner-0.8s-201px.gif" alt="gif" />
-</div> 
-<div><span *ngIf="!isLoading">{{massage}}</span></div>
-</div>
+   </div> 
+   <div><span *ngIf="!isLoading">{{massage}}</span></div></div>
+</div> -->
 
-<form class="file-control" [formGroup]="selectionForm" >
-   <!-- <input type="file" name="file" (change)="OnUpload($event)" required> -->
-   <div class="dropDown">
-      <select formControlName="Year" required>
-         <option value="">--Select Year--</option>
-         <option value="Sheet1">2021</option>
-         <option value="Sheet2">2022</option>
-         <option value="Sheet3">2023</option>
-      </select>
+<form class="file-control" [formGroup]="selectionForm">
+  <div class="label">
+    <label>Select Year</label>
+    <label>Select the files(xlxs,csv) and upload</label>
+  </div>
+  <div class="dataFields">
+   <div>
+      <div class="dropDown">
+         <select formControlName="Year" required>
+           <option value="">----</option>
+           <option value="Sheet1">2021</option>
+           <option value="Sheet2">2022</option>
+           <option value="Sheet3">2023</option>
+         </select>
+       </div>
+       <div class="uploadSection">
+         <input type="file" multiple (change)="OnUpload($event)" />
+       </div>
+   
    </div>
-   <div class="option" >
-      <input type="radio" id="1" formControlName="selection" value="Designation" required [disabled]="isLoading">
-      <label for="form">Designation</label>
-      <input type="radio" id="2" formControlName="selection" value="Department" required>
-      <label for="form">Department</label>
-   </div><br>
-   <div class="dropDown">
-      <select formControlName="selectedOp" required>
-         <option value="">--Select Option--</option>
-         <option *ngFor="let option of OptionList" [value]="option">{{option}}</option>
-      </select>
-   </div>
-   <!-- <input type="submit" (click)="OnSelected()"> -->
-
-   <!-- <div><input type="button" value="inport" (click)="Onimport()"></div> -->
+    
+    <div class="submit">
+      <input type="submit" (click)="onFileSubmit()" [disabled]="isLoading" />
+      <div *ngIf="isLoading" class="Gif">
+        <img src=".\assets\Spinner-0.8s-201px.gif" alt="gif" />
+      </div>
+      <div>
+        <span *ngIf="!isLoading">{{ massage }}</span>
+      </div>
+    </div>
+  </div>
+<div class="submission">
+   
   
+    <div class="option">
+      <input
+        type="radio"
+        id="1"
+        formControlName="selection"
+        value="Designation"
+        required
+        [disabled]="isLoading"
+      />
+      <label for="form">Designation</label>
+      <input
+        type="radio"
+        id="2"
+        formControlName="selection"
+        value="Department"
+        required
+      />
+      <label for="form">Department</label>
+    </div>
+    <br />
+    <div class="dropDown">
+      <select formControlName="selectedOp" required>
+        <option value="">--Select Option--</option>
+        <option *ngFor="let option of OptionList" [value]="option">
+          {{ option }}
+        </option>
+      </select>
+    </div>
+</div>
+  
+  <!-- <input type="submit" (click)="OnSelected()"> -->
+
+  <!-- <div><input type="button" value="inport" (click)="Onimport()"></div> -->
 </form>

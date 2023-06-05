@@ -1,8 +1,23 @@
 
 
 <div class="logo">
-    <img src="..\assets\image_2023_04_21T08_40_11_124Z.png" height="100px" width="180px">
+    
 </div>
 <div class="heading"> 
-    <p>EMPLOYEE  PAYROLL  ANALYSIS</p> 
+    <img src="..\assets\image_2023_04_21T08_40_11_124Z.png" height="70px" width="130px">
+    <h4 style="color:rgba(212, 212, 212, 0.847)">EMPLOYEE  PAYROLL  ANALYSIS </h4> 
+
+   <mat-icon class="info-icon" (mouseenter)="showInfo = true" (mouseleave)="showInfo = false">
+    <img src="..\assets\icons8-info-16 (1).png" alt="information">
+   </mat-icon>
+<div class="info-tab" *ngIf="showInfo">
+  <p>Our website provides you with a convenient way to obtain analytical reports based on the data stored in the provided sheets. Simply upload your sheets and select the desired year to generate the report. The report will be presented to you in the form of interactive tables and visually informative charts.
+
+    Additionally, you have access to detailed logs, conveniently located under the 'Get Log' section. These logs provide valuable insights and information related to the report generation process.
+    
+    While we currently do not offer the option to download the report in Excel format, please be assured that we are actively working on implementing this feature. We strive to continuously enhance our platform and provide you with even more flexibility in how you utilize and share the generated reports.
+    
+    Experience the power of data analysis with our website, and gain valuable insights to make informed decisions for your business or personal needs.</p>
+</div>
+
 </div>
