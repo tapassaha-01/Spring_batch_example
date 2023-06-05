@@ -1,7 +1,7 @@
 <div class="uploadSection">
    <!-- <input type="file" #file (change)="OnUpload($event)"> -->
    <input type="file" multiple (change)="OnUpload($event)">
-   <input type="submit" (click)="onFileSubmit()" [disabled]="isLoading">
+   <input type="submit" (click)="onFileSubmit()" [disabled]="isLoading" *ngIf="">
    <div *ngIf="isLoading" class="Gif">
    <img src=".\assets\Spinner-0.8s-201px.gif" alt="gif" />
 </div> 
@@ -10,7 +10,7 @@
 
 <form class="file-control" [formGroup]="selectionForm" >
    <!-- <input type="file" name="file" (change)="OnUpload($event)" required> -->
-   <div class="dropDown">
+   <div class="dropDown" >
       <select formControlName="Year" required>
          <option value="">--Select Year--</option>
          <option value="Sheet1">2021</option>
