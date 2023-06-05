@@ -53,9 +53,9 @@ public class MultiSheetExcelReader implements ItemReader<EmpDto> {
 		         if(currentRow.getCell(0)!=null) {
 		        	 if(currentRow.getCell(4).getCellType()==CellType.STRING) {
 		        		 dateString = currentRow.getCell(0).getStringCellValue();
-		        	 }
+		        	 }else {
 		        	 SimpleDateFormat dateFormat = new SimpleDateFormat("dd-MM-yyyy");
-		        	  dateString = dateFormat.format(currentRow.getCell(4).getDateCellValue());
+		        	  dateString = dateFormat.format(currentRow.getCell(4).getDateCellValue());}
 		         emp = new EmpDto(currentRow.getCell(0).getStringCellValue(), currentRow.getCell(1).getStringCellValue(),currentRow.getCell(2).getStringCellValue(),currentRow.getCell(3).getStringCellValue(),dateString,currentRow.getCell(5).getStringCellValue(),currentRow.getCell(6).getStringCellValue());
 		         rowIndex++;}
 		         else {

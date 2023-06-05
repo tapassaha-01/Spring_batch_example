@@ -21,9 +21,9 @@
 }
 .heading h4{
     padding-left: 10px;    
-     
-     justify-content: center;
-    padding-top:12px
+    color:rgba(212, 212, 212, 0.847);
+     /* justify-content: center; */
+    padding-top: 10px;
     
 }
 
@@ -46,9 +46,9 @@
     z-index: 999; /* Adjust the z-index as needed */
   }
   .info-tab p{
-    font-size: 15px;
-    font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
-    font-weight: 200;
+    font-size: 13px;
+    font-family: Arial, Helvetica, sans-serif;
+    font-weight: 300;
     color: rgb(88, 88, 88);
   }
   

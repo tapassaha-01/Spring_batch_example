@@ -194,7 +194,7 @@ public class Controller {
 	
 	@GetMapping("/readLog")
 	public List<String> readLogFile() throws IOException{
-		FileReader fileReader = new FileReader("E:\\Spring_batch\\DataSource\\log_files\\spring.log");
+		FileReader fileReader = new FileReader("D:\\Spring_batch\\DataSource\\log_files\\spring.log");
 		Scanner sc = new Scanner(fileReader);
 		List<String> lines = new ArrayList<String>();
 		while(sc.hasNext()) {

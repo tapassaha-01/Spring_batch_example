@@ -3,7 +3,7 @@ import { FileServiceService } from '../file-service.service';
 import { ActivatedRoute, Data, Router } from '@angular/router';
 import { MstTableData } from '../mst-table-data';
 import { DataService } from '../data.service';
-import { FormBuilder, FormControl, FormGroup } from '@angular/forms';
+import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 
 @Component({
   selector: 'app-upper-section',
@@ -18,6 +18,7 @@ export class UpperSectionComponent implements OnInit{
 //  currenctYear = (new Date()).getFullYear
 OptionList:string[]=[]
 mstTable!:any;
+isgetData!:boolean;
 selectionForm:FormGroup;
 isNull!:boolean
 isLoading!:boolean
@@ -27,8 +28,8 @@ option!:any
   YearList=[2011,2012,2013,2014,2015,2016,2017,2018,2019,2020,2021,2022,2023]
  constructor(private fileService:FileServiceService,private router:Router,private dataService:DataService,private fromBuilder:FormBuilder  ){
       this.selectionForm=this.fromBuilder.group({
-        selection: new FormControl(['']),
-        selectedOp: new FormControl(['']),
+        selection: new FormControl(['',Validators.required]),
+        selectedOp: new FormControl(['',Validators.required]),
         Year:new FormControl([''])
       });
       
@@ -71,6 +72,7 @@ option!:any
       this.massage=res;
      
       this.isLoading=false
+      this.isgetData=true
     })}
     else{this.isSelectedYear=false
       alert("select year first!!")

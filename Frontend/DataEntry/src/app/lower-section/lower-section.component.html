@@ -1,7 +1,8 @@
 <div *ngIf="isLoading" class="Gif">
   <img src=".\assets\YCZH.gif" alt="gif" />
 </div>
-<input type="button" (click)="OnClick()" value="Generate" [disabled]="!isNull"/>
+
+
 <!-- <div class="error">
   <h5 class="text-danger">{{errorMassage}}</h5>
 </div> -->
@@ -22,8 +23,11 @@
         <h2>{{model.value}}%</h2>
       </ng-template>
     </ngx-charts-pie-chart> -->
-
+ <div class="generate">
+    <button type="button" (click)="OnClick()" *ngIf="isNull"> Generate</button>
+  </div>
 <div class="parent" *ngIf="isLoading == false">
+ 
   <div class="dev">
     <table class="table table-bordered">
       <thead>
@@ -47,8 +51,11 @@
       </tbody>
     </table>
   </div>
+
   <br />
-  <button (click)="GetLog()">Get-Log</button><br />
+  <button style="border-radius: 8px;font-size: small;
+  font-weight: 300;
+  font-family: 'Times New Roman', Times, serif;" (click)="GetLog()">Get-Log</button><br />
 
   <!-- <div class="logData" > -->
     <div class="log-data" *ngIf="isLog">

@@ -152,7 +152,7 @@ ngOnInit():void{
         left: "center",
         top: "top",
         textStyle: {
-          fontSize: 30
+          fontSize: 15
         }
       },
       // legend: {

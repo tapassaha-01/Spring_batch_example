@@ -1,5 +1,5 @@
-<label>
-  <b>Please fillout the required fields</b>
+<label style="justify-content: center;display: flex; color: black;">
+  <h6> PLEASE FILLOUT THE REQUIRED FILEDS </h6>
 </label>
 <!-- 
 <div class="uploadSection">
@@ -13,69 +13,67 @@
 </div> -->
 
 <form class="file-control" [formGroup]="selectionForm">
-  <div class="label">
-    <label>Select Year</label>
-    <label>Select the files(xlxs,csv) and upload</label>
-  </div>
-  <div class="dataFields">
-   <div>
-      <div class="dropDown">
-         <select formControlName="Year" required>
-           <option value="">----</option>
-           <option value="Sheet1">2021</option>
-           <option value="Sheet2">2022</option>
-           <option value="Sheet3">2023</option>
-         </select>
-       </div>
-       <div class="uploadSection">
-         <input type="file" multiple (change)="OnUpload($event)" />
-       </div>
-   
-   </div>
-    
-    <div class="submit">
-      <input type="submit" (click)="onFileSubmit()" [disabled]="isLoading" />
+  <div class="submit">
+    <div class="upload">
+      <div class="label">
+        <label>SELECT YEAR </label>
+        <label>SELECT THE FILES(*.xlxs,*.) </label>
+      </div>
+      <div class="dataFields">
+        <div class="dropDown" style="padding-bottom: 9px;">
+          <select formControlName="Year" required>
+            <option value="">--year--</option>
+            <option value="Sheet1">2021</option>
+            <option value="Sheet2">2022</option>
+            <option value="Sheet3">2023</option>
+          </select>
+        </div>
+        <div class="uploadSection">
+          <input type="file" multiple (change)="OnUpload($event)" required />
+          <div class="submitSection" >
+      <button style="border-radius: 5px;" (click)="onFileSubmit()" [disabled]="isLoading" >upload</button>
       <div *ngIf="isLoading" class="Gif">
         <img src=".\assets\Spinner-0.8s-201px.gif" alt="gif" />
       </div>
-      <div>
-        <span *ngIf="!isLoading">{{ massage }}</span>
+      <div class="batchMsg">
+        <span *ngIf="!isLoading" >{{massage }}</span>
       </div>
     </div>
+        </div>
+      </div>
+    </div>
+    <div class="uploadMsg">
+      <p>*click on the upload button after file selection*</p>
+    </div>
   </div>
-<div class="submission">
-   
-  
-    <div class="option">
-      <input
-        type="radio"
-        id="1"
-        formControlName="selection"
-        value="Designation"
-        required
-        [disabled]="isLoading"
-      />
-      <label for="form">Designation</label>
-      <input
-        type="radio"
-        id="2"
-        formControlName="selection"
-        value="Department"
-        required
-      />
-      <label for="form">Department</label>
-    </div>
-    <br />
-    <div class="dropDown">
-      <select formControlName="selectedOp" required>
-        <option value="">--Select Option--</option>
-        <option *ngFor="let option of OptionList" [value]="option">
-          {{ option }}
-        </option>
-      </select>
-    </div>
+<div class="generateMsg" *ngIf="isgetData">
+  <div class="submission">
+<div class="label">
+  <label>CHOOSE ANY OF BETWEEN</label>
+  <label>SELECT FILTER</label>
 </div>
+
+<div class="filter">
+  <div class="option">
+    <input type="radio" id="1" formControlName="selection" value="Designation" [disabled]="isLoading" />
+    <label for="form">Designation</label>
+    <input type="radio" id="2" formControlName="selection" value="Department"  />
+    <label for="form">Department</label>
+  </div>
   
+  <div class="dropDown">
+    <select formControlName="selectedOp" required>
+      <option value="">--Select Option--</option>
+      <option *ngFor="let option of OptionList" [value]="option">
+        {{ option }}
+      </option>
+    </select>
+  </div>
+</div> 
+  </div>
+  <div class="uploadMsg">
+    <p>*click on the generate button for analytical report*</p>
+  </div> </div>
   <!-- <input type="submit" (click)="OnSelected()"> -->
 
   <!-- <div><input type="button" value="inport" (click)="Onimport()"></div> -->

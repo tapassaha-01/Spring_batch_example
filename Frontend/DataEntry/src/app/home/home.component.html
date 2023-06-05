@@ -2,7 +2,7 @@
     <app-header style="width: 100%;"></app-header>
 </div>
 
-<div >
+<div class="body">
     <div class="upper">
         <app-upper-section (formData)="selectedOption($event)" (isActive)="isNull" ></app-upper-section>
 
@@ -22,15 +22,3 @@
 <div class="footer">
     <app-footer></app-footer>
 </div>
-<!-- Shareable short link of uploaded file 
-<div class="container text-center jumbotron"
-	*ngIf="shortLink">
-	<h2> Visit Here</h2>
-	<a href="{{shortLink}}">{{shortLink}}</a>
-</div>
-
-Flag variable is used here
-<div class="container" *ngIf="loading">
-	<h3>Loading ...</h3>
-</div>
--->
