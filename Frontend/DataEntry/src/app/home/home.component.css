@@ -1,9 +1,9 @@
 div
 {
-    text-align: center;
+    /* text-align: center; */
     font-size: 15px;
     color: white;
-    padding: 10px;
+    /* padding: 10px; */
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -13,30 +13,35 @@ div
 }
 .upper
 {
-    background-color:rgba(134, 131, 128, 0.459);    
+    background-color:rgb(255, 255, 255);    
    margin-bottom: 10px;
-   width:98%; 
+   width:100%; 
+    padding-top:10px ;
+    padding-bottom: 10px;
+    
 }
 .lower
 {
     background-color:rgba(134, 131, 128, 0.192);
     height: 98%;
-    width:98%;
+    width:100%;
+   
 }
 
 .header{
-    background-color: rgb(196, 225, 252);
+    background-color:rgba(41, 41, 41, 0.826);
     display: flex;
     /* overflow-x: visible; */
     
 }
 
 .footer{
-    background-color:rgba(106, 158, 207, 0.815);
+    background-color:rgb(145, 145, 145);
      /* top: 0;  */
      /* position: fixed;
     bottom: 0;
     left: 0;
     width: 100vw; */
-
+    /* display: flex; */
+    align-items: center;
 }

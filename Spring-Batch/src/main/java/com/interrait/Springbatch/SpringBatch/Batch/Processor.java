@@ -22,6 +22,7 @@ private static final Map<String, Long> SALARY_VALUE=new HashMap<String,Long>();
 	
  	public Processor() {
  		SALARY_VALUE.put("Trainee ", 9000L);
+ 		SALARY_VALUE.put("Trainee", 9000L);
  		SALARY_VALUE.put("Programmer Analyst", 25000L);
  		SALARY_VALUE.put("Associate Engineer", 45000L);
  		SALARY_VALUE.put("Senior Software Engineer", 55000L);
