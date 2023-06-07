@@ -2,10 +2,10 @@
   <img src=".\assets\YCZH.gif" alt="gif" />
 </div>
 
+<div class="generate" *ngIf="isNull">
+  <button type="button" (click)="OnClick()" > Generate</button>
+</div>
 
-<!-- <div class="error">
-  <h5 class="text-danger">{{errorMassage}}</h5>
-</div> -->
 <div class="upper-card" *ngIf="isLoading == false">
   <mat-card class="mat-card-class-u">
     <div echarts [options]="Pieoption"></div>
@@ -14,18 +14,8 @@
     <div echarts [options]="Baroption"></div>
   </mat-card>
 </div>
-<!-- <app-pie-chart [empData]="EmployeeList"></app-pie-chart> -->
-<!-- <ngx-charts-pie-chart [results]="data" [scheme]="colorScheme" >
-      <ng-template #tooltipTemplate let-model="model">
-        <h1>
-          {{model.name}}
-        </h1>
-        <h2>{{model.value}}%</h2>
-      </ng-template>
-    </ngx-charts-pie-chart> -->
- <div class="generate">
-    <button type="button" (click)="OnClick()" *ngIf="isNull"> Generate</button>
-  </div>
+
+
 <div class="parent" *ngIf="isLoading == false">
  
   <div class="dev">
@@ -55,10 +45,45 @@
   <br />
   <button style="border-radius: 8px;font-size: small;
   font-weight: 300;
-  font-family: 'Times New Roman', Times, serif;" (click)="GetLog()">Get-Log</button><br />
+  font-family: 'Times New Roman', Times, serif;" (click)="GetLog()">Get-Log</button>
+  <!-- <div class="downloadLog">
+    
+  </div> -->
+  <br />
+
 
   <!-- <div class="logData" > -->
     <div class="log-data" *ngIf="isLog">
+      <div class="corner-parent">
+      <div class="corner"  >
+        <svg (click)="downdLog()" width="15px" height="15px" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+      
+          <g id="Complete">
+          
+          <g id="download">
+          
+          <g>
+          
+          <path d="M3,12.3v7a2,2,0,0,0,2,2H19a2,2,0,0,0,2-2v-7" fill="none" stroke="#000000" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"/>
+          
+          <g>
+          
+          <polyline data-name="Right" fill="none" id="Right-2" points="7.9 12.3 12 16.3 16.1 12.3" stroke="#000000" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"/>
+          
+          <line fill="none" stroke="#000000" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" x1="12" x2="12" y1="2.7" y2="14.2"/>
+          
+          </g>
+          
+          </g>
+          
+          </g>
+          
+          </g>
+          
+          </svg>
+        </div>
+       </div>
+    
       <p *ngFor="let data of DataList.slice(counter, counter + 10)">
         {{ data }}
       </p>

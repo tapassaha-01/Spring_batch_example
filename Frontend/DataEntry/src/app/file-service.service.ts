@@ -1,8 +1,9 @@
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { Employee } from './employee';
 import { MstTableData } from './mst-table-data';
+
 
 @Injectable({
   providedIn: 'root'
@@ -36,7 +37,12 @@ export class FileServiceService {
     ParamData.append('value',value);
     return this.http.post<Employee[]>(this.baseApiUrl+'/getData',ParamData);
    }
-
+   downloadLog(){
+  
+  const headers = new HttpHeaders().set('attachment', 'text/plain');
+  return this.http.get(this.baseApiUrl+'/download', { headers, responseType: 'text' });
+  
+   }
    
 
 

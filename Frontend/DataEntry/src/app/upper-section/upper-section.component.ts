@@ -18,6 +18,9 @@ export class UpperSectionComponent implements OnInit{
 //  currenctYear = (new Date()).getFullYear
 OptionList:string[]=[]
 mstTable!:any;
+dynamicStyle: any = {
+  'color': 'Black',
+};
 isgetData!:boolean;
 selectionForm:FormGroup;
 isNull!:boolean
@@ -30,7 +33,8 @@ option!:any
       this.selectionForm=this.fromBuilder.group({
         selection: new FormControl(['',Validators.required]),
         selectedOp: new FormControl(['',Validators.required]),
-        Year:new FormControl([''])
+        Year:new FormControl(['']),
+        uploadedFile:new FormControl([''])
       });
       
  }
@@ -66,10 +70,21 @@ option!:any
     //   console.log(this.year)
     // })
     this.year = this.selectionForm.value.Year
+    // this.files = 
     if(this.year!=""){this.isLoading=true
     this.fileService.upload(this.files,this.year).subscribe(res=>{
       console.log(res);
       this.massage=res;
+      if(this.massage=="COMPLETED"){
+        this.dynamicStyle = {
+          'color':'greenyellow '
+        }
+      }
+      else{
+        this.dynamicStyle = {
+          'color':'Red'
+        }
+      }
      
       this.isLoading=false
       this.isgetData=true
@@ -83,7 +98,7 @@ option!:any
   
   OnUpload(formValue: any){
     // this.file = formValue.target.files[0];
-     this.files = formValue.target.files; 
+     this.files = formValue.target.files
     for (let i = 0; i < this.files.length; i++) {
       const file: File = this.files[i];
       console.log(file.name); // Access file name

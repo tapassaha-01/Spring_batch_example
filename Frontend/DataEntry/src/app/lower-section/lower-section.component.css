@@ -2,12 +2,16 @@
     display: flex;
     /* float: left;  */
     /* justify-content: space-between; */
-    
+    position: relative;
     flex-direction: column;
     align-items: center;
     justify-content: center;
-    
 }
+
+/* .downloadLog{
+  display: flex;
+  float: right;
+} */
 .manager{
   width: 100%;
   padding: 10px;
@@ -30,6 +34,7 @@
   height: 200px;
 }
 .log-data{
+  position: relative;
   margin: 20px;
   height: 200px;
   width: 98%;
@@ -98,3 +103,25 @@ border-radius: 4px;
   font-weight: 300;
   font-family: 'Times New Roman', Times, serif;
  }
+ .corner-parent {
+  position: relative;
+  width: 100%;
+  display: flex;
+  justify-content: right;
+}
+.corner {
+  position: sticky;
+  top: 1px;
+  right: 1px;
+  width: 17px;
+  height: 17px;
+  background-color: rgba(214, 214, 214, 0.418);
+  z-index: 1;
+  border-radius: 2px;
+  align-items: center;
+  display: flex;
+  justify-content: center;
+}
+.corner:hover{
+  color: aliceblue;
+}

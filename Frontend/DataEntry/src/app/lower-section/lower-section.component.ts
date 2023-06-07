@@ -9,7 +9,7 @@ import { FormBuilder, FormGroup } from '@angular/forms';
 // import {  NgxSpinnerService } from 'ngx-spinner';
 import { filter,switchMap  } from 'rxjs/operators';
 // import { Observable } from 'rxjs';
-
+import  { saveAs } from 'file-saver';
 @Component({
   selector: 'app-lower-section',
   templateUrl: './lower-section.component.html',
@@ -46,12 +46,13 @@ export class LowerSectionComponent {
 
 ngOnInit():void{
   this.formValue.valueChanges.subscribe((res)=>{
-    if(this.formValue.value.selectedOp!='' && this.formValue.value.selection!=''){
+    if(this.formValue.value.selectedOp!=null && this.formValue.value.selection!=null){
       this.option = res.selection
     this.value = res.selectedOp
    console.log(this.option,this.value)
    this.isNull = true
     }
+  
     
    
   })
@@ -113,6 +114,7 @@ ngOnInit():void{
           this.weekData=[]
         
         }
+        this.isNull=false;
     });
   
   }
@@ -202,7 +204,18 @@ ngOnInit():void{
     })
   }
 
-
+  downdLog(){
+    this.service.downloadLog().subscribe(
+      (response: string) => {
+        const fileName = 'file.txt'; // Specify the desired file name
+        const blob = new Blob([response], { type: 'text/plain' });
+        saveAs(blob, fileName);
+      },
+      (error: any) => {
+        console.error(error);
+      }
+    );
+  }
 
   // colorScheme = {
   //   domain: ['#08DDC1', '#FFDC1B', '#FF5E3A']

@@ -1,5 +1,7 @@
 package com.interrait.Springbatch.SpringBatch.controller;
 
+import java.io.File;
+import java.io.FileInputStream;
 //import java.awt.print.Pageable;
 //import java.io.BufferedReader;
 import java.io.FileReader;
@@ -28,6 +30,8 @@ import org.springframework.batch.item.file.FlatFileItemReader;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.io.InputStreamResource;
 import org.springframework.data.web.PageableDefault;
+import org.springframework.http.HttpHeaders;
+import org.springframework.http.MediaType;
 //import org.springframework.boot.autoconfigure.data.web.SpringDataWebProperties.Pageable;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
@@ -106,6 +110,22 @@ public class Controller {
 //		return result;
 ////		return dept;
 //	}
+	@GetMapping("/download")
+    public ResponseEntity<InputStreamResource> downloadFile() throws IOException {
+        String filePath = "D:\\Spring_batch\\DataSource\\log_files\\spring.log"; // Specify the path to your text file
+
+        File file = new File(filePath);
+        InputStream inputStream = new FileInputStream(file);
+
+        HttpHeaders headers = new HttpHeaders();
+        headers.add(HttpHeaders.CONTENT_DISPOSITION, "attachment; filename=file.txt");
+
+        return ResponseEntity
+                .ok()
+                .headers(headers)
+                .contentType(MediaType.TEXT_PLAIN)
+                .body(new InputStreamResource(inputStream));
+    }
 	
 	@PostMapping("/uploadCsv")
 	public BatchStatus loadCsv(@RequestParam("file") List<MultipartFile> files) throws IOException{
@@ -166,26 +186,15 @@ public class Controller {
 					    	   flag+=1;
 					       }
 					
-				
-			
-
 		}
        
 		
-	       
-			
-	     
-	
-
-	
+	      
 		return jobExecution.getStatus();
 	
       
     }
 	
-
-
-//	
 	@PostMapping("/getData")
 	public List<EmpAnalysisData> gettableData(@RequestParam String option,@RequestParam String value) {
 		return batchSerice.gettableData(option,value);

@@ -112,7 +112,7 @@ label{
     flex-direction: column;
 }
 .batchMsg{
-    color:greenyellow; 
+    /* color:greenyellow;  */
     font-size: small;
     padding-left: 5px;
     padding-top: 3px;

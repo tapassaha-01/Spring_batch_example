@@ -29,14 +29,14 @@
           </select>
         </div>
         <div class="uploadSection">
-          <input type="file" multiple (change)="OnUpload($event)" required />
+          <input type="file" multiple (change)="OnUpload($event)" formControlName="uploadedFile" required />
           <div class="submitSection" >
       <button style="border-radius: 5px;" (click)="onFileSubmit()" [disabled]="isLoading" >upload</button>
       <div *ngIf="isLoading" class="Gif">
         <img src=".\assets\Spinner-0.8s-201px.gif" alt="gif" />
       </div>
-      <div class="batchMsg">
-        <span *ngIf="!isLoading" >{{massage }}</span>
+      <div class="batchMsg" *ngIf="!isLoading">
+        <span [ngStyle]="dynamicStyle">{{massage }}</span>
       </div>
     </div>
         </div>
