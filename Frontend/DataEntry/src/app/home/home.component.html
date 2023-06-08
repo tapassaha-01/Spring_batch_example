@@ -4,11 +4,11 @@
 
 <div class="body">
     <div class="upper">
-        <app-upper-section (formData)="selectedOption($event)" (isActive)="isNull" ></app-upper-section>
-
+        <app-upper-section (formData)="selectedOption($event)" (isActive)="isNull" (isProcess)="isLoading"></app-upper-section>
+       
     </div>
     <!-- <input type="button" value="submit" (click)="OnSubmit()"> -->
-    <div class="lower" >
+    <div class="lower" *ngIf="!isLoading">
         
             <!-- <mat-spinner></mat-spinner> -->
       

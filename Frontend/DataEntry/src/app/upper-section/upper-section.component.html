@@ -17,12 +17,12 @@
     <div class="upload">
       <div class="label">
         <label>SELECT YEAR </label>
-        <label>SELECT THE FILES(*.xlxs,*.) </label>
+        <label>SELECT THE FILES(*.xlxs,.CSV*) </label>
       </div>
       <div class="dataFields">
         <div class="dropDown" style="padding-bottom: 9px;">
           <select formControlName="Year" required>
-            <option value="">--year--</option>
+            <option value="">--Year--</option>
             <option value="Sheet1">2021</option>
             <option value="Sheet2">2022</option>
             <option value="Sheet3">2023</option>
@@ -64,6 +64,7 @@
   <div class="dropDown">
     <select formControlName="selectedOp" required>
       <option value="">--Select Option--</option>
+      <option value="All">All</option>
       <option *ngFor="let option of OptionList" [value]="option">
         {{ option }}
       </option>

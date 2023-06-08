@@ -33,6 +33,7 @@ export class LowerSectionComponent {
   BarData: any = []
   weekData: any = []
   option!: any;
+  logMsg:string="Get-Log"
   value!: any;
   title!:string;
   isTrue!:boolean
@@ -52,17 +53,8 @@ ngOnInit():void{
    console.log(this.option,this.value)
    this.isNull = true
     }
-  
-    
-   
   })
- 
-  
-   
 }
-
-
-  
 
   getData() {
    
@@ -91,20 +83,21 @@ ngOnInit():void{
             tempObj.value = i.totalSalary;
             tempObj.name = i.designation + ' ' + (i.totalSalary / 1000) + 'K';
             this.title = "Department"
-            this.weekData.push(i.designation)
+            this.weekData.push(this.getInitials(i.designation))
             
           }
           if (this.option == 'Designation') {
             tempObj.value = i.totalSalary;
             tempObj.name = i.designation + ' ' + (i.totalSalary / 1000) + 'K';
             this.title = "Designation"
-            this.weekData.push(i.designation)
+            this.weekData.push(this.getInitials(i.designation))
           }
           // console.log(this.empData)
           this.empData.push(tempObj)
           this.BarData.push(i.totalSalary/1000)
         }
-        // console.log(this.empData,this.BarData,this.weekData)
+        console.log(this.empData,this.BarData,this.weekData)
+
           this.PieLoading();
           this.BarLoading();
           this.option = ''
@@ -118,7 +111,11 @@ ngOnInit():void{
     });
   
   }
-
+   getInitials(inputString: string): string {
+    const words = inputString.split(" ");
+    const initials = words.map(word => word.charAt(0).toUpperCase());
+    return initials.join("");
+  }
   BarLoading() {
     this.Baroption = {
       xAxis: {
@@ -196,12 +193,18 @@ ngOnInit():void{
     this.counter += 10
   }
   GetLog() {
-    this.isLog=false
+    if(this.isLog){
+      this.logMsg="Get-Log"
+      this.isLog=false
+    }
+    else{
+    // 
     this.service.fetchData().subscribe(res => {
       this.DataList = res
       console.log(this.DataList)
       this.isLog=true 
-    })
+      this.logMsg="Close-Log"
+    })}
   }
 
   downdLog(){

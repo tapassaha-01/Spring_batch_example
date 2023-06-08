@@ -27,6 +27,7 @@ isNull!:boolean
 isLoading!:boolean
 @Output() formData = new EventEmitter<FormGroup>();
 @Output() isActive = new EventEmitter<boolean>();
+@Output() isProcess = new EventEmitter<boolean>();
 option!:any
   YearList=[2011,2012,2013,2014,2015,2016,2017,2018,2019,2020,2021,2022,2023]
  constructor(private fileService:FileServiceService,private router:Router,private dataService:DataService,private fromBuilder:FormBuilder  ){
@@ -72,12 +73,14 @@ option!:any
     this.year = this.selectionForm.value.Year
     // this.files = 
     if(this.year!=""){this.isLoading=true
+      this.isgetData=false
+      this.isProcess.emit(this.isLoading)
     this.fileService.upload(this.files,this.year).subscribe(res=>{
       console.log(res);
       this.massage=res;
       if(this.massage=="COMPLETED"){
         this.dynamicStyle = {
-          'color':'greenyellow '
+          'color':'white '
         }
       }
       else{
@@ -88,6 +91,7 @@ option!:any
      
       this.isLoading=false
       this.isgetData=true
+      this.isProcess.emit(this.isLoading)
     })}
     else{this.isSelectedYear=false
       alert("select year first!!")
@@ -113,11 +117,17 @@ option!:any
       this.formData.emit(this.selectionForm)
   this.selectionForm.valueChanges.subscribe(value => {
     // this.router.navigate([''])
-
+    
     if (value.selection === 'Department') {
+      
       this.OptionList = this.mstTable.dept_list;
+      this.OptionList.sort()
+      
     } else if (value.selection === 'Designation') {
+      
       this.OptionList = this.mstTable.design_list;
+      this.OptionList.sort()
+      
     } 
     
   })

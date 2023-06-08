@@ -10,6 +10,7 @@ export class HomeComponent {
 
   // @Input() selectionForm!:FormGroup
   selectionForm:FormGroup;
+  isLoading!:boolean;
   isNull!:boolean;
   constructor(private formBuilder:FormBuilder){
     this.selectionForm=this.formBuilder.group({})
@@ -20,6 +21,7 @@ export class HomeComponent {
   }
   selectedOption(data:FormGroup)
   {
+    // console.log(this.isLoading)  
     // this.isNull=true
     this.selectionForm=data
     console.log(data.value);

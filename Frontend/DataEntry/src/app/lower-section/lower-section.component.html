@@ -6,7 +6,7 @@
   <button type="button" (click)="OnClick()" > Generate</button>
 </div>
 
-<div class="upper-card" *ngIf="isLoading == false">
+<div class="upper-card" *ngIf="isLoading == false ">
   <mat-card class="mat-card-class-u">
     <div echarts [options]="Pieoption"></div>
   </mat-card>
@@ -45,7 +45,7 @@
   <br />
   <button style="border-radius: 8px;font-size: small;
   font-weight: 300;
-  font-family: 'Times New Roman', Times, serif;" (click)="GetLog()">Get-Log</button>
+  font-family: 'Times New Roman', Times, serif;" (click)="GetLog()">{{logMsg}}</button>
   <!-- <div class="downloadLog">
     
   </div> -->
@@ -55,7 +55,7 @@
   <!-- <div class="logData" > -->
     <div class="log-data" *ngIf="isLog">
       <div class="corner-parent">
-      <div class="corner"  >
+      <!-- <div class="corner"  > -->
         <svg (click)="downdLog()" width="15px" height="15px" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
       
           <g id="Complete">
@@ -81,7 +81,7 @@
           </g>
           
           </svg>
-        </div>
+        <!-- </div> -->
        </div>
     
       <p *ngFor="let data of DataList.slice(counter, counter + 10)">
