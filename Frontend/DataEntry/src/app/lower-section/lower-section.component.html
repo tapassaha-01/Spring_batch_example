@@ -6,9 +6,25 @@
   <button type="button" (click)="OnClick()" > Generate</button>
 </div>
 
-<div class="upper-card" *ngIf="isLoading == false ">
+<div class="upper-card" *ngIf="isLoading==false && !isNull">
   <mat-card class="mat-card-class-u">
     <div echarts [options]="Pieoption"></div>
+  </mat-card>
+  <!-- <mat-card class="mat-card-class-m">
+    <div echarts [options]="Pieoption"></div>
+  </mat-card> -->
+  <mat-card class="mat-card-class-m">
+    <div >
+      <h4>Percentage over all {{option}}</h4>
+    </div>
+    <div class="listData">
+      <ul *ngFor="let data of empData">
+        <li>
+          {{empData.name}} <br> {{empData.value}}
+        </li>
+      </ul>
+      
+    </div>
   </mat-card>
   <mat-card class="mat-card-class-l">
     <div echarts [options]="Baroption"></div>
@@ -16,7 +32,7 @@
 </div>
 
 
-<div class="parent" *ngIf="isLoading == false">
+<div class="parent" *ngIf="isLoading==false && !isNull">
  
   <div class="dev">
     <table class="table table-bordered">
@@ -34,7 +50,6 @@
           <td>{{ emp.deptName }}</td>
           <td>{{ emp.designation }}</td>
           <td *ngIf="isTrue">{{ emp.totalDesignation}}</td>
-          <!--  -->
           <td>{{ emp.empCount }}</td>
           <td>{{ emp.totalSalary }}</td>
         </tr>
@@ -54,8 +69,8 @@
 
   <!-- <div class="logData" > -->
     <div class="log-data" *ngIf="isLog">
-      <div class="corner-parent">
-      <!-- <div class="corner"  > -->
+      <!-- <div class="corner-parent"> -->
+      <div class="corner"  >
         <svg (click)="downdLog()" width="15px" height="15px" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
       
           <g id="Complete">
@@ -81,16 +96,17 @@
           </g>
           
           </svg>
-        <!-- </div> -->
+      
        </div>
     
       <p *ngFor="let data of DataList.slice(counter, counter + 10)">
         {{ data }}
       </p>
+      <div class="paging" *ngIf="isLog">
+        <button id="Prev" style="margin-right: 5px" (click)="Prev()">Prev</button>
+        <button id="Next" (click)="Next()">Next</button>
+      </div>
     </div>
-    <div class="paging" *ngIf="isLog">
-      <button id="Prev" style="margin-right: 5px" (click)="Prev()">Prev</button>
-      <button id="Next" (click)="Next()">Next</button>
-    </div>
+    
   </div>
 <!-- </div> -->

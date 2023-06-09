@@ -46,13 +46,18 @@ export class LowerSectionComponent {
   }
 
 ngOnInit():void{
+  this.isNull=false
+  console.log(this.isNull)
   this.formValue.valueChanges.subscribe((res)=>{
-    if(this.formValue.value.selectedOp!=null && this.formValue.value.selection!=null){
+    if(res.selectedOp[0]!='' && res.selection[0]!=''){
       this.option = res.selection
     this.value = res.selectedOp
+    console.log(res)
    console.log(this.option,this.value)
+   console.log(this.isNull)
    this.isNull = true
     }
+   
   })
 }
 
@@ -62,10 +67,11 @@ ngOnInit():void{
       this.option = this.formValue.value.selection
       this.value = this.formValue.value.selectedOp
       console.log(this.option,this.value)
-        this.isNull=true
+        
       this.isLoading = true;
       this.service.download(this.option, this.value).subscribe(res => {
-        this.isLoading=false
+       
+        // this.isNull=true
         console.log("inside service.downlaod")
         this.EmployeeList = res;
         this.isTrue = (this.EmployeeList[0].totalDesignation!=0)?true:false
@@ -100,13 +106,14 @@ ngOnInit():void{
 
           this.PieLoading();
           this.BarLoading();
-          this.option = ''
-          this.value = ''
+          // this.option = ''
+          // this.value = ''
           this.empData = []
           this.BarData=[]
           this.weekData=[]
         
         }
+        this.isLoading=false
         this.isNull=false;
     });
   

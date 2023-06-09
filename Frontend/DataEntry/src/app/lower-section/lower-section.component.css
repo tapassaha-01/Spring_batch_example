@@ -5,7 +5,7 @@
     position: relative;
     flex-direction: column;
     align-items: center;
-    justify-content: center;
+    justify-content: flex-end;
 }
 
 /* .downloadLog{
@@ -40,7 +40,7 @@
   width: 98%;
   background-color: rgb(43, 43, 43);
   overflow-y: scroll;
-  text-align: left;
+  text-align:justify;
   padding-left: 10px;
   border-radius: 8px;
   font-size: medium ;
@@ -50,20 +50,34 @@
 
 
  .mat-card-class-u{
-  width: 50%;
+  /* width: 33%; */
   margin:2px 10px ;
   border-width: 2px;
 border-radius: 4px;
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.24);
   transition: box-shadow 0.3s cubic-bezier(.25,.8,.25,1);
  }
+ .mat-card-class-m{
+  margin-top: 15px;
+  padding: 25px;
+  color: #000000a8;
+  text-align: center;
+  border-width: 2px;
+  border-radius: 4px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.24);
+  transition: box-shadow 0.3s cubic-bezier(.25,.8,.25,1);
+ }
 
+ .mat-card-class-m:hover{
+  box-shadow: 0 14px 28px rgba(0, 0, 0, 0.25),
+              0 10px 10px rgba(0, 0, 0, 0.22);
+ }
  .mat-card-class-u:hover{
   box-shadow: 0 14px 28px rgba(0, 0, 0, 0.25),
               0 10px 10px rgba(0, 0, 0, 0.22);
  }
  .mat-card-class-l{
-  width: 50%;
+  /* width: 33%; */
   margin: 2px 10px;
   border-width: 2px;
 border-radius: 4px;
@@ -74,15 +88,21 @@ border-radius: 4px;
   box-shadow: 0 14px 28px rgba(0, 0, 0, 0.25),
               0 10px 10px rgba(0, 0, 0, 0.22);
  }
-
+.listData{
+  display: grid;
+  
+}
  .upper-card{
-  display:flex;
+  display:grid;
   /* height: 200px; */
   width: 100%;
-  flex-direction: row;
+  height: 500px;
+  /* flex-direction: row;
   justify-content: space-between; 
-  padding: 10px;
-   
+  padding: 10px; */
+  grid-template-rows: 1fr 1fr 1fr ; /* Three rows with equal height */
+  grid-template-columns: 1fr 1fr 1fr ; /* Three columns with different widths */
+  grid-gap: 10px;
  }
  .generate{
   font-size: 12px;
@@ -96,6 +116,13 @@ border-radius: 4px;
  }
  .generate button{
   border-radius: 5px;
+ }
+ .paging{
+  position: sticky;
+  display: flex;
+    justify-content: flex-end;
+    z-index: 1;
+    bottom: 1;
  }
  .paging button{
   border-radius: 8px;
@@ -121,6 +148,7 @@ border-radius: 4px;
   align-items: center;
   display: flex;
   justify-content: center;
+  float:right;
 }
 .corner:hover{
   color: aliceblue;

@@ -10,10 +10,12 @@ export class HomeComponent {
 
   // @Input() selectionForm!:FormGroup
   selectionForm:FormGroup;
+  // visibilityControl: FormControl;
   isLoading!:boolean;
   isNull!:boolean;
   constructor(private formBuilder:FormBuilder){
     this.selectionForm=this.formBuilder.group({})
+    // this.visibilityControl = new FormControl(false);
   }
  
   ngOnInit(): void {

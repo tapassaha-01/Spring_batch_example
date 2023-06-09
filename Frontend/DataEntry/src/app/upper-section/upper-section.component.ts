@@ -91,7 +91,7 @@ option!:any
      
       this.isLoading=false
       this.isgetData=true
-      this.isProcess.emit(this.isLoading)
+      // this.isProcess.emit(this.isLoading)
     })}
     else{this.isSelectedYear=false
       alert("select year first!!")
