@@ -21,11 +21,12 @@ const routes: Routes = [
  {
   path:'lowerSection',
   component:LowerSectionComponent
- }
+ },
 //  {
 //   path:'lowerSection/:option/:value',
 //   component:LowerSectionComponent
 //  }
+
 ];
 
 @NgModule({

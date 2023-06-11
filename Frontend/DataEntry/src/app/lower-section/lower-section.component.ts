@@ -100,14 +100,14 @@ ngOnInit():void{
           }
           // console.log(this.empData)
           this.empData.push(tempObj)
-          this.BarData.push(i.totalSalary/1000)
+          this.BarData.push(i.totalSalary/100000)
         }
         console.log(this.empData,this.BarData,this.weekData)
 
           this.PieLoading();
           this.BarLoading();
-          // this.option = ''
-          // this.value = ''
+          this.option = ''
+          this.value = ''
           this.empData = []
           this.BarData=[]
           this.weekData=[]
@@ -127,11 +127,15 @@ ngOnInit():void{
     this.Baroption = {
       xAxis: {
         type: 'category',
-        data: this.weekData
+        data: this.weekData,
         // data: ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun']
+        nameLocation: "end",
+    name: this.option
       },
       yAxis: {
-        type: 'value'
+        type: 'value',
+        nameLocation: "end",
+    name: "Salary per 1k"
       },
       series: [
         {
@@ -150,9 +154,9 @@ ngOnInit():void{
   PieLoading() {
     this.Pieoption = {
 
-      tooltip: {
-        trigger: 'item'
-      },
+      // tooltip: {
+      //   trigger: 'item'
+      // },
       title: {
         text: this.title,
         left: "center",

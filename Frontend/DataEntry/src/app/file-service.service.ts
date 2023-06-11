@@ -13,7 +13,7 @@ export class FileServiceService {
    return this.http.get(this.baseApiUrl+"/readLog");
   }
 
-  baseApiUrl = "http://localhost:8080/add";
+  baseApiUrl = "http://localhost:9090/add";
   constructor(private http:HttpClient) {}
 
 

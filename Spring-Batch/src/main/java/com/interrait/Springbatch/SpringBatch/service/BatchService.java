@@ -1,5 +1,6 @@
 package com.interrait.Springbatch.SpringBatch.service;
 
+import org.apache.poi.EncryptedDocumentException;
 import org.apache.poi.ss.usermodel.Row;
 import org.apache.poi.ss.usermodel.Sheet;
 import org.slf4j.Logger;
@@ -23,6 +24,7 @@ import com.interrait.Springbatch.SpringBatch.Model.EmpDto;
 import com.interrait.Springbatch.SpringBatch.Model.mst_table;
 import com.interrait.Springbatch.SpringBatch.Model.sortByDepData;
 import com.interrait.Springbatch.SpringBatch.Model.sortByDesignData;
+import com.interrait.Springbatch.SpringBatch.Batch.CustomJdbcPagingItemReader;
 import com.interrait.Springbatch.SpringBatch.Batch.MstWriter;
 import com.interrait.Springbatch.SpringBatch.Batch.MultiSheetExcelReader;
 import com.interrait.Springbatch.SpringBatch.Model.Dept_Mst;
@@ -73,10 +75,12 @@ public class BatchService {
 //		return reader;
 //	}
 	
-	public ItemReader<EmpDto> reader(MultipartFile file,String sheetName){
+	public ItemReader<EmpDto> reader(MultipartFile file,String sheetName) throws EncryptedDocumentException, IOException{
 		
 		return new MultiSheetExcelReader(file,sheetName);
 	}
+	
+	
 
 	private RowMapper<EmpDto> excelRowMapperImp() {
 		

@@ -21,6 +21,8 @@ import org.springframework.core.task.SimpleAsyncTaskExecutor;
 //import org.springframework.jdbc.core.RowMapper;
 import org.springframework.core.task.TaskExecutor;
 import org.springframework.scheduling.concurrent.ThreadPoolTaskExecutor;
+import org.springframework.transaction.annotation.Propagation;
+import org.springframework.transaction.interceptor.DefaultTransactionAttribute;
 
 //import org.springframework.batch.item.excel.poi.PoiItemReader;
 import com.interrait.Springbatch.SpringBatch.Batch.DBWriter;
@@ -60,11 +62,12 @@ public class Config {
 	private Step readerStep(ItemReader<EmpDto> reader) {
 		
 		Step step = stepBuilder.get("XLXS-STEP")
-				.<EmpDto, Emp> chunk(200)
+				.<EmpDto, Emp> chunk(100)
 				.reader(reader)
 				.processor(new Processor())
 				.writer(dbWriter)
 				.taskExecutor(taskExecutor())
+//				.transactionAttribute(transactionAttribute())
 				.build();
 		
 		return step; 
@@ -81,7 +84,12 @@ public class Config {
 	    return executor;
 	}
 
-
+	@Bean
+	 public DefaultTransactionAttribute transactionAttribute() {
+        DefaultTransactionAttribute attribute = new DefaultTransactionAttribute();
+        attribute.setPropagationBehavior(Propagation.REQUIRED.value()); // Set the propagation behavior
+        return attribute;
+    }
 
 
 //	private ItemWriter<EmpDto> DbWriter() {

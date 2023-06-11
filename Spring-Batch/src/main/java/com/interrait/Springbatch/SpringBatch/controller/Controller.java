@@ -127,18 +127,18 @@ public class Controller {
                 .body(new InputStreamResource(inputStream));
     }
 	
-	@PostMapping("/uploadCsv")
-	public BatchStatus loadCsv(@RequestParam("file") List<MultipartFile> files) throws IOException{
-		for(MultipartFile file:files) {
-			if((!file.isEmpty())&&(file.getContentType().equals("text/csv"))) {
-				try (InputStream inputStream = file.getInputStream()) {
-					InputStreamResource resource = new InputStreamResource(inputStream);
-				System.out.println(resource);
-				}
-			}
-		}
-		return null;
-	}
+//	@PostMapping("/uploadCsv")
+//	public BatchStatus loadCsv(@RequestParam("file") List<MultipartFile> files) throws IOException{
+//		for(MultipartFile file:files) {
+//			if((!file.isEmpty())&&(file.getContentType().equals("text/csv"))) {
+//				try (InputStream inputStream = file.getInputStream()) {
+//					InputStreamResource resource = new InputStreamResource(inputStream);
+//				System.out.println(resource);
+//				}
+//			}
+//		}
+//		return null;
+//	}
 	
 	
 	@PostMapping("/upload")

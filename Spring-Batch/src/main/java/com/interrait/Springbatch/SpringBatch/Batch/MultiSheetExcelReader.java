@@ -1,6 +1,7 @@
 package com.interrait.Springbatch.SpringBatch.Batch;
 
 import java.io.FileInputStream;
+import java.io.IOException;
 import java.text.SimpleDateFormat;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
@@ -8,6 +9,7 @@ import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
 
+import org.apache.poi.EncryptedDocumentException;
 import org.apache.poi.ss.usermodel.*;
 import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 import org.springframework.batch.item.ItemReader;
@@ -25,51 +27,75 @@ public class MultiSheetExcelReader implements ItemReader<EmpDto> {
 	private final MultipartFile file;
     private final String sheetName;
     private int rowIndex;
+    private Workbook workbook;
     private EmpDto emp;
+    private Iterator<Row> rowIterator;
    
     
 
-    public MultiSheetExcelReader(MultipartFile file, String sheetName) {
+    public MultiSheetExcelReader(MultipartFile file, String sheetName) throws EncryptedDocumentException, IOException {
         this.file = file;
         this.sheetName = sheetName;
-        this.rowIndex=1;
+        this.rowIndex=0;
+        FileInputStream fis = (FileInputStream) file.getInputStream();
+        try (Workbook workbook = WorkbookFactory.create(fis)) {
+        	Sheet sheet = workbook.getSheet(sheetName);
+        	rowIterator = sheet.iterator();}
     }
 
     
 	@Override
-	public EmpDto read() throws Exception, UnexpectedInputException, ParseException, NonTransientResourceException {
+	public EmpDto read()  {
 
-            FileInputStream fis = (FileInputStream) file.getInputStream();
-            try (Workbook workbook = WorkbookFactory.create(fis)) {
-            	Sheet sheet = workbook.getSheet(sheetName);
-//            	System.out.println(sheet.getLastRowNum());
-			if(rowIndex<=sheet.getLastRowNum()) 
+            
+            	
+			if(rowIterator!=null && rowIterator.hasNext()) 
 			{
-				Row currentRow = sheet.getRow(rowIndex);
+				if(rowIndex==0) {
+					rowIndex++;
+					rowIterator.next();
+					return read();
+				}
+				else {
+				System.out.println(rowIndex);
+				Row currentRow = rowIterator.next();
 				String dateString;
 //				 DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd-MM-yyyy");
 //				 LocalDate localDate = LocalDate.parse(dateString, formatter);
 //				 java.sql.Date sqlDate = java.sql.Date.valueOf(localDate);
-		         if(currentRow.getCell(0)!=null) {
+//		         if(currentRow.getCell(0).getCellType()!=CellType.BLANK ) {
 		        	 if(currentRow.getCell(4).getCellType()==CellType.STRING) {
 		        		 dateString = currentRow.getCell(0).getStringCellValue();
 		        	 }else {
 		        	 SimpleDateFormat dateFormat = new SimpleDateFormat("dd-MM-yyyy");
-		        	  dateString = dateFormat.format(currentRow.getCell(4).getDateCellValue());}
+//		        	 System.out.println(currentRow.getCell(4).getCellType());
+		        	  dateString = dateFormat.format(currentRow.getCell(4).getDateCellValue());
+		        	  }
 		         emp = new EmpDto(currentRow.getCell(0).getStringCellValue(), currentRow.getCell(1).getStringCellValue(),currentRow.getCell(2).getStringCellValue(),currentRow.getCell(3).getStringCellValue(),dateString,currentRow.getCell(5).getStringCellValue(),currentRow.getCell(6).getStringCellValue());
-		         rowIndex++;}
-		         else {
-		        	 emp=null;
-		         }}
-		         
+		         }
+		         return emp;
+		
+				
+			}
+			else {
+	            closeWorkbook();
+	            return null;
+	        }
 			
 			
-			
-				workbook.close();
-				return emp;
+				
 			
             }
-            }}
+	private void closeWorkbook() {
+        try {
+            if (workbook != null) {
+                workbook.close();
+            }
+        } catch (Exception e) {
+            // Handle exception
+        }
+    }
+            }
             
 			
             
